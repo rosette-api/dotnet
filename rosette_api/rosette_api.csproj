@@ -4,12 +4,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Version>1.9.0</Version>
     <Company>Basis Technology Corp</Company>
-    <Product>C# Binding</Product>
-    <PackageId>C# Binding</PackageId>
+    <Product>RosetteAPI.Net</Product>
+    <PackageId>RosetteAPI.Net</PackageId>
     <AssemblyVersion>1.9.0</AssemblyVersion>
-    <Description>C# Binding (or library) for interfacing to the Rosette API SaaS</Description>
-    <Copyright>Copyright (c) 2017</Copyright>
-    <RepositoryUrl>https://github.com/rosette-api/csharp</RepositoryUrl>
+    <Description>.Net Binding (or library) for interfacing to the Rosette API SaaS</Description>
+    <Copyright>Copyright (c) 2018</Copyright>
+    <RepositoryUrl>https://github.com/rosette-api/dotnet</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

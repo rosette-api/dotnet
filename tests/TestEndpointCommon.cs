@@ -22,7 +22,7 @@ namespace rosette_api.tests {
 
         [Fact]
         public void CheckOptions() {
-            EntitiesEndpoint e = new EntitiesEndpoint().SetOption("test", "value");
+            EntitiesEndpoint e = new EntitiesEndpoint("foo").SetOption("test", "value");
 
             Assert.Equal("value", e.Options["test"]);
 
@@ -41,7 +41,7 @@ namespace rosette_api.tests {
 
         [Fact]
         public void CheckUrlParameters() {
-            EntitiesEndpoint e = new EntitiesEndpoint().SetUrlParameter("test", "value");
+            EntitiesEndpoint e = new EntitiesEndpoint("foo").SetUrlParameter("test", "value");
 
             Assert.Equal("value", e.UrlParameters["test"]);
 
