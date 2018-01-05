@@ -27,11 +27,13 @@ namespace rosette_api
                 if(byteArray[0] == '\x1f' && byteArray[1] == '\x8b' && byteArray[2] == '\x08') {
                     byteArray = Decompress(byteArray);
                 }
+                string result = string.Empty;
                 using (StreamReader reader = new StreamReader(new MemoryStream(byteArray), Encoding.UTF8)) {
-                    ContentAsJson = reader.ReadToEnd();
+                    result = reader.ReadToEnd();
                 }
 
-                Content = JsonConvert.DeserializeObject<Dictionary<string, object>>(ContentAsJson);
+                Content = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+
 
             }
             else {
@@ -40,7 +42,10 @@ namespace rosette_api
         }
         public IDictionary<string, string> Headers {get; private set;}
         public IDictionary<string, object> Content {get; private set;}
-        public string ContentAsJson { get; private set; }
+        public string ContentAsJson(bool pretty=false) {
+            return pretty ?
+            JsonConvert.SerializeObject(Content, Formatting.Indented) :
+            JsonConvert.SerializeObject(Content); }
         public int StatusCode {get; private set;}
 
 

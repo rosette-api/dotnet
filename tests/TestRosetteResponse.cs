@@ -23,7 +23,7 @@ namespace rosette_api.tests
             RosetteResponse response = new RosetteResponse(msg);
 
             Assert.Equal((int)HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(json, response.ContentAsJson);
+            Assert.Equal(json, response.ContentAsJson());
 
         }
     }

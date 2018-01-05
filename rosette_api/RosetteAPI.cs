@@ -63,6 +63,8 @@ namespace rosette_api
             Timeout = 30;
             Debug = false;
             _customHeaders = new Dictionary<string, string>();
+
+            Prepare();
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace rosette_api
         public RosetteAPI UseAlternateURL(string urlString) {
             URI = urlString.EndsWith("/") ? urlString : urlString + "/";
 
-            return this;
+            return Prepare();
         }
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace rosette_api
         public RosetteAPI AssignClient(HttpClient client) {
             Client = client;
 
-            return this;
+            return Prepare();
         }
 
         /// <summary>
@@ -97,7 +99,7 @@ namespace rosette_api
         public RosetteAPI AssignConcurrentConnections(int connections) {
             ConcurrentConnections = connections < 2 ? 2 : connections;
 
-            return this;
+            return Prepare(true);
         }
 
         /// <summary>
@@ -109,7 +111,7 @@ namespace rosette_api
         public RosetteAPI AssignTimeout(int timeout) {
             Timeout = timeout < 0 ? 0 : timeout;
 
-            return this;
+            return Prepare();
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace rosette_api
         public RosetteAPI SetDebug(bool state=true) {
             Debug = state;
 
-            return this;
+            return Prepare();
         }
 
         /// <summary>
@@ -142,23 +144,28 @@ namespace rosette_api
                 _customHeaders[headerName] = headerValue;
             }
 
-            return this;
+            return Prepare();
         }
 
         /// <summary>
         /// Prepare constructs the Client, with Rosette specific headers, Timeout, ConcurrentConnections, etc.
+        /// If an outside client is provided, timeout, header and custom header values will still be applied.  
+        /// Warning: Changing the concurrent connections requires a new client, which will replace the user provided one with an 
+        /// internal one. It is advisable that if a user wants to control their own Http Client, they should set the concurrent 
+        /// connections on that object prior to assigning it to the RosetteAPI.
         /// </summary>
+        /// <param name="forceUpdate">Forces the client to refresh.  This is necessary if the concurrent connections are changed.</param>
         /// <returns>RosetteAPI object</returns>
-        public RosetteAPI Prepare() {
-            if (Client == null) {
+        private RosetteAPI Prepare(bool forceUpdate=false) {
+            if (Client == null || forceUpdate) {
                 Client =
                     new HttpClient(
                         new HttpClientHandler {
                             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
                             MaxConnectionsPerServer = ConcurrentConnections,
                         });
-                Client.Timeout = TimeSpan.FromSeconds(Timeout);
             }
+            Client.Timeout = TimeSpan.FromSeconds(Timeout);
 
             if (Client.BaseAddress == null) {
                 Client.BaseAddress = new Uri(URI); // base address must be the rosette URI regardless of whether the client is external or internal

@@ -80,10 +80,8 @@ namespace rosette_api.tests
         }
 
         [Fact]
-        public void TestDefaultBuild() {
+        public void TestDefaultClient() {
             RosetteAPI api = Init();
-
-            api = api.Prepare();
 
             Assert.Equal(_defaultUri, api.Client.BaseAddress.AbsoluteUri);
             var acceptHeader = new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json");

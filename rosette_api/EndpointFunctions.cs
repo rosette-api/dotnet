@@ -134,9 +134,10 @@ namespace rosette_api
         /// <param name="api">RosetteAPI object</param>
         /// <returns>Rosette Response</returns>
         public virtual RosetteResponse PostCall(RosetteAPI api) {
-            HttpContent content = new StringContent(JsonConvert.SerializeObject(AppendOptions(_params)));
             string url = api.URI + Endpoint + ToQueryString();
             if (string.IsNullOrEmpty(Filename)) {
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(AppendOptions(_params)));
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                 Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, content));
                 var response = task.Result;
 
