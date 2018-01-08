@@ -46,7 +46,18 @@ namespace rosette_api
         }
 
         public string Genre { get => Funcs.Genre; }
+        /// <summary>
+        /// SetFileContentType sets the content type of the file contents. Note that
+        /// it only applies when the content is a filename
+        /// </summary>
+        /// <param name="contentType">Content-Type</param>
+        /// <returns>updated Relationships endpoint</returns>
+        public RelationshipsEndpoint SetFileContentType(string contentType) {
+            Funcs.FileContentType = contentType;
 
+            return this;
+        }
+        public string FileContentType { get => Funcs.FileContentType; }
         public string Filename { get => Funcs.Filename; }
         /// <summary>
         /// Call passes the data to the server and returns the response

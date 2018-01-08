@@ -33,12 +33,12 @@ namespace rosette_api.tests
         }
 
         [Theory]
-        [InlineData(rosette_api.MorphologyEndpoint.MorphologyFeature.complete)]
-        [InlineData(rosette_api.MorphologyEndpoint.MorphologyFeature.compoundComponents)]
-        [InlineData(rosette_api.MorphologyEndpoint.MorphologyFeature.hanReadings)]
-        [InlineData(rosette_api.MorphologyEndpoint.MorphologyFeature.lemmas)]
-        [InlineData(rosette_api.MorphologyEndpoint.MorphologyFeature.partsOfSpeech)]
-        public void MorphologyEndpoint(MorphologyEndpoint.MorphologyFeature feature) {
+        [InlineData(rosette_api.MorphologyFeature.complete)]
+        [InlineData(rosette_api.MorphologyFeature.compoundComponents)]
+        [InlineData(rosette_api.MorphologyFeature.hanReadings)]
+        [InlineData(rosette_api.MorphologyFeature.lemmas)]
+        [InlineData(rosette_api.MorphologyFeature.partsOfSpeech)]
+        public void MorphologyEndpoint(MorphologyFeature feature) {
             MorphologyEndpoint m = new MorphologyEndpoint("foo", feature);
 
             Assert.Equal("morphology/" + m.FeatureAsString(feature), m.Endpoint);

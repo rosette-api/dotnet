@@ -4,20 +4,20 @@ using System.Text.RegularExpressions;
 
 namespace rosette_api
 {
+    public enum MorphologyFeature {
+        /// <summary>provide complete morphology</summary>
+        complete,
+        /// <summary>provide lemmas</summary>
+        lemmas,
+        /// <summary>provide parts of speech</summary>
+        partsOfSpeech,
+        /// <summary>provide compound components</summary>
+        compoundComponents,
+        /// <summary>provide han readings</summary>
+        hanReadings
+    };
     public class MorphologyEndpoint : EndpointCommon<MorphologyEndpoint> {
 
-        public enum MorphologyFeature {
-            /// <summary>provide complete morphology</summary>
-            complete,
-            /// <summary>provide lemmas</summary>
-            lemmas,
-            /// <summary>provide parts of speech</summary>
-            partsOfSpeech,
-            /// <summary>provide compound components</summary>
-            compoundComponents,
-            /// <summary>provide han readings</summary>
-            hanReadings
-        };
 
         private Dictionary<MorphologyFeature, string> _featureEndpoint;
         /// <summary>
@@ -65,7 +65,18 @@ namespace rosette_api
         }
 
         public string Genre { get => Funcs.Genre; }
+        /// <summary>
+        /// SetFileContentType sets the content type of the file contents. Note that
+        /// it only applies when the content is a filename
+        /// </summary>
+        /// <param name="contentType">Content-Type</param>
+        /// <returns>updated Morphology endpoint</returns>
+        public MorphologyEndpoint SetFileContentType(string contentType) {
+            Funcs.FileContentType = contentType;
 
+            return this;
+        }
+        public string FileContentType { get => Funcs.FileContentType; }
         public string Filename { get => Funcs.Filename; }
         /// <summary>
         /// Call passes the data to the server and returns the response

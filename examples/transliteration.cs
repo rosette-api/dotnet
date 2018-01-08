@@ -4,10 +4,10 @@ using rosette_api;
 
 namespace examples
 {
-    class language
+    class transliteration
     {
         /// <summary>
-        /// Example code to call Rosette API to detect possible languages for a piece of text.
+        /// Example code to call Rosette API to transliterate a name.
         /// Requires Nuget Package:
         /// rosette_api
         /// </summary>
@@ -18,7 +18,7 @@ namespace examples
             string altUrl = string.Empty;
 
             //You may set the API key via command line argument:
-            //language yourapiKeyhere
+            //matched_name yourapiKeyhere
             if (args.Length != 0)
             {
                 apiKey = args[0];
@@ -27,15 +27,11 @@ namespace examples
             try
             {
                 RosetteAPI api = string.IsNullOrEmpty(altUrl) ? new RosetteAPI(apiKey) : new RosetteAPI(apiKey).UseAlternateURL(altUrl);
+                string transliteration_data = "ana r2ye7 el gam3a el sa3a 3 el 3asr";
 
-                // Example of adding a custom header
-                api = api.AddCustomHeader("X-RosetteAPI-App", "csharp-app");
-
-                string language_data = @"Por favor Señorita, says the man.";
-
-                LanguageEndpoint endpoint = new LanguageEndpoint(language_data);
-                //The results of the API call will come back in the form of a Dictionary
+                TransliterationEndpoint endpoint = new TransliterationEndpoint(transliteration_data).SetLanguage("ara");
                 RosetteResponse response = endpoint.Call(api);
+
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

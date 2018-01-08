@@ -4,10 +4,10 @@ using rosette_api;
 
 namespace examples
 {
-    class categories
+    class morphology_lemmas
     {
         /// <summary>
-        /// Example code to call Rosette API to get a document's (located at given URL) categories.
+        /// Example code to call Rosette API to get lemmas for words in a piece of text.
         /// Requires Nuget Package:
         /// rosette_api
         /// </summary>
@@ -18,7 +18,7 @@ namespace examples
             string altUrl = string.Empty;
 
             //You may set the API key via command line argument:
-            //categories yourapiKeyhere
+            //morphology_lemmas yourapiKeyhere
             if (args.Length != 0)
             {
                 apiKey = args[0];
@@ -27,17 +27,18 @@ namespace examples
             try
             {
                 RosetteAPI api = string.IsNullOrEmpty(altUrl) ? new RosetteAPI(apiKey) : new RosetteAPI(apiKey).UseAlternateURL(altUrl);
-                string categories_text_data = @"Sony Pictures is planning to shoot a good portion of the new ""Ghostbusters"" in Boston as well.";
-
-                CategoriesEndpoint endpoint = new CategoriesEndpoint(categories_text_data);
-
-                RosetteResponse response = endpoint.Call(api);
+                string morphology_lemmas_data = @"The fact is that the geese just went back to get a rest and I'm not banking on their return soon";
                 //The results of the API call will come back in the form of a Dictionary
+                MorphologyEndpoint endpoint = new MorphologyEndpoint(morphology_lemmas_data, MorphologyFeature.lemmas);
+                RosetteResponse response = endpoint.Call(api);
+                foreach (KeyValuePair<string, string> h in response.Headers) {
+                    Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
+                }
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Exception: " + e.Message);
             }
         }
     }

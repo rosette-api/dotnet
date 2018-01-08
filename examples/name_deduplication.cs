@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using rosette_api;
 
 namespace examples
 {
-    class language
+    class name_deduplication
     {
         /// <summary>
-        /// Example code to call Rosette API to detect possible languages for a piece of text.
+        /// Example code to call Rosette API to deduplication a list of names.
         /// Requires Nuget Package:
         /// rosette_api
         /// </summary>
@@ -18,7 +19,7 @@ namespace examples
             string altUrl = string.Empty;
 
             //You may set the API key via command line argument:
-            //language yourapiKeyhere
+            //matched_name yourapiKeyhere
             if (args.Length != 0)
             {
                 apiKey = args[0];
@@ -27,14 +28,12 @@ namespace examples
             try
             {
                 RosetteAPI api = string.IsNullOrEmpty(altUrl) ? new RosetteAPI(apiKey) : new RosetteAPI(apiKey).UseAlternateURL(altUrl);
+                string name_dedupe_data = @"Alice Terry,Alice Thierry,Betty Grable,Betty Gable,Norma Shearer,Norm Shearer,Brigitte Helm,Bridget Helem,Judy Holliday,Julie Halliday";
 
-                // Example of adding a custom header
-                api = api.AddCustomHeader("X-RosetteAPI-App", "csharp-app");
+                List<string> dedupe_names = name_dedupe_data.Split(',').ToList<string>();
+                List<RosetteName> names = dedupe_names.Select(name => new RosetteName(name)).ToList();
 
-                string language_data = @"Por favor Señorita, says the man.";
-
-                LanguageEndpoint endpoint = new LanguageEndpoint(language_data);
-                //The results of the API call will come back in the form of a Dictionary
+                NameDeduplicationEndpoint endpoint = new NameDeduplicationEndpoint(names).SetThreshold(0.75f);
                 RosetteResponse response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

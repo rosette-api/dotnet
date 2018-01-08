@@ -15,7 +15,7 @@ namespace rosette_api
         public EndpointFunctions Funcs {
             get {
                 if (_funcs == null) {
-                    _funcs = new EndpointFunctions(Options, Params, UrlParameters, Endpoint);
+                    _funcs = new EndpointFunctions(Params, Options, UrlParameters, Endpoint);
                 }
                 return _funcs;
             }
@@ -33,7 +33,7 @@ namespace rosette_api
         /// <param name="optionName">Name of option</param>
         /// <param name="optionValue">Value of option</param>
         /// <returns>Update object</returns>
-        public T SetOption(string optionName, string optionValue) {
+        public T SetOption(string optionName, object optionValue) {
             Options[optionName] = optionValue;
 
             return (T)this;

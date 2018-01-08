@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace rosette_api
 {
     public class RosetteName
     {
+        [JsonProperty("text")]
         public string Text { get; private set; }
+        [JsonProperty("entityType")]
         public string EntityType { get; private set; }
+        [JsonProperty("language")]
         public string Language { get; private set; }
+        [JsonProperty("script")]
         public string Script { get; private set; }
         /// <summary>
         /// Constructor for a Name object, used by several endpoints

@@ -1,5 +1,7 @@
 ﻿using Xunit;
+using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -73,6 +75,36 @@ namespace rosette_api.tests
             Assert.Empty(f.Genre);
             f.Genre = "social-media";
             Assert.Equal("social-media", f.Genre);
+        }
+
+        [Fact]
+        public void CheckFileContentType() {
+            EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
+            Assert.Equal("text/plain", f.FileContentType);
+            f.FileContentType = "octet/stream";
+            Assert.Equal("octet/stream", f.FileContentType);
+        }
+
+        [Fact]
+        public void TestParameterSerialization() {
+            RosetteAPI api = new RosetteAPI("testkey");
+            var mockHttp = new MockHttpMessageHandler();
+            mockHttp.When(_defaultUri)
+                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+            var client = mockHttp.ToHttpClient();
+
+            api.AssignClient(client);
+
+            EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
+
+            _options["opt"] = true;
+            Dictionary<string, object> paramTest = new Dictionary<string, object>();
+            paramTest["content"] = "Test Content";
+            paramTest["options"] = _options;
+
+            f.Content = "Test Content";
+            RosetteResponse result = f.PostCall(api);
+            Assert.Equal(JsonConvert.SerializeObject(paramTest), JsonConvert.SerializeObject(f.Parameters));
         }
 
         [Fact]

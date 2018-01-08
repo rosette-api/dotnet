@@ -4,10 +4,10 @@ using rosette_api;
 
 namespace examples
 {
-    class language
+    class relationships
     {
         /// <summary>
-        /// Example code to call Rosette API to detect possible languages for a piece of text.
+        /// Example code to call Rosette API to get sentences in a piece of text.
         /// Requires Nuget Package:
         /// rosette_api
         /// </summary>
@@ -18,7 +18,7 @@ namespace examples
             string altUrl = string.Empty;
 
             //You may set the API key via command line argument:
-            //language yourapiKeyhere
+            //relationships yourapiKeyhere
             if (args.Length != 0)
             {
                 apiKey = args[0];
@@ -27,14 +27,8 @@ namespace examples
             try
             {
                 RosetteAPI api = string.IsNullOrEmpty(altUrl) ? new RosetteAPI(apiKey) : new RosetteAPI(apiKey).UseAlternateURL(altUrl);
-
-                // Example of adding a custom header
-                api = api.AddCustomHeader("X-RosetteAPI-App", "csharp-app");
-
-                string language_data = @"Por favor Señorita, says the man.";
-
-                LanguageEndpoint endpoint = new LanguageEndpoint(language_data);
-                //The results of the API call will come back in the form of a Dictionary
+                string relationships_text_data = @"FLIR Systems is headquartered in Oregon and produces thermal imaging, night vision, and infrared cameras and sensor systems.  According to the SEC’s order instituting a settled administrative proceeding, FLIR entered into a multi-million dollar contract to provide thermal binoculars to the Saudi government in November 2008.  Timms and Ramahi were the primary sales employees responsible for the contract, and also were involved in negotiations to sell FLIR’s security cameras to the same government officials.  At the time, Timms was the head of FLIR’s Middle East office in Dubai.";
+                RelationshipsEndpoint endpoint = new RelationshipsEndpoint(relationships_text_data);
                 RosetteResponse response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

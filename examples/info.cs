@@ -34,7 +34,7 @@ namespace examples
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }
-                Console.WriteLine(response.ContentAsJson(true));
+                Console.WriteLine(response.ContentAsJson(pretty: true));
             }
             catch (Exception e)
             {

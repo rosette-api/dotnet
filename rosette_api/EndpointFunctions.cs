@@ -36,8 +36,8 @@ namespace rosette_api
         /// <summary>
         /// BaseEndpoint is the constructor
         /// </summary>
-        public EndpointFunctions(Dictionary<string, object> parameters, 
-            Dictionary<string, object> options, 
+        public EndpointFunctions(Dictionary<string, object> parameters,
+            Dictionary<string, object> options,
             NameValueCollection urlParameters,
             string endpoint) {
             _params = parameters;
@@ -58,6 +58,11 @@ namespace rosette_api
         /// FileContentType returns the assigned Content-Type for a multipart file upload
         /// </summary>
         public string FileContentType { get; set; }
+        /// <summary>
+        /// Parameters return the paramters dictionary
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, object> Parameters { get {return _params; } }
         /// <summary>
         /// Options returns the option dictionary
         /// </summary>
@@ -155,6 +160,11 @@ namespace rosette_api
         private Dictionary<string, object> AppendOptions(Dictionary<string, object> dict) {
             if (_options.Count > 0) {
                 dict[OPTIONS] = _options;
+            }
+            else {
+                if (dict.ContainsKey(OPTIONS)) {
+                    dict.Remove(OPTIONS);
+                }
             }
             return dict;
         }

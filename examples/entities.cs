@@ -37,11 +37,11 @@ namespace examples
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }
                 // Print out the content in JSON format.  The Content property returns an IDictionary.
-                Console.WriteLine(response.ContentAsJson(true));
+                Console.WriteLine(response.ContentAsJson(pretty: true));
 
                 // Retrieve the Entities with full ADM
                 response = endpoint.SetUrlParameter("output", "rosette").Call(api);
-                Console.WriteLine(response.ContentAsJson(true));
+                Console.WriteLine(response.ContentAsJson(pretty: true));
             }
             catch (Exception e)
             {
