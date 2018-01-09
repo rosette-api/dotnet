@@ -11,20 +11,39 @@ This is intended to be a replacement for the C# binding.  Although it is written
 - all new unit tests
 - removal of brittle return types, replaced with IDictionary and JSON so that returned data reflects the latest from the server
 
-## Building the source
+## Documentation
 
-From the root directory of the source tree, `dotnet build`
-
-## Running the tests
-
-From the root directory of the source tree, `dotnet test tests/tests.csproj`
+TODO: Coming soon
 
 ## Packing the build
 
 Packing the build will breate a nupkg file that can be used when running the examples.  This is the same file that is published to NuGet
 From the root directory of the source tree, `dotnet pack`.  Note the output directory if you want to run examples against it later.  It will be something like `rosette_api/bin/Debug`.
 
-## Running the examples against the source code
+## Publishing
+
+TODO: Coming soon
+
+## Building, Testing and Examples
+
+The easiest way to build and test the source and run the examples against it is to use `rosetteapi/docker-dotnet`
+
+1. cd to the root of the dotnet source
+1. `docker run --rm -it -e <your api key> -v $(PWD):/source rosetteapi/docker-dotnet`
+
+If you would like to run against an alternate URL, add `-e <alternate url>` before the `-v`
+
+If you would prefer the manual approach, install dotnet on your computer and reference the following:
+
+### Building the source
+
+From the root directory of the source tree, `dotnet build`
+
+### Running the tests
+
+From the root directory of the source tree, `dotnet test tests/tests.csproj`
+
+### Running the examples against the source code
 
 There does not seem to be a way to compile and run all of the examples without a bit of help. The easiest way to compile and run an example is to create an empty directory using `dotnet new` and update the `.csproj` file to contain:
 
@@ -62,4 +81,4 @@ Developer Note:  If you update the source, you will need to do two things:
 
 ## Status
 
-In development.  Nothing published to NuGet. Not ready for publication.
+In development.  Nothing published to NuGet, yet
