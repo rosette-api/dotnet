@@ -13,7 +13,7 @@ This is intended to be a replacement for the C# binding.  Although it is written
 
 ## Documentation
 
-TODO: Coming soon
+View the [documentation](https://rosette-api.github.io/dotnet/)
 
 ## Packing the build
 
