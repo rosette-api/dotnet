@@ -149,9 +149,9 @@ namespace rosette_api
 
         /// <summary>
         /// Prepare constructs the Client, with Rosette specific headers, Timeout, ConcurrentConnections, etc.
-        /// If an outside client is provided, timeout, header and custom header values will still be applied.  
-        /// Warning: Changing the concurrent connections requires a new client, which will replace the user provided one with an 
-        /// internal one. It is advisable that if a user wants to control their own Http Client, they should set the concurrent 
+        /// If an outside client is provided, timeout, header and custom header values will still be applied.
+        /// Warning: Changing the concurrent connections requires a new client, which will replace the user provided one with an
+        /// internal one. It is advisable that if a user wants to control their own Http Client, they should set the concurrent
         /// connections on that object prior to assigning it to the RosetteAPI.
         /// </summary>
         /// <param name="forceUpdate">Forces the client to refresh.  This is necessary if the concurrent connections are changed.</param>
@@ -173,7 +173,7 @@ namespace rosette_api
 
             // Standard headers, which are required for Rosette API
             AddRequestHeader("X-RosetteAPI-Key", APIKey);
-            AddRequestHeader("User-Agent", "RosetteAPICsharp/" + Version);
+            AddRequestHeader("User-Agent", string.Format("RosetteAPICsharp/{0}-{1}", Version, Environment.Version.ToString()));
             AddRequestHeader("X-RosetteAPI-Binding", "csharp");
             AddRequestHeader("X-RosetteAPI-Binding-Version", Version);
             if (Debug) {
