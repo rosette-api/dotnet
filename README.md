@@ -11,6 +11,19 @@ This is intended to be a replacement for the C# binding.  Although it is written
 - all new unit tests
 - removal of brittle return types, replaced with IDictionary and JSON so that returned data reflects the latest from the server
 
+## Usage
+
+1. Add the rosette_api package from NuGet: `dotnet add package rosette_api.net` (it's not published yet)
+1. Add `using rosette_api` to your source file
+1. Create a `RosetteAPI` object to manage the HTTP client: `RosetteAPI api = new RosetteAPI(your api key);`
+1. Create an endpoint object: `LanguageEndpoint endpoint = new LanguageEndpoint(content);` Content may be
+    1. A string representing the data to be analyzed
+    1. A filename containing the data to be analyzed
+    1. A valid URL to a web page containing the data to be analyzed
+1. Execute the call: `RosetteResponse response = endpoint.Call(api);`  The response is an object containing `Content`, which is an IDictionary, and `ContentAsJson()`, which is the JSON representation of the `Content`. `Headers` and `StatusCode` are also available.
+
+Please refer to the examples and [API documentation](https://rosette-api.github.io/dotnet/) for further details.  Optional parameters to the api and endpoints are accessed via methods.  Required parameters are provided through the constructors.
+
 ## Documentation
 
 View the [documentation](https://rosette-api.github.io/dotnet/)
