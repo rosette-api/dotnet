@@ -1,0 +1,27 @@
+var namespacerosette__api =
+[
+    [ "BaseGetEndpoint", "classrosette__api_1_1_base_get_endpoint.html", "classrosette__api_1_1_base_get_endpoint" ],
+    [ "BasePostEndpoint", "classrosette__api_1_1_base_post_endpoint.html", "classrosette__api_1_1_base_post_endpoint" ],
+    [ "CategoriesEndpoint", "classrosette__api_1_1_categories_endpoint.html", "classrosette__api_1_1_categories_endpoint" ],
+    [ "EndpointCommon", "classrosette__api_1_1_endpoint_common.html", "classrosette__api_1_1_endpoint_common" ],
+    [ "EndpointFunctions", "classrosette__api_1_1_endpoint_functions.html", "classrosette__api_1_1_endpoint_functions" ],
+    [ "EntitiesEndpoint", "classrosette__api_1_1_entities_endpoint.html", "classrosette__api_1_1_entities_endpoint" ],
+    [ "InfoEndpoint", "classrosette__api_1_1_info_endpoint.html", "classrosette__api_1_1_info_endpoint" ],
+    [ "LanguageEndpoint", "classrosette__api_1_1_language_endpoint.html", "classrosette__api_1_1_language_endpoint" ],
+    [ "MorphologyEndpoint", "classrosette__api_1_1_morphology_endpoint.html", "classrosette__api_1_1_morphology_endpoint" ],
+    [ "NameDeduplicationEndpoint", "classrosette__api_1_1_name_deduplication_endpoint.html", "classrosette__api_1_1_name_deduplication_endpoint" ],
+    [ "NameSimilarityEndpoint", "classrosette__api_1_1_name_similarity_endpoint.html", "classrosette__api_1_1_name_similarity_endpoint" ],
+    [ "NameTranslationEndpoint", "classrosette__api_1_1_name_translation_endpoint.html", "classrosette__api_1_1_name_translation_endpoint" ],
+    [ "PingEndpoint", "classrosette__api_1_1_ping_endpoint.html", "classrosette__api_1_1_ping_endpoint" ],
+    [ "RelationshipsEndpoint", "classrosette__api_1_1_relationships_endpoint.html", "classrosette__api_1_1_relationships_endpoint" ],
+    [ "RosetteAPI", "classrosette__api_1_1_rosette_a_p_i.html", "classrosette__api_1_1_rosette_a_p_i" ],
+    [ "RosetteName", "classrosette__api_1_1_rosette_name.html", "classrosette__api_1_1_rosette_name" ],
+    [ "RosetteResponse", "classrosette__api_1_1_rosette_response.html", "classrosette__api_1_1_rosette_response" ],
+    [ "SentencesEndpoint", "classrosette__api_1_1_sentences_endpoint.html", "classrosette__api_1_1_sentences_endpoint" ],
+    [ "SentimentEndpoint", "classrosette__api_1_1_sentiment_endpoint.html", "classrosette__api_1_1_sentiment_endpoint" ],
+    [ "SyntaxDependenciesEndpoint", "classrosette__api_1_1_syntax_dependencies_endpoint.html", "classrosette__api_1_1_syntax_dependencies_endpoint" ],
+    [ "TextEmbeddingEndpoint", "classrosette__api_1_1_text_embedding_endpoint.html", "classrosette__api_1_1_text_embedding_endpoint" ],
+    [ "TokensEndpoint", "classrosette__api_1_1_tokens_endpoint.html", "classrosette__api_1_1_tokens_endpoint" ],
+    [ "TopicsEndpoint", "classrosette__api_1_1_topics_endpoint.html", "classrosette__api_1_1_topics_endpoint" ],
+    [ "TransliterationEndpoint", "classrosette__api_1_1_transliteration_endpoint.html", "classrosette__api_1_1_transliteration_endpoint" ]
+];

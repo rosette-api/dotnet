@@ -1,0 +1,6 @@
+digraph "rosette_api.BasePostEndpoint&lt; T &gt;"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{rosette_api.BasePostEndpoint\< T \>\n|+ Endpoint\l+ Filename\l+ FileContentType\l+ Options\l+ UrlParameters\l+ Content\l+ Language\l+ Genre\l|+ BasePostEndpoint()\l+ SetContent()\l+ SetLanguage()\l+ SetGenre()\l+ SetFileContentType()\l+ SetOption()\l+ RemoveOption()\l+ ClearOptions()\l+ SetUrlParameter()\l+ RemoveUrlParameter()\l+ Call()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

@@ -1,0 +1,8 @@
+digraph "rosette_api.NameTranslationEndpoint"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node0 [label="{rosette_api.NameTranslation\lEndpoint\n|+ Name\l+ EntityType\l+ SourceLanguageOfOrigin\l+ SourceLanguageOfUse\l+ SourceScript\l+ TargetLanguage\l+ TargetScheme\l+ TargetScript\l|+ NameTranslationEndpoint()\l+ SetName()\l+ SetEntityType()\l+ SetSourceLanguageOfOrigin()\l+ SetSourceLanguageOfUse()\l+ SetSourceScript()\l+ SetTargetLanguage()\l+ SetTargetScheme()\l+ SetTargetScript()\l+ Call()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node1 [label="{EndpointCommon\< NameTranslation\lEndpoint \>\n|+ Options\l+ Params\l+ UrlParameters\l+ Endpoint\l+ Funcs\l|+ EndpointCommon()\l+ SetOption()\l+ RemoveOption()\l+ ClearOptions()\l+ SetUrlParameter()\l+ RemoveUrlParameter()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classrosette__api_1_1_endpoint_common.html"];
+}

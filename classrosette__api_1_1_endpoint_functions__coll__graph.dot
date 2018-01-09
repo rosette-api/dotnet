@@ -1,0 +1,6 @@
+digraph "rosette_api.EndpointFunctions"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{rosette_api.EndpointFunctions\n|+ Endpoint\l+ Filename\l+ FileContentType\l+ Parameters\l+ Options\l+ UrlParameters\l+ Content\l+ Language\l+ Genre\l|+ EndpointFunctions()\l+ GetCall()\l+ PostCall()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}

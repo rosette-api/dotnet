@@ -1,0 +1,6 @@
+digraph "rosette_api.RosetteAPI"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{rosette_api.RosetteAPI\n|+ APIKey\l+ Client\l+ URI\l+ ConcurrentConnections\l+ Timeout\l+ Version\l+ Debug\l|+ RosetteAPI()\l+ UseAlternateURL()\l+ AssignClient()\l+ AssignConcurrentConnections()\l+ AssignTimeout()\l+ SetDebug()\l+ AddCustomHeader()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+}
