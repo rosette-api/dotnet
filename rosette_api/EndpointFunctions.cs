@@ -62,25 +62,23 @@ namespace rosette_api
         /// Parameters return the paramters dictionary
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, object> Parameters { get {return _params; } }
+        public Dictionary<string, object> Parameters { get => _params; }
         /// <summary>
         /// Options returns the option dictionary
         /// </summary>
-        public Dictionary<string, object> Options { get { return _options; } }
+        public Dictionary<string, object> Options { get=> _options; } 
         /// <summary>
         /// UrlParameters returns any parameters to be used for query string
         /// </summary>
-        public NameValueCollection UrlParameters { get { return _urlParameters; } }
+        public NameValueCollection UrlParameters { get => _urlParameters; } 
 
         /// <summary>
         /// Content returns the textual content, the URI or an empty string
         /// </summary>
         public string Content {
-            get {
-                return _params.ContainsKey(CONTENT) ? _params[CONTENT].ToString()
+            get => _params.ContainsKey(CONTENT) ? _params[CONTENT].ToString()
                     : _params.ContainsKey(CONTENTURI) ? _params[CONTENTURI].ToString()
                     : string.Empty;
-            }
             set {
                 if (File.Exists(value)) {
                     Filename = value;
@@ -103,23 +101,15 @@ namespace rosette_api
         /// Language returns the provided 3-letter language code or an empty string
         /// </summary>
         public string Language {
-            get {
-                return _params.ContainsKey(LANGUAGE) ? _params[LANGUAGE].ToString() : string.Empty;
-            }
-            set {
-                _params[LANGUAGE] = value;
-            }
+            get => _params.ContainsKey(LANGUAGE) ? _params[LANGUAGE].ToString() : string.Empty;
+            set => _params[LANGUAGE] = value;
         }
         /// <summary>
         /// Genre returns the provided genre or an empty string
         /// </summary>
         public string Genre {
-            get {
-                return _params.ContainsKey(GENRE) ? _params[GENRE].ToString() : string.Empty;
-            }
-            set {
-                _params[GENRE] = value;
-            }
+            get => _params.ContainsKey(GENRE) ? _params[GENRE].ToString() : string.Empty;
+            set => _params[GENRE] = value;
         }
         /// <summary>
         /// GetCall executes the endpoint against the server using GetAsync

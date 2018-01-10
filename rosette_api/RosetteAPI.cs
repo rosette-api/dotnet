@@ -42,7 +42,7 @@ namespace rosette_api
         /// Version returns the version of the assembly
         /// </summary>
         public static string Version {
-            get { return typeof(RosetteAPI).Assembly.GetName().Version.ToString(); }
+            get => typeof(RosetteAPI).Assembly.GetName().Version.ToString();
         }
 
         /// <summary>
