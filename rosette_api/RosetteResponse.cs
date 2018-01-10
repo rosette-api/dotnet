@@ -40,7 +40,15 @@ namespace rosette_api
                 throw new HttpRequestException(string.Format("{0}: {1}: {2}", (int)responseMsg.StatusCode, responseMsg.ReasonPhrase, ContentToString(responseMsg.Content)));
             }
         }
+        /// <summary>
+        /// Headers provides read access to the Response Headers collection
+        /// </summary>
+        /// <returns>IDictionary of string, string</returns>
         public IDictionary<string, string> Headers {get; private set;}
+        /// <summary>
+        /// Content provides read access to the Response IDictionary
+        /// </summary>
+        /// <returns>IDictionary of string, object</returns>
         public IDictionary<string, object> Content {get; private set;}
         public string ContentAsJson(bool pretty=false) {
             return pretty ?
