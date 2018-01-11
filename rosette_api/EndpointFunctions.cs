@@ -66,11 +66,11 @@ namespace rosette_api
         /// <summary>
         /// Options returns the option dictionary
         /// </summary>
-        public Dictionary<string, object> Options { get=> _options; } 
+        public Dictionary<string, object> Options { get=> _options; }
         /// <summary>
         /// UrlParameters returns any parameters to be used for query string
         /// </summary>
-        public NameValueCollection UrlParameters { get => _urlParameters; } 
+        public NameValueCollection UrlParameters { get => _urlParameters; }
 
         /// <summary>
         /// Content returns the textual content, the URI or an empty string

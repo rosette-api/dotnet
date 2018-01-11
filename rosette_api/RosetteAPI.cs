@@ -60,7 +60,7 @@ namespace rosette_api
             URI = "https://api.rosette.com/rest/v1/";
             Client = null;
             ConcurrentConnections = 2;
-            Timeout = 30;
+            Timeout = 3000;
             Debug = false;
             _customHeaders = new Dictionary<string, string>();
 
