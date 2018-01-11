@@ -64,7 +64,7 @@ namespace rosette_api.tests
         [Fact]
         public void TestTimeout() {
             RosetteAPI api = Init();
-            Assert.Equal(30, api.Timeout);
+            Assert.Equal(300, api.Timeout);
 
             api.AssignTimeout(15);
             Assert.Equal(15, api.Timeout);
@@ -90,7 +90,7 @@ namespace rosette_api.tests
                 var encodingHeader = new System.Net.Http.Headers.StringWithQualityHeaderValue(encodingType);
                 Assert.Contains(encodingHeader, api.Client.DefaultRequestHeaders.AcceptEncoding);
             }
-            Assert.Equal(api.Timeout, api.Client.Timeout.Seconds);
+            Assert.Equal(api.Timeout, api.Client.Timeout.TotalSeconds);
         }
 
     }
