@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['featureasstring',['FeatureAsString',['../classrosette__api_1_1_morphology_endpoint.html#a756dfae2aecd866228a37ba1b40949e1',1,'rosette_api::MorphologyEndpoint']]]
+  ['getcall',['GetCall',['../classrosette__api_1_1_endpoint_functions.html#ac5bc494e344efa00c54522045d67983d',1,'rosette_api::EndpointFunctions']]]
 ];

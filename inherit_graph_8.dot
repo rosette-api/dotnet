@@ -3,7 +3,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="rosette_api.EndpointCommon\l\< NameSimilarityEndpoint \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classrosette__api_1_1_endpoint_common.html"];
+  Node0 [label="rosette_api.EndpointCommon\l\< PingEndpoint \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classrosette__api_1_1_endpoint_common.html"];
   Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="rosette_api.NameSimilarity\lEndpoint",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classrosette__api_1_1_name_similarity_endpoint.html"];
+  Node1 [label="rosette_api.PingEndpoint",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classrosette__api_1_1_ping_endpoint.html"];
 }

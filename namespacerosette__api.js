@@ -1,7 +1,5 @@
 var namespacerosette__api =
 [
-    [ "BaseGetEndpoint", "classrosette__api_1_1_base_get_endpoint.html", "classrosette__api_1_1_base_get_endpoint" ],
-    [ "BasePostEndpoint", "classrosette__api_1_1_base_post_endpoint.html", "classrosette__api_1_1_base_post_endpoint" ],
     [ "CategoriesEndpoint", "classrosette__api_1_1_categories_endpoint.html", "classrosette__api_1_1_categories_endpoint" ],
     [ "EndpointCommon", "classrosette__api_1_1_endpoint_common.html", "classrosette__api_1_1_endpoint_common" ],
     [ "EndpointFunctions", "classrosette__api_1_1_endpoint_functions.html", "classrosette__api_1_1_endpoint_functions" ],

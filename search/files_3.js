@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['infoendpoint_2ecs',['InfoEndpoint.cs',['../_info_endpoint_8cs.html',1,'']]]
+  ['languageendpoint_2ecs',['LanguageEndpoint.cs',['../_language_endpoint_8cs.html',1,'']]]
 ];

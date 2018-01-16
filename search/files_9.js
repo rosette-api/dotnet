@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['sentencesendpoint_2ecs',['SentencesEndpoint.cs',['../_sentences_endpoint_8cs.html',1,'']]],
-  ['sentimentendpoint_2ecs',['SentimentEndpoint.cs',['../_sentiment_endpoint_8cs.html',1,'']]],
-  ['syntaxdependenciesendpoint_2ecs',['SyntaxDependenciesEndpoint.cs',['../_syntax_dependencies_endpoint_8cs.html',1,'']]]
+  ['textembeddingendpoint_2ecs',['TextEmbeddingEndpoint.cs',['../_text_embedding_endpoint_8cs.html',1,'']]],
+  ['tokensendpoint_2ecs',['TokensEndpoint.cs',['../_tokens_endpoint_8cs.html',1,'']]],
+  ['topicsendpoint_2ecs',['TopicsEndpoint.cs',['../_topics_endpoint_8cs.html',1,'']]],
+  ['transliterationendpoint_2ecs',['TransliterationEndpoint.cs',['../_transliteration_endpoint_8cs.html',1,'']]]
 ];

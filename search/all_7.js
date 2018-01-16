@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hanreadings',['hanReadings',['../namespacerosette__api.html#a58322ae3b1bcf0f2c067341aae4a5c38abb8922286429d823d335840226cbb022',1,'rosette_api']]],
-  ['headers',['Headers',['../classrosette__api_1_1_rosette_response.html#aa10c23210d4c3abe7d77974ca99a715d',1,'rosette_api::RosetteResponse']]]
+  ['infoendpoint',['InfoEndpoint',['../classrosette__api_1_1_info_endpoint.html',1,'rosette_api.InfoEndpoint'],['../classrosette__api_1_1_info_endpoint.html#a8dcacaf9ca753326ab53d6ac269a7cdb',1,'rosette_api.InfoEndpoint.InfoEndpoint()']]],
+  ['infoendpoint_2ecs',['InfoEndpoint.cs',['../_info_endpoint_8cs.html',1,'']]]
 ];

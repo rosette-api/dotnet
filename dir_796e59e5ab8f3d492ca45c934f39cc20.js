@@ -1,11 +1,5 @@
 var dir_796e59e5ab8f3d492ca45c934f39cc20 =
 [
-    [ "BaseGetEndpoint.cs", "_base_get_endpoint_8cs.html", [
-      [ "BaseGetEndpoint", "classrosette__api_1_1_base_get_endpoint.html", "classrosette__api_1_1_base_get_endpoint" ]
-    ] ],
-    [ "BasePostEndpoint.cs", "_base_post_endpoint_8cs.html", [
-      [ "BasePostEndpoint", "classrosette__api_1_1_base_post_endpoint.html", "classrosette__api_1_1_base_post_endpoint" ]
-    ] ],
     [ "CategoriesEndpoint.cs", "_categories_endpoint_8cs.html", [
       [ "CategoriesEndpoint", "classrosette__api_1_1_categories_endpoint.html", "classrosette__api_1_1_categories_endpoint" ]
     ] ],

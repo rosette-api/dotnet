@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['languageendpoint',['LanguageEndpoint',['../classrosette__api_1_1_language_endpoint.html#a499ab8a024f647eafd5e22fa4973b65f',1,'rosette_api::LanguageEndpoint']]]
+  ['morphologyendpoint',['MorphologyEndpoint',['../classrosette__api_1_1_morphology_endpoint.html#a29ea3986d7800ce522f2ec8da2160ac4',1,'rosette_api::MorphologyEndpoint']]]
 ];

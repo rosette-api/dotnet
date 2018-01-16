@@ -1,10 +1,14 @@
 var searchData=
 [
-  ['parameters',['Parameters',['../classrosette__api_1_1_endpoint_functions.html#a00249f1a778423f219ae82d75868429f',1,'rosette_api::EndpointFunctions']]],
-  ['params',['Params',['../classrosette__api_1_1_endpoint_common.html#ada879146f999806e8d3c16e1f71d29cd',1,'rosette_api::EndpointCommon']]],
-  ['partsofspeech',['partsOfSpeech',['../namespacerosette__api.html#a58322ae3b1bcf0f2c067341aae4a5c38ac83822705e71bb7338fc28bfc7997a94',1,'rosette_api']]],
-  ['pingendpoint',['PingEndpoint',['../classrosette__api_1_1_ping_endpoint.html',1,'rosette_api.PingEndpoint'],['../classrosette__api_1_1_ping_endpoint.html#a13db0c12e09db772c6e86746fdb6df80',1,'rosette_api.PingEndpoint.PingEndpoint()']]],
-  ['pingendpoint_2ecs',['PingEndpoint.cs',['../_ping_endpoint_8cs.html',1,'']]],
-  ['postcall',['PostCall',['../classrosette__api_1_1_endpoint_functions.html#a04afd9d0763f8ce08c4f8863a1b76fae',1,'rosette_api::EndpointFunctions']]],
-  ['profileid',['ProfileID',['../classrosette__api_1_1_name_deduplication_endpoint.html#a172e13422b287d0cfcc4e9b105cdfcd3',1,'rosette_api::NameDeduplicationEndpoint']]]
+  ['relationshipsendpoint',['RelationshipsEndpoint',['../classrosette__api_1_1_relationships_endpoint.html',1,'rosette_api.RelationshipsEndpoint'],['../classrosette__api_1_1_relationships_endpoint.html#ac7298103025446676ddf3e4092433d02',1,'rosette_api.RelationshipsEndpoint.RelationshipsEndpoint()']]],
+  ['relationshipsendpoint_2ecs',['RelationshipsEndpoint.cs',['../_relationships_endpoint_8cs.html',1,'']]],
+  ['removeoption',['RemoveOption',['../classrosette__api_1_1_endpoint_common.html#a467b93c411c9fdd2e6438bf1e15c9f68',1,'rosette_api::EndpointCommon']]],
+  ['removeurlparameter',['RemoveUrlParameter',['../classrosette__api_1_1_endpoint_common.html#a96f001bce3eefc1121fbad715cbae6cc',1,'rosette_api::EndpointCommon']]],
+  ['rosette_5fapi',['rosette_api',['../namespacerosette__api.html',1,'']]],
+  ['rosetteapi',['RosetteAPI',['../classrosette__api_1_1_rosette_a_p_i.html',1,'rosette_api.RosetteAPI'],['../classrosette__api_1_1_rosette_a_p_i.html#a77766fe7e9a48f461eff0ff7bacf3e19',1,'rosette_api.RosetteAPI.RosetteAPI()']]],
+  ['rosetteapi_2ecs',['RosetteAPI.cs',['../_rosette_a_p_i_8cs.html',1,'']]],
+  ['rosettename',['RosetteName',['../classrosette__api_1_1_rosette_name.html',1,'rosette_api.RosetteName'],['../classrosette__api_1_1_rosette_name.html#a2af1243535df40318d0a5013ce13412e',1,'rosette_api.RosetteName.RosetteName()']]],
+  ['rosettename_2ecs',['RosetteName.cs',['../_rosette_name_8cs.html',1,'']]],
+  ['rosetteresponse',['RosetteResponse',['../classrosette__api_1_1_rosette_response.html',1,'rosette_api.RosetteResponse'],['../classrosette__api_1_1_rosette_response.html#ad30f81d4aaf8f0cb77b16bd6eddc6d5b',1,'rosette_api.RosetteResponse.RosetteResponse()']]],
+  ['rosetteresponse_2ecs',['RosetteResponse.cs',['../_rosette_response_8cs.html',1,'']]]
 ];

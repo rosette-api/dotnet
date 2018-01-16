@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['infoendpoint',['InfoEndpoint',['../classrosette__api_1_1_info_endpoint.html#a8dcacaf9ca753326ab53d6ac269a7cdb',1,'rosette_api::InfoEndpoint']]]
+  ['languageendpoint',['LanguageEndpoint',['../classrosette__api_1_1_language_endpoint.html#a1ad498a3e2a416890491c7fd95788a68',1,'rosette_api::LanguageEndpoint']]]
 ];

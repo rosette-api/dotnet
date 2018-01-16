@@ -1,7 +1,5 @@
 var hierarchy =
 [
-    [ "rosette_api.BaseGetEndpoint< T >", "classrosette__api_1_1_base_get_endpoint.html", null ],
-    [ "rosette_api.BasePostEndpoint< T >", "classrosette__api_1_1_base_post_endpoint.html", null ],
     [ "rosette_api.EndpointCommon< T >", "classrosette__api_1_1_endpoint_common.html", null ],
     [ "rosette_api.EndpointCommon< CategoriesEndpoint >", "classrosette__api_1_1_endpoint_common.html", [
       [ "rosette_api.CategoriesEndpoint", "classrosette__api_1_1_categories_endpoint.html", null ]
