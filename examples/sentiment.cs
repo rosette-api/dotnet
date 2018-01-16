@@ -38,14 +38,16 @@ namespace examples
                 sw.Flush();
                 sw.Close();
 
-                SentimentEndpoint endpoint = new SentimentEndpoint(newFile)
-                    .SetFileContentType(@"application/octet-stream")
-                    .SetLanguage("eng");
-                RosetteResponse response = endpoint.Call(api);
-                foreach (KeyValuePair<string, string> h in response.Headers) {
-                    Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
+                using (FileStream fs = File.OpenRead(newFile)) {
+                    SentimentEndpoint endpoint = new SentimentEndpoint(fs)
+                        .SetFileContentType(@"application/octet-stream")
+                        .SetLanguage("eng");
+                    RosetteResponse response = endpoint.Call(api);
+                    foreach (KeyValuePair<string, string> h in response.Headers) {
+                        Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
+                    }
+                    Console.WriteLine(response.ContentAsJson(pretty: true));
                 }
-                Console.WriteLine(response.ContentAsJson(pretty: true));
 
                 if (File.Exists(newFile)) {
                     File.Delete(newFile);

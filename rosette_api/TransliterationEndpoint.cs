@@ -8,22 +8,22 @@ namespace rosette_api
         /// <summary>
         /// TransliterationEndpoint returns the transliteration of the input
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public TransliterationEndpoint(string content) : base("transliteration") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public TransliterationEndpoint(object content) : base("transliteration") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Transliteration endpoint</returns>
-        public TransliterationEndpoint SetContent(string content) {
+        public TransliterationEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

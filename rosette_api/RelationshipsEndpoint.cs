@@ -6,22 +6,22 @@ namespace rosette_api
         /// <summary>
         /// RelationshipsEndpoint returns the relationships between entities in the input text
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public RelationshipsEndpoint(string content) : base("relationships") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public RelationshipsEndpoint(object content) : base("relationships") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Relationships endpoint</returns>
-        public RelationshipsEndpoint SetContent(string content) {
+        public RelationshipsEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

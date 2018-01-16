@@ -51,9 +51,14 @@ namespace rosette_api
         /// </summary>
         public string Endpoint { get; private set; }
         /// <summary>
-        /// Filename returns the provided filename or an empty string
+        /// Filename returns the provided FileStream's filename
         /// </summary>
-        public string Filename { get; set; }
+        public string Filename { get => Filestream == null ? string.Empty : Filestream.Name; }
+        /// <summary>
+        /// Filestream contains the user provided FileStream or null
+        /// </summary>
+        /// <returns></returns>
+        public FileStream Filestream {get; private set; }
         /// <summary>
         /// FileContentType returns the assigned Content-Type for a multipart file upload
         /// </summary>
@@ -73,27 +78,27 @@ namespace rosette_api
         public NameValueCollection UrlParameters { get => _urlParameters; }
 
         /// <summary>
-        /// Content returns the textual content, the URI or an empty string
+        /// Content returns the textual content, the URI (as a string) or an empty string
         /// </summary>
-        public string Content {
-            get => _params.ContainsKey(CONTENT) ? _params[CONTENT].ToString()
-                    : _params.ContainsKey(CONTENTURI) ? _params[CONTENTURI].ToString()
+        public object Content {
+            get => _params.ContainsKey(CONTENT) ? _params[CONTENT]
+                    : _params.ContainsKey(CONTENTURI) ? _params[CONTENTURI]
                     : string.Empty;
             set {
-                if (File.Exists(value)) {
-                    Filename = value;
+                if (value.GetType() == typeof(FileStream)) {
+                    Filestream = (FileStream)value;
                     ClearKey(CONTENT);
                     ClearKey(CONTENTURI);
                 }
-                else if (Uri.IsWellFormedUriString(value, UriKind.Absolute)) {
-                    _params[CONTENTURI] = value;
+                else if (value.GetType() == typeof(Uri)) {
+                    _params[CONTENTURI] = ((Uri)value).AbsoluteUri;
                     ClearKey(CONTENT);
-                    Filename = string.Empty;
+                    Filestream = null;
                 }
                 else {
                     _params[CONTENT] = value;
                     ClearKey(CONTENTURI);
-                    Filename = string.Empty;
+                    Filestream = null;
                 }
             }
         }
@@ -130,7 +135,7 @@ namespace rosette_api
         /// <returns>Rosette Response</returns>
         public virtual RosetteResponse PostCall(RosetteAPI api) {
             string url = api.URI + Endpoint + ToQueryString();
-            if (string.IsNullOrEmpty(Filename)) {
+            if (Filestream == null) {
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(AppendOptions(_params)));
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                 Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, content));
@@ -167,11 +172,10 @@ namespace rosette_api
         private RosetteResponse PostAsMultipart(RosetteAPI api, string url) {
 
             using (var _multiPartContent = new MultipartFormDataContent()) {
-                FileStream fs = File.OpenRead(Filename);
-                var streamContent = new StreamContent(fs);
+                var streamContent = new StreamContent(Filestream);
                 streamContent.Headers.Add("Content-Type", FileContentType);
-                streamContent.Headers.Add("Content-Disposition", "mixed; name=\"content\"; filename=\"" + Path.GetFileName(Filename) + "\"");
-                _multiPartContent.Add(streamContent, "content", Path.GetFileName(Filename));
+                streamContent.Headers.Add("Content-Disposition", "mixed; name=\"content\"; filename=\"" + Path.GetFileName(Filestream.Name) + "\"");
+                _multiPartContent.Add(streamContent, "content", Path.GetFileName(Filestream.Name));
 
                 if (_options.Count > 0 || _params.Count > 0) {
                     var stringContent = new StringContent(JsonConvert.SerializeObject(AppendOptions(_params)), Encoding.UTF8, "application/json");

@@ -7,22 +7,22 @@ namespace rosette_api {
         /// <summary>
         /// LanguageEndpoint returns a list of candidate languages in order of descending confidence
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public LanguageEndpoint(string content) : base("language") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public LanguageEndpoint(object content) : base("language") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Language endpoint</returns>
-        public LanguageEndpoint SetContent(string content) {
+        public LanguageEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

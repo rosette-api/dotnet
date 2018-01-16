@@ -8,22 +8,22 @@ namespace rosette_api
         /// <summary>
         /// CategoriesEndpoint returns a category identified in the input. The possible categories are Tier 1 contextual categories defined in the QAG Taxonomy
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public CategoriesEndpoint(string content) : base("categories") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public CategoriesEndpoint(object content) : base("categories") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Categories endpoint</returns>
-        public CategoriesEndpoint SetContent(string content) {
+        public CategoriesEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

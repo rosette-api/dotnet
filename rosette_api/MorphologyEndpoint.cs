@@ -23,24 +23,24 @@ namespace rosette_api
         /// <summary>
         /// MorphologyEndpoint returns morphological analysis of input
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <param name="feature">feature to use</param>
-        public MorphologyEndpoint(string content, MorphologyFeature feature = MorphologyFeature.complete) : base("morphology") {
+        public MorphologyEndpoint(object content, MorphologyFeature feature = MorphologyFeature.complete) : base("morphology") {
             Endpoint = "morphology/" + FeatureAsString(feature);
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Morphology endpoint</returns>
-        public MorphologyEndpoint SetContent(string content) {
+        public MorphologyEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

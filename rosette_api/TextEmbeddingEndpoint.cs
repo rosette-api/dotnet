@@ -8,22 +8,22 @@ namespace rosette_api
         /// <summary>
         /// TextEmbeddingEndpoint returns the embedding for the input text
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public TextEmbeddingEndpoint(string content) : base("text-embedding") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public TextEmbeddingEndpoint(object content) : base("text-embedding") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update TextEmbedding endpoint</returns>
-        public TextEmbeddingEndpoint SetContent(string content) {
+        public TextEmbeddingEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

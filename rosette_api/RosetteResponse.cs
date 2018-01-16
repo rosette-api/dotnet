@@ -50,7 +50,7 @@ namespace rosette_api
         /// </summary>
         /// <returns>IDictionary of string, object</returns>
         public IDictionary<string, object> Content {get; private set;}
-        public string ContentAsJson(bool pretty=false) {
+        public object ContentAsJson(bool pretty=false) {
             return pretty ?
             JsonConvert.SerializeObject(Content, Formatting.Indented) :
             JsonConvert.SerializeObject(Content); }

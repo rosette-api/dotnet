@@ -8,22 +8,22 @@ namespace rosette_api
         /// <summary>
         /// SentimentEndpoint analyzes the positive and negative sentiment expressed by the input
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public SentimentEndpoint(string content) : base("sentiment") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public SentimentEndpoint(object content) : base("sentiment") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Sentiment endpoint</returns>
-        public SentimentEndpoint SetContent(string content) {
+        public SentimentEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

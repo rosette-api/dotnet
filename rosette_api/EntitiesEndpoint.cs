@@ -7,22 +7,22 @@ namespace rosette_api
         /// <summary>
         /// EntitiesEndpoint returns each entity extracted from the input
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public EntitiesEndpoint(string content) : base("entities") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public EntitiesEndpoint(object content) : base("entities") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Entities endpoint</returns>
-        public EntitiesEndpoint SetContent(string content) {
+        public EntitiesEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

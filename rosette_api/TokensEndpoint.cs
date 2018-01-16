@@ -8,22 +8,22 @@ namespace rosette_api
         /// <summary>
         /// TokensEndpoint returns each entity extracted from the input
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public TokensEndpoint(string content) : base("tokens") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public TokensEndpoint(object content) : base("tokens") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update Tokens endpoint</returns>
-        public TokensEndpoint SetContent(string content) {
+        public TokensEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>

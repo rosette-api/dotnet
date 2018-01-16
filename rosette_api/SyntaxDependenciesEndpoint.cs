@@ -8,22 +8,22 @@ namespace rosette_api
         /// <summary>
         /// SyntaxDependenciesEndpoint returns the parse tree of the input text as a list of labeled directed links between tokens, as well as the list of tokens in the input sentence
         /// </summary>
-        /// <param name="content">text, URI or filename</param>
-        public SyntaxDependenciesEndpoint(string content) : base("syntax/dependencies") {
+        /// <param name="content">text, Uri object or FileStream</param>
+        public SyntaxDependenciesEndpoint(object content) : base("syntax/dependencies") {
             SetContent(content);
         }
         /// <summary>
         /// SetContent sets the content to be reviewed
         /// </summary>
-        /// <param name="content">text, uri or filename</param>
+        /// <param name="content">text, Uri object or FileStream</param>
         /// <returns>update SyntaxDependencies endpoint</returns>
-        public SyntaxDependenciesEndpoint SetContent(string content) {
+        public SyntaxDependenciesEndpoint SetContent(object content) {
             Funcs.Content = content;
 
             return this;
         }
 
-        public string Content { get => Funcs.Content; }
+        public object Content { get => Funcs.Content; }
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>
