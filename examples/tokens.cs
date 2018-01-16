@@ -2,31 +2,20 @@
 using System.Collections.Generic;
 using rosette_api;
 
-namespace examples
-{
-    class tokens
-    {
+namespace examples {
+    class tokens {
         /// <summary>
-        /// Example code to call Rosette API to get tokens (words) in a piece of text.
-        /// Requires Nuget Package:
-        /// rosette_api
+        /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
+        /// An optional alternate URL may be provided, i.e. for an on-premise solution.
         /// </summary>
-        static void Main(string[] args)
-        {
-            //To use the C# API, you must provide an API key
-            string apiKey = "Your API key";
-            string altUrl = string.Empty;
-
-            //You may set the API key via command line argument:
-            //tokens yourapiKeyhere
-            if (args.Length != 0)
-            {
-                apiKey = args[0];
-                altUrl = args.Length > 1 ? args[1] : string.Empty;
-            }
-            try
-            {
-                RosetteAPI api = string.IsNullOrEmpty(altUrl) ? new RosetteAPI(apiKey) : new RosetteAPI(apiKey).UseAlternateURL(altUrl);
+        /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
+        /// <param name="altUrl">Optional alternate URL</param>
+        private void RunEndpoint(string apiKey, string altUrl=null) {
+            try {
+                RosetteAPI api = new RosetteAPI(apiKey);
+                if (!string.IsNullOrEmpty(altUrl)) {
+                    api.UseAlternateURL(altUrl);
+                }
                 string tokens_data = @"北京大学生物系主任办公室内部会议";
                 TokensEndpoint endpoint = new TokensEndpoint(tokens_data);
                 RosetteResponse response = endpoint.Call(api);
@@ -35,9 +24,20 @@ namespace examples
                 }
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 Console.WriteLine("Exception: " + e.Message);
+            }
+        }
+        /// <summary>
+        /// Main is a simple entrypoint for command line calling of the endpoint examples
+        /// </summary>
+        /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
+        static void Main(string[] args) {
+            if (args.Length != 0) {
+                new tokens().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+            }
+            else {
+                Console.WriteLine("An API Key is required");
             }
         }
     }
