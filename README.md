@@ -24,6 +24,54 @@ This is intended to be a replacement for the C# binding.  Although it is written
 
 Please refer to the examples and [API documentation](https://rosette-api.github.io/dotnet/) for further details.  Optional parameters to the api and endpoints are accessed via methods.  Required parameters are provided through the constructors.
 
+## Migrating from C# Binding
+
+There are breaking changes between the C# Binding and the Dotnet Binding.  In order to improve concurrency each endpoint is now its own class and requires an api object in order to execute a call.  Additionally, required parameters are enforced in the constructor, while optional parameters are provided through a builder pattern.
+
+Example (C# Binding):
+
+Scene: On-Premise retrieval of entities with full ADM
+
+``` csharp
+  string alturl = "localhost:1234/rest/v1";
+  CAPI api = new CAPI(apikey, alturl);
+  // C# sets the url parameter at the api level, affecting all endpoints until reset
+  api.SetUrlParameter("output", "rosette");
+
+  string entities_text_data = @"The Securities and Exchange Commission today announced the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating with litigators in the SEC’s 11 regional offices around the country.";
+
+  EntitiesResponse response = api.Entity(entities_text_data, null, null, null, "social-media");
+  foreach (KeyValuePair<string, string> h in response.Headers) {
+      Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
+  }
+  Console.WriteLine(response.ToString());
+```
+
+Dotnet Binding:
+
+``` csharp
+  string altUrl = "localhost:1234/rest/v1";
+  // The alternate URL is set via a method, rather than through the constructor
+  RosetteAPI api = new RosetteAPI(apiKey).UseAlternateURL(altUrl);
+
+  string entities_text_data = @"The Securities and Exchange Commission today announced the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating with litigators in the SEC’s 11 regional offices around the country.";
+
+  // Create the endpoint.  In this case we set the genre and want the full ADM.  Note that the url parameters are set for the endpoint only, so other endpoints
+  // are not affected.
+  EntitiesEndpoint endpoint = new EntitiesEndpoint(entities_text_data)
+    .SetGenre("social-media")
+    .SetUrlParameter("output", "rosette");
+  RosetteResponse response = endpoint.Call(api);
+
+  // Print out the response headers
+  foreach (KeyValuePair<string, string> h in response.Headers) {
+      Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
+  }
+  // Print out the content in JSON format.  The Content property returns an IDictionary.
+  Console.WriteLine(response.ContentAsJson(pretty: true));
+```
+
+
 ## Documentation
 
 View the [documentation](https://rosette-api.github.io/dotnet/)
