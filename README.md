@@ -87,10 +87,10 @@ TODO: Coming soon
 
 ## Building, Testing and Examples
 
-The easiest way to build and test the source and run the examples against it is to use `rosetteapi/docker-dotnet`
+The easiest way to build and test the source and run the examples against it is to use `rosette/docker-dotnet`
 
 1. cd to the root of the dotnet source
-1. `docker run --rm -it -e <your api key> -v $(PWD):/source rosetteapi/docker-dotnet`
+2. `docker run --rm -it -e <your api key> -v $(PWD):/source rosette/docker-dotnet`
 
 If you would like to run against an alternate URL, add `-e <alternate url>` before the `-v`
 
