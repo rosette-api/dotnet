@@ -1,20 +1,18 @@
 ﻿using Xunit;
 using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Net;
+using rosette_api;
 
-namespace rosette_api.tests
+namespace tests
 {
     public class TestEndpointFunctions
     {
-        private Dictionary<string, object> _params;
-        private Dictionary<string, object> _options;
-        private NameValueCollection _urlParameters;
-        private static string _defaultUri = "https://api.rosette.com/rest/v1/*";
+        private readonly Dictionary<string, object> _params;
+        private readonly Dictionary<string, object> _options;
+        private readonly NameValueCollection _urlParameters;
+        private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/*";
 
         public TestEndpointFunctions() {
             _params = new Dictionary<string, object>();

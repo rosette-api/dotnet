@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace rosette_api
+﻿namespace rosette_api
 {
     public class EntitiesEndpoint : EndpointCommon<EntitiesEndpoint> {
         /// <summary>

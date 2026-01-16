@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net;
 
 namespace rosette_api
 {
     public class RosetteAPI
     {
-        private Dictionary<string, string> _customHeaders;
+        private readonly Dictionary<string, string> _customHeaders;
 
         /// <summary>
         /// APIKey is the Rosette API key provided by Basis Technology

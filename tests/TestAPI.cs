@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using rosette_api;
 using Xunit;
-using rosette_api;
 
-namespace rosette_api.tests
+namespace tests
 {
     public class TestAPI
     {
-        private static string _defaultUri = "https://api.rosette.com/rest/v1/";
-        private static string _testKey = "testKey";
+        private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/";
+        private static readonly string _testKey = "testKey";
 
         private static RosetteAPI Init() {
             return new RosetteAPI(_testKey);

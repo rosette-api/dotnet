@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-namespace rosette_api
+﻿namespace rosette_api
 {
     public enum MorphologyFeature {
         /// <summary>provide complete morphology</summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace rosette_api {
+﻿namespace rosette_api {
     public class LanguageEndpoint : EndpointCommon<LanguageEndpoint> {
         /// <summary>
         /// LanguageEndpoint returns a list of candidate languages in order of descending confidence

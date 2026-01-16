@@ -1,9 +1,7 @@
+using rosette_api;
 using Xunit;
-using RichardSzalay.MockHttp;
-using System.IO;
-using System.Net;
 
-namespace rosette_api.tests {
+namespace tests {
     public class TestEndpointCommon
     {
 

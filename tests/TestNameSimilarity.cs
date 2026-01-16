@@ -1,7 +1,7 @@
-﻿using System;
+﻿using rosette_api;
 using Xunit;
 
-namespace rosette_api.tests
+namespace tests
 {
     public class TestNameSimilarity
     {

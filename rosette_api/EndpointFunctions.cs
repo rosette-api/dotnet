@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net.Http;
+﻿using System.Collections.Specialized;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace rosette_api
@@ -23,15 +18,15 @@ namespace rosette_api
         /// <summary>
         /// _params contains the parameters to be sent to the server
         /// </summary>
-        private Dictionary<string, object> _params;
+        private readonly Dictionary<string, object> _params;
         /// <summary>
         /// _options contains user provided options
         /// </summary>
-        private Dictionary<string, object> _options;
+        private readonly Dictionary<string, object> _options;
         /// <summary>
         /// _urlParameters is a NameValueCollection to provide URL query string parameters to the call
         /// </summary>
-        private NameValueCollection _urlParameters;
+        private readonly NameValueCollection _urlParameters;
 
         /// <summary>
         /// BaseEndpoint is the constructor
