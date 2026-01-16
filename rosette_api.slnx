@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="examples/examples.csproj" Id="e9c6c4a0-655a-4f12-8474-f386b90b6795" />
   <Project Path="rosette_api/rosette_api.csproj" />
   <Project Path="tests/tests.csproj" Id="c9f4aab4-d875-4f8b-8f41-0e5ecea0a216" />
 </Solution>

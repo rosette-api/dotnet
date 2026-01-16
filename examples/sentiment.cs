@@ -5,7 +5,8 @@ using System.Text;
 using rosette_api;
 
 namespace examples {
-    class sentiment {
+    class Sentiment
+    {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
         /// An optional alternate URL may be provided, i.e. for an on-premise solution.
@@ -51,7 +52,7 @@ namespace examples {
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
         static void Main(string[] args) {
             if (args.Length != 0) {
-                new sentiment().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+                new Sentiment().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
             else {
                 Console.WriteLine("An API Key is required");

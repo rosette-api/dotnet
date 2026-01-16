@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using rosette_api;
 
 namespace examples {
-    class text_embedding {
+    class MorphologyHanReadings
+    {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
         /// An optional alternate URL may be provided, i.e. for an on-premise solution.
@@ -11,23 +12,22 @@ namespace examples {
         /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string altUrl=null) {
-            try {
+            try
+            {
                 RosetteAPI api = new RosetteAPI(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                string embedding_data = @"Cambridge, Massachusetts";
-                TextEmbeddingEndpoint endpoint = new TextEmbeddingEndpoint(embedding_data);
+                string morphology_han_readings_data = @"北京大学生物系主任办公室内部会议";
+                MorphologyEndpoint endpoint = new MorphologyEndpoint(morphology_han_readings_data, MorphologyFeature.hanReadings);
                 RosetteResponse response = endpoint.Call(api);
-                foreach (KeyValuePair<string, string> h in response.Headers)
-                {
+                foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }
-
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }
             catch (Exception e) {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Exception: " + e.Message);
             }
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace examples {
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
         static void Main(string[] args) {
             if (args.Length != 0) {
-                new text_embedding().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+                new MorphologyHanReadings().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
             else {
                 Console.WriteLine("An API Key is required");

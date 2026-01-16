@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using rosette_api;
 
-namespace examples {
-    class syntax_dependencies {
+namespace rosette_apiExamples {
+    class MorphologyCompoundComponents
+    {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
         /// An optional alternate URL may be provided, i.e. for an on-premise solution.
@@ -16,8 +17,9 @@ namespace examples {
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                string syntax_dependencies_data = "Yoshinori Ohsumi, a Japanese cell biologist, was awarded the Nobel Prize in Physiology or Medicine on Monday.";
-                SyntaxDependenciesEndpoint endpoint = new SyntaxDependenciesEndpoint(syntax_dependencies_data);
+                string morphology_compound_components_data = @"Rechtsschutzversicherungsgesellschaften";
+                //The results of the API call will come back in the form of a Dictionary
+                MorphologyEndpoint endpoint = new MorphologyEndpoint(morphology_compound_components_data, MorphologyFeature.compoundComponents);
                 RosetteResponse response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
@@ -34,7 +36,7 @@ namespace examples {
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
         static void Main(string[] args) {
             if (args.Length != 0) {
-                new syntax_dependencies().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+                new MorphologyCompoundComponents().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
             else {
                 Console.WriteLine("An API Key is required");
