@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using rosette_api;
 
 namespace examples {

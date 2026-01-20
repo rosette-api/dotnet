@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using rosette_api;
+﻿using rosette_api;
 
 namespace examples {
     class MorphologyPartsOfSpeech

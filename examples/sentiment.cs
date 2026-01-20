@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using rosette_api;
+﻿using rosette_api;
 
 namespace examples {
     class Sentiment
