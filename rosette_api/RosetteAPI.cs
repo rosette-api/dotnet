@@ -14,7 +14,7 @@ namespace rosette_api
         /// <summary>
         /// Client is the HttpClient to be used for communication with the server.
         /// </summary>
-        public HttpClient Client { get; private set; }
+        public HttpClient? Client { get; private set; }
 
         /// <summary>
         /// URI is the uri of the Rosette API server.

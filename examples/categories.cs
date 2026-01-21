@@ -1,4 +1,4 @@
-﻿using rosette_api;
+using rosette_api;
 
 namespace examples {
     class Categories
@@ -9,7 +9,7 @@ namespace examples {
         /// </summary>
         /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
         /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string altUrl=null) {
+        private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
                 RosetteAPI api = new RosetteAPI(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
