@@ -7,11 +7,11 @@ namespace rosette_api
         [JsonProperty("text")]
         public string Text { get; private set; }
         [JsonProperty("entityType")]
-        public string EntityType { get; private set; }
+        public string? EntityType { get; private set; }
         [JsonProperty("language")]
-        public string Language { get; private set; }
+        public string? Language { get; private set; }
         [JsonProperty("script")]
-        public string Script { get; private set; }
+        public string? Script { get; private set; }
         /// <summary>
         /// Constructor for a Name object, used by several endpoints
         /// </summary>

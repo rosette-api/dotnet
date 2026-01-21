@@ -22,7 +22,7 @@ namespace tests
         [Fact]
         public void CheckContent() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Content.ToString());
+            Assert.Empty(f.Content.ToString()!);
             f.Content = "Sample Content";
             Assert.Equal("Sample Content", f.Content);
             Assert.True(_params.ContainsKey("content"));
@@ -39,7 +39,7 @@ namespace tests
         [Fact]
         public void CheckContentUri() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Content.ToString());
+            Assert.Empty(f.Content.ToString()!);
             f.Content = new Uri("http://google.com");
             Assert.Equal("http://google.com/", f.Content);
             Assert.True(_params.ContainsKey("contenturi"));
@@ -49,12 +49,12 @@ namespace tests
         [Fact]
         public void CheckFilename() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Content.ToString());
+            Assert.Empty(f.Content.ToString()!);
             var newFile = Path.GetTempFileName();
             using (FileStream fs = File.OpenRead(newFile)) {
                 f.Content = fs;
                 Assert.Equal(newFile, f.Filename);
-                Assert.Empty(f.Content.ToString());
+                Assert.Empty(f.Content.ToString()!);
                 Assert.False(_params.ContainsKey("content"));
                 Assert.False(_params.ContainsKey("contenturi"));
             }
@@ -64,7 +64,7 @@ namespace tests
         [Fact]
         public void CheckLanguage() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Language);
+            Assert.Empty(f.Language!);
             f.Language = "eng";
             Assert.Equal("eng", f.Language);
         }
@@ -72,7 +72,7 @@ namespace tests
         [Fact]
         public void CheckGenre() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Genre);
+            Assert.Empty(f.Genre!);
             f.Genre = "social-media";
             Assert.Equal("social-media", f.Genre);
         }

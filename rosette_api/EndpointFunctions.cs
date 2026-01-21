@@ -100,14 +100,14 @@ namespace rosette_api
         /// <summary>
         /// Language returns the provided 3-letter language code or an empty string
         /// </summary>
-        public string Language {
+        public string? Language {
             get => _params.ContainsKey(LANGUAGE) ? _params[LANGUAGE].ToString() : string.Empty;
             set => _params[LANGUAGE] = value;
         }
         /// <summary>
         /// Genre returns the provided genre or an empty string
         /// </summary>
-        public string Genre {
+        public string? Genre {
             get => _params.ContainsKey(GENRE) ? _params[GENRE].ToString() : string.Empty;
             set => _params[GENRE] = value;
         }
