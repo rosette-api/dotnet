@@ -20,8 +20,12 @@ namespace tests
 
         [Fact]
         public void TestNullKey() {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string key = null;
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
             Exception ex = Assert.Throws<ArgumentNullException>(() => new RosetteAPI(key));
+#pragma warning restore CS8604 // Possible null reference argument.
 
             Assert.Contains("The API Key cannot be null", ex.Message);
         }

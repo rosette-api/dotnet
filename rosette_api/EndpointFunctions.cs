@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace rosette_api
 {
@@ -15,14 +15,17 @@ namespace rosette_api
         private const string LANGUAGE = "language";
         private const string GENRE = "genre";
         private const string OPTIONS = "options";
+
         /// <summary>
         /// _params contains the parameters to be sent to the server
         /// </summary>
         private readonly Dictionary<string, object> _params;
+
         /// <summary>
         /// _options contains user provided options
         /// </summary>
         private readonly Dictionary<string, object> _options;
+
         /// <summary>
         /// _urlParameters is a NameValueCollection to provide URL query string parameters to the call
         /// </summary>
@@ -45,28 +48,34 @@ namespace rosette_api
         /// Endpoint returns the assigned endpoint
         /// </summary>
         public string Endpoint { get; private set; }
+
         /// <summary>
         /// Filename returns the provided FileStream's filename
         /// </summary>
         public string Filename { get => Filestream == null ? string.Empty : Filestream.Name; }
+
         /// <summary>
         /// Filestream contains the user provided FileStream or null
         /// </summary>
         /// <returns></returns>
         public FileStream Filestream {get; private set; }
+
         /// <summary>
         /// FileContentType returns the assigned Content-Type for a multipart file upload
         /// </summary>
         public string FileContentType { get; set; }
+
         /// <summary>
         /// Parameters return the paramters dictionary
         /// </summary>
         /// <returns></returns>
         public Dictionary<string, object> Parameters { get => _params; }
+
         /// <summary>
         /// Options returns the option dictionary
         /// </summary>
         public Dictionary<string, object> Options { get=> _options; }
+
         /// <summary>
         /// UrlParameters returns any parameters to be used for query string
         /// </summary>
@@ -104,6 +113,7 @@ namespace rosette_api
             get => _params.ContainsKey(LANGUAGE) ? _params[LANGUAGE].ToString() : string.Empty;
             set => _params[LANGUAGE] = value;
         }
+
         /// <summary>
         /// Genre returns the provided genre or an empty string
         /// </summary>
@@ -111,6 +121,7 @@ namespace rosette_api
             get => _params.ContainsKey(GENRE) ? _params[GENRE].ToString() : string.Empty;
             set => _params[GENRE] = value;
         }
+
         /// <summary>
         /// GetCall executes the endpoint against the server using GetAsync
         /// </summary>
@@ -123,6 +134,7 @@ namespace rosette_api
 
             return new RosetteResponse(response);
         }
+
         /// <summary>
         /// Call calls the server with the provided data using PostAsync
         /// </summary>
@@ -131,7 +143,7 @@ namespace rosette_api
         public virtual RosetteResponse PostCall(RosetteAPI api) {
             string url = api.URI + Endpoint + ToQueryString();
             if (Filestream == null) {
-                HttpContent content = new StringContent(JsonConvert.SerializeObject(AppendOptions(_params)));
+                HttpContent content = new StringContent(JsonSerializer.Serialize(AppendOptions(_params)));
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                 Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, content));
                 var response = task.Result;
@@ -142,6 +154,7 @@ namespace rosette_api
                 return PostAsMultipart(api, url);
             }
         }
+
         /// <summary>
         /// AppendOptions appends any provided options to the parameter dictionary
         /// </summary>
@@ -158,6 +171,7 @@ namespace rosette_api
             }
             return dict;
         }
+
         /// <summary>
         /// PostAsMultipart handles processing of files as a multipart upload
         /// </summary>
@@ -173,7 +187,7 @@ namespace rosette_api
                 _multiPartContent.Add(streamContent, "content", Path.GetFileName(Filestream.Name));
 
                 if (_options.Count > 0 || _params.Count > 0) {
-                    var stringContent = new StringContent(JsonConvert.SerializeObject(AppendOptions(_params)), Encoding.UTF8, "application/json");
+                    var stringContent = new StringContent(JsonSerializer.Serialize(AppendOptions(_params)), Encoding.UTF8, "application/json");
                     stringContent.Headers.Add("Content-Disposition", "mixed; name=\"request\"");
                     _multiPartContent.Add(stringContent, "request");
                 }
@@ -183,6 +197,7 @@ namespace rosette_api
                 return new RosetteResponse(response);
             }
         }
+
         /// <summary>
         /// clearKey removes the specified key from the _params dictionary
         /// </summary>
@@ -192,6 +207,7 @@ namespace rosette_api
                 _params.Remove(key);
             }
         }
+
         /// <summary>
         /// ToQueryString is a helper to generate the query string to append to the URL
         /// </summary>
@@ -215,6 +231,7 @@ namespace rosette_api
 
             return sb.ToString();
         }
+
         /// <summary>
         /// HasContent checks for content to send
         /// </summary>

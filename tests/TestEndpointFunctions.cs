@@ -1,8 +1,8 @@
 ﻿using Xunit;
-using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
 using System.Collections.Specialized;
 using System.Net;
+using System.Text.Json;
 using rosette_api;
 
 namespace tests
@@ -19,6 +19,7 @@ namespace tests
             _options = new Dictionary<string, object>();
             _urlParameters = new NameValueCollection();
         }
+
         [Fact]
         public void CheckContent() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
@@ -27,7 +28,6 @@ namespace tests
             Assert.Equal("Sample Content", f.Content);
             Assert.True(_params.ContainsKey("content"));
             Assert.False(_params.ContainsKey("contenturi"));
-
         }
 
         [Fact]
@@ -58,7 +58,6 @@ namespace tests
                 Assert.False(_params.ContainsKey("content"));
                 Assert.False(_params.ContainsKey("contenturi"));
             }
-
         }
 
         [Fact]
@@ -90,7 +89,7 @@ namespace tests
             RosetteAPI api = new RosetteAPI("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
-                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
 
             api.AssignClient(client);
@@ -104,7 +103,7 @@ namespace tests
 
             f.Content = "Test Content";
             RosetteResponse result = f.PostCall(api);
-            Assert.Equal(JsonConvert.SerializeObject(paramTest), JsonConvert.SerializeObject(f.Parameters));
+            Assert.Equal(JsonSerializer.Serialize(paramTest), JsonSerializer.Serialize(f.Parameters));
         }
 
         [Fact]
@@ -112,7 +111,7 @@ namespace tests
             RosetteAPI api = new RosetteAPI("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
-                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
 
             api.AssignClient(client);
@@ -128,7 +127,7 @@ namespace tests
             RosetteAPI api = new RosetteAPI("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
-                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
 
             api.AssignClient(client);

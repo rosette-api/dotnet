@@ -1,6 +1,6 @@
 using System.IO.Compression;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace rosette_api
 {
@@ -28,28 +28,29 @@ namespace rosette_api
                     result = reader.ReadToEnd();
                 }
 
-                Content = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
-
-
+                Content = JsonSerializer.Deserialize<Dictionary<string, object>>(result)!;
             }
             else {
                 throw new HttpRequestException(string.Format("{0}: {1}: {2}", (int)responseMsg.StatusCode, responseMsg.ReasonPhrase, ContentToString(responseMsg.Content)));
             }
         }
+
         /// <summary>
         /// Headers provides read access to the Response Headers collection
         /// </summary>
         /// <returns>IDictionary of string, string</returns>
         public IDictionary<string, string> Headers {get; private set;}
+
         /// <summary>
         /// Content provides read access to the Response IDictionary
         /// </summary>
         /// <returns>IDictionary of string, object</returns>
         public IDictionary<string, object> Content {get; private set;}
+
         public object ContentAsJson(bool pretty=false) {
             return pretty ?
-            JsonConvert.SerializeObject(Content, Formatting.Indented) :
-            JsonConvert.SerializeObject(Content); }
+            JsonSerializer.Serialize(Content, new JsonSerializerOptions { WriteIndented = true }) :
+            JsonSerializer.Serialize(Content); }
         public int StatusCode {get; private set;}
 
 
