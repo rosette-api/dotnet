@@ -16,7 +16,7 @@
         /// <returns>updated NameDeduplicationEndpoint object</returns>
         public NameDeduplicationEndpoint SetNames(List<RosetteName> names) {
             if (names == null || names.Count == 0) {
-                throw new ArgumentException("Names must contain at least 1 RosetteName object");
+                throw new ArgumentException("Names must contain at least 1 RosetteName object.");
             }
             Params["names"] = names;
             return this;
