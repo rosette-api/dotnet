@@ -2,9 +2,10 @@
 
 namespace rosette_api
 {
-    public class RosetteAPI
+    public class RosetteAPI : IDisposable
     {
         private readonly Dictionary<string, string> _customHeaders;
+        private bool _disposeClient = false;
 
         /// <summary>
         /// APIKey is the Rosette API key provided by Basis Technology
@@ -52,7 +53,8 @@ namespace rosette_api
         /// </summary>
         /// <param name="apiKey">Required Rosette API key</param>
         public RosetteAPI(string apiKey) {
-            APIKey = apiKey ?? throw new ArgumentNullException("apiKey", "The API Key cannot be null");
+            ArgumentNullException.ThrowIfNull(apiKey);
+            APIKey = apiKey;
             URI = "https://api.rosette.com/rest/v1/";
             Client = null;
             ConcurrentConnections = 2;
@@ -130,13 +132,16 @@ namespace rosette_api
         /// <param name="headerValue">Value of header</param>
         /// <returns>RosetteAPI object</returns>
         public RosetteAPI AddCustomHeader(string headerName, string headerValue) {
-            if (!headerName.StartsWith("X-RosetteAPI-")) {
+            if (!headerName.StartsWith("X-RosetteAPI-", StringComparison.OrdinalIgnoreCase))
+            {
                 throw new ArgumentException("headerName", @"Custom header name must begin with 'X-RosetteAPI-'");
             }
-            if (_customHeaders.ContainsKey(headerName) && headerValue == null) {
+            if (_customHeaders.ContainsKey(headerName) && headerValue == null) 
+            {
                 _customHeaders.Remove(headerName);
             }
-            else {
+            else 
+            {
                 _customHeaders[headerName] = headerValue;
             }
 
@@ -160,6 +165,7 @@ namespace rosette_api
                             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
                             MaxConnectionsPerServer = ConcurrentConnections,
                         });
+                _disposeClient = true;
             }
             Client.Timeout = TimeSpan.FromSeconds(Timeout);
 
@@ -209,6 +215,12 @@ namespace rosette_api
             }
         }
 
-
+        public void Dispose()
+        {
+            if (_disposeClient && Client != null)
+            {
+                Client.Dispose();
+            }
+        }
     }
 }

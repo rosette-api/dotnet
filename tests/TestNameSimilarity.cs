@@ -9,12 +9,12 @@ namespace tests
         public void CheckForNull() {
             var exception = Record.Exception(() => new NameSimilarityEndpoint(null, null));
             Assert.IsType<ArgumentNullException>(exception);
-            Assert.Contains("Name1 cannot be null", exception.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'name1')", exception.Message);
 
             RosetteName rn = new RosetteName("foo");
             exception = Record.Exception(() => new NameSimilarityEndpoint(rn, null));
             Assert.IsType<ArgumentNullException>(exception);
-            Assert.Contains("Name2 cannot be null", exception.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'name2')", exception.Message);
         }
     }
 }

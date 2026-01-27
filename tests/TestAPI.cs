@@ -27,7 +27,7 @@ namespace tests
             Exception ex = Assert.Throws<ArgumentNullException>(() => new RosetteAPI(key));
 #pragma warning restore CS8604 // Possible null reference argument.
 
-            Assert.Contains("The API Key cannot be null", ex.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'apiKey')", ex.Message);
         }
 
         [Fact]
