@@ -36,7 +36,7 @@
             return this;
         }
 
-        public object Content { get => Funcs.Content; }
+        public object Content => Funcs.Content;
         /// <summary>
         /// SetLanguage sets the optional ISO 639-3 language code
         /// </summary>
@@ -48,7 +48,7 @@
             return this;
         }
 
-        public string Language { get => Funcs.Language; }
+        public string? Language => Funcs.Language;
         /// <summary>
         /// SetGenre sets the optional document genre, e.g. social-media
         /// </summary>
@@ -60,7 +60,7 @@
             return this;
         }
 
-        public string Genre { get => Funcs.Genre; }
+        public string? Genre => Funcs.Genre;
         /// <summary>
         /// SetFileContentType sets the content type of the file contents. Note that
         /// it only applies when the content is a filename
@@ -72,8 +72,8 @@
 
             return this;
         }
-        public string FileContentType { get => Funcs.FileContentType; }
-        public string Filename { get => Funcs.Filename; }
+        public string FileContentType => Funcs.FileContentType;
+        public string Filename => Funcs.Filename;
         /// <summary>
         /// Call passes the data to the server and returns the response
         /// </summary>
