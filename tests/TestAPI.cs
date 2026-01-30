@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using rosette_api;
 using Xunit;
-using rosette_api;
 
-namespace rosette_api.tests
+namespace tests
 {
     public class TestAPI
     {
-        private static string _defaultUri = "https://api.rosette.com/rest/v1/";
-        private static string _testKey = "testKey";
+        private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/";
+        private static readonly string _testKey = "testKey";
 
         private static RosetteAPI Init() {
             return new RosetteAPI(_testKey);
@@ -22,10 +20,14 @@ namespace rosette_api.tests
 
         [Fact]
         public void TestNullKey() {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string key = null;
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
             Exception ex = Assert.Throws<ArgumentNullException>(() => new RosetteAPI(key));
+#pragma warning restore CS8604 // Possible null reference argument.
 
-            Assert.Contains("The API Key cannot be null", ex.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'apiKey')", ex.Message);
         }
 
         [Fact]

@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using rosette_api;
 
 namespace examples {
-    class name_deduplication {
+    class LanguageMultilingual
+    {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
         /// An optional alternate URL may be provided, i.e. for an on-premise solution.
         /// </summary>
         /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
         /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string altUrl=null) {
+        private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
                 RosetteAPI api = new RosetteAPI(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                string name_dedupe_data = @"Alice Terry,Alice Thierry,Betty Grable,Betty Gable,Norma Shearer,Norm Shearer,Brigitte Helm,Bridget Helem,Judy Holliday,Julie Halliday";
+                string language_multilingual_data = @"On Thursday, as protesters gathered in Washington D.C., the United States Federal Communications Commission under Chairman Ajit Pai voted 3-2 to overturn a 2015 decision, commonly called Net Neutrality, that forbade Internet service providers (ISPs) such as Verizon, Comcast, and AT&T from blocking individual websites or charging websites or customers more for faster load times.  Quatre femmes ont été nommées au Conseil de rédaction de la loi du Qatar. Jeudi, le décret royal du Qatar a annoncé que 28 nouveaux membres ont été nommés pour le Conseil de la Choura du pays.  ذكرت مصادر أمنية يونانية، أن 9 موقوفين من منظمة ""د هـ ك ب ج"" الذين كانت قد أوقفتهم الشرطة اليونانية في وقت سابق كانوا يخططون لاغتيال الرئيس التركي رجب طيب أردوغان.";
 
-                List<string> dedupe_names = name_dedupe_data.Split(',').ToList<string>();
-                List<RosetteName> names = dedupe_names.Select(name => new RosetteName(name)).ToList();
+                LanguageEndpoint endpoint = new LanguageEndpoint(language_multilingual_data).SetOption("multilingual", true);
 
-                NameDeduplicationEndpoint endpoint = new NameDeduplicationEndpoint(names).SetThreshold(0.75f);
+                //The results of the API call will come back in the form of a Dictionary
                 RosetteResponse response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
@@ -39,7 +36,7 @@ namespace examples {
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
         static void Main(string[] args) {
             if (args.Length != 0) {
-                new name_deduplication().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+                new LanguageMultilingual().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
             else {
                 Console.WriteLine("An API Key is required");

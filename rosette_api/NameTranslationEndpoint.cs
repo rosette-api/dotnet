@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace rosette_api
+﻿namespace rosette_api
 {
     public class NameTranslationEndpoint : EndpointCommon<NameTranslationEndpoint>
     {
@@ -29,7 +25,7 @@ namespace rosette_api
 
             return this;
         }
-        public string Name { get =>
+        public string? Name { get =>
                 Params.ContainsKey(NAME) ?
                 Params[NAME].ToString() :
                 string.Empty;
@@ -44,7 +40,7 @@ namespace rosette_api
 
             return this;
         }
-        public string EntityType { get =>
+        public string? EntityType { get =>
                 Params.ContainsKey(ENTITY_TYPE) ?
                 Params[ENTITY_TYPE].ToString() :
                 string.Empty;
@@ -59,7 +55,7 @@ namespace rosette_api
 
             return this;
         }
-        public string SourceLanguageOfOrigin { get =>
+        public string? SourceLanguageOfOrigin { get =>
                 Params.ContainsKey(SOURCE_LANGUAGE_OF_ORIGIN) ?
                 Params[SOURCE_LANGUAGE_OF_ORIGIN].ToString() :
                 string.Empty;
@@ -74,7 +70,7 @@ namespace rosette_api
 
             return this;
         }
-        public string SourceLanguageOfUse { get =>
+        public string? SourceLanguageOfUse { get =>
                 Params.ContainsKey(SOURCE_LANGUAGE_OF_USE) ?
                 Params[SOURCE_LANGUAGE_OF_USE].ToString() :
                 String.Empty;
@@ -89,7 +85,7 @@ namespace rosette_api
 
             return this;
         }
-        public string SourceScript { get =>
+        public string? SourceScript { get =>
                 Params.ContainsKey(SOURCE_SCRIPT) ?
                 Params[SOURCE_SCRIPT].ToString() :
                 string.Empty;
@@ -105,7 +101,7 @@ namespace rosette_api
 
             return this;
         }
-        public string TargetLanguage { get =>
+        public string? TargetLanguage { get =>
                 Params.ContainsKey(TARGET_LANGUAGE) ?
                 Params[TARGET_LANGUAGE].ToString() :
                 String.Empty;
@@ -120,7 +116,7 @@ namespace rosette_api
 
             return this;
         }
-        public string TargetScheme { get =>
+        public string? TargetScheme { get =>
                 Params.ContainsKey(TARGET_SCHEME) ?
                 Params[TARGET_SCHEME].ToString() :
                 string.Empty;
@@ -135,7 +131,7 @@ namespace rosette_api
 
             return this;
         }
-        public string TargetScript { get => Params.ContainsKey(TARGET_SCRIPT) ?
+        public string? TargetScript { get => Params.ContainsKey(TARGET_SCRIPT) ?
                 Params[TARGET_SCRIPT].ToString() :
                 string.Empty;
         }

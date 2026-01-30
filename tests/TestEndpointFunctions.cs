@@ -1,35 +1,33 @@
 ﻿using Xunit;
-using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Net;
+using System.Text.Json;
+using rosette_api;
 
-namespace rosette_api.tests
+namespace tests
 {
     public class TestEndpointFunctions
     {
-        private Dictionary<string, object> _params;
-        private Dictionary<string, object> _options;
-        private NameValueCollection _urlParameters;
-        private static string _defaultUri = "https://api.rosette.com/rest/v1/*";
+        private readonly Dictionary<string, object> _params;
+        private readonly Dictionary<string, object> _options;
+        private readonly NameValueCollection _urlParameters;
+        private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/*";
 
         public TestEndpointFunctions() {
             _params = new Dictionary<string, object>();
             _options = new Dictionary<string, object>();
             _urlParameters = new NameValueCollection();
         }
+
         [Fact]
         public void CheckContent() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Content.ToString());
+            Assert.Empty(f.Content.ToString()!);
             f.Content = "Sample Content";
             Assert.Equal("Sample Content", f.Content);
             Assert.True(_params.ContainsKey("content"));
             Assert.False(_params.ContainsKey("contenturi"));
-
         }
 
         [Fact]
@@ -41,7 +39,7 @@ namespace rosette_api.tests
         [Fact]
         public void CheckContentUri() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Content.ToString());
+            Assert.Empty(f.Content.ToString()!);
             f.Content = new Uri("http://google.com");
             Assert.Equal("http://google.com/", f.Content);
             Assert.True(_params.ContainsKey("contenturi"));
@@ -51,22 +49,21 @@ namespace rosette_api.tests
         [Fact]
         public void CheckFilename() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Content.ToString());
+            Assert.Empty(f.Content.ToString()!);
             var newFile = Path.GetTempFileName();
             using (FileStream fs = File.OpenRead(newFile)) {
                 f.Content = fs;
                 Assert.Equal(newFile, f.Filename);
-                Assert.Empty(f.Content.ToString());
+                Assert.Empty(f.Content.ToString()!);
                 Assert.False(_params.ContainsKey("content"));
                 Assert.False(_params.ContainsKey("contenturi"));
             }
-
         }
 
         [Fact]
         public void CheckLanguage() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Language);
+            Assert.Empty(f.Language!);
             f.Language = "eng";
             Assert.Equal("eng", f.Language);
         }
@@ -74,7 +71,7 @@ namespace rosette_api.tests
         [Fact]
         public void CheckGenre() {
             EndpointFunctions f = new EndpointFunctions(_params, _options, _urlParameters, "test");
-            Assert.Empty(f.Genre);
+            Assert.Empty(f.Genre!);
             f.Genre = "social-media";
             Assert.Equal("social-media", f.Genre);
         }
@@ -92,7 +89,7 @@ namespace rosette_api.tests
             RosetteAPI api = new RosetteAPI("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
-                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
 
             api.AssignClient(client);
@@ -106,7 +103,7 @@ namespace rosette_api.tests
 
             f.Content = "Test Content";
             RosetteResponse result = f.PostCall(api);
-            Assert.Equal(JsonConvert.SerializeObject(paramTest), JsonConvert.SerializeObject(f.Parameters));
+            Assert.Equal(JsonSerializer.Serialize(paramTest), JsonSerializer.Serialize(f.Parameters));
         }
 
         [Fact]
@@ -114,7 +111,7 @@ namespace rosette_api.tests
             RosetteAPI api = new RosetteAPI("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
-                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
 
             api.AssignClient(client);
@@ -130,7 +127,7 @@ namespace rosette_api.tests
             RosetteAPI api = new RosetteAPI("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
-                .Respond(HttpStatusCode.OK, "application/json", "{'test': 'OK'}");
+                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
 
             api.AssignClient(client);

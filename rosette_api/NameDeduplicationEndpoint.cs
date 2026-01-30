@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace rosette_api
+﻿namespace rosette_api
 {
     public class NameDeduplicationEndpoint : EndpointCommon<NameDeduplicationEndpoint>
     {
@@ -20,7 +16,7 @@ namespace rosette_api
         /// <returns>updated NameDeduplicationEndpoint object</returns>
         public NameDeduplicationEndpoint SetNames(List<RosetteName> names) {
             if (names == null || names.Count == 0) {
-                throw new ArgumentException("Names must contain at least 1 RosetteName object");
+                throw new ArgumentException("Names must contain at least 1 RosetteName object.");
             }
             Params["names"] = names;
             return this;

@@ -1,10 +1,9 @@
 ﻿using Xunit;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using System.Net;
-using System.Net.Http;
+using System.Text.Json;
+using rosette_api;
 
-namespace rosette_api.tests
+namespace tests
 {
     public class TestRosetteResponse
     {
@@ -14,7 +13,7 @@ namespace rosette_api.tests
                 { "content", "Some sample content" },
                 { "language", "eng" }
             };
-            string json = JsonConvert.SerializeObject(data);
+            string json = JsonSerializer.Serialize(data);
 
             HttpResponseMessage msg = new HttpResponseMessage(HttpStatusCode.OK);
             msg.Content = new StringContent(json);
