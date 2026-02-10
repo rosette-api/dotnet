@@ -176,7 +176,7 @@ public class RosetteAPI : IDisposable
         }
 
         // Standard headers, which are required for Rosette API
-        AddRequestHeader("X-RosetteAPI-Key", APIKey);
+        AddRequestHeader("X-BabelStreetAPI-Key", APIKey);
         AddRequestHeader("User-Agent", string.Format("RosetteAPICsharp/{0}-{1}", Version, Environment.Version.ToString()));
         AddRequestHeader("X-RosetteAPI-Binding", "csharp");
         AddRequestHeader("X-RosetteAPI-Binding-Version", Version);

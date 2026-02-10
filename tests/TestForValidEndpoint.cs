@@ -20,6 +20,14 @@ namespace tests
         }
 
         [Fact]
+        public void EventsEndpoint()
+        {
+            EventsEndpoint e = new EventsEndpoint("foo");
+            Assert.Equal("events", e.Endpoint);
+            Assert.Equal("foo", e.Content);
+        }
+
+        [Fact]
         public void InfoEndpoint() {
             InfoEndpoint i = new InfoEndpoint();
             Assert.Equal("info", i.Endpoint);
@@ -65,6 +73,14 @@ namespace tests
 
             Assert.Equal("relationships", r.Endpoint);
             Assert.Equal("foo", r.Content);
+        }
+
+        [Fact]
+        public void SemanticVectorsEndpoint()
+        {
+            SemanticsVectorEndpoint s = new SemanticsVectorEndpoint("foo");
+            Assert.Equal("semantics/vector", s.Endpoint);
+            Assert.Equal("foo", s.Content);
         }
 
         [Fact]
