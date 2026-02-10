@@ -1,9 +1,7 @@
-﻿using Xunit;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
-using rosette_api;
 
-namespace tests
+namespace Rosette.Api.Tests
 {
     public class TestRosetteResponse
     {
@@ -19,7 +17,7 @@ namespace tests
             msg.Content = new StringContent(json);
             msg.Headers.Add("Test-Header", "Test Header Content");
 
-            RosetteResponse response = new RosetteResponse(msg);
+            Response response = new Response(msg);
 
             Assert.Equal((int)HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(json, response.ContentAsJson());

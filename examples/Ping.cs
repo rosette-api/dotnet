@@ -1,4 +1,4 @@
-using rosette_api;
+using Rosette.Api;
 
 namespace examples {
     class Ping
@@ -11,11 +11,11 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                RosetteResponse response = new PingEndpoint().Call(api);
+                Response response = new Rosette.Api.Endpoints.Ping().Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

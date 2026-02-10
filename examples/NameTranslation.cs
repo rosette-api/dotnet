@@ -1,4 +1,4 @@
-using rosette_api;
+using Rosette.Api;
 
 namespace examples {
     class NameTranslation
@@ -11,13 +11,13 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string translated_name_data = @"معمر محمد أبو منيار القذاف";
-                NameTranslationEndpoint endpoint = new NameTranslationEndpoint(translated_name_data, "eng");
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.NameTranslation endpoint = new Rosette.Api.Endpoints.NameTranslation(translated_name_data, "eng");
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

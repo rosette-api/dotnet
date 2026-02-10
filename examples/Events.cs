@@ -1,4 +1,4 @@
-using rosette_api;
+using Rosette.Api;
 
 namespace examples {
     class Events
@@ -11,14 +11,14 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl = null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string events_text_data = @"I am looking for flights to Super Bowl 2022 in Inglewood, LA.";
 
-                EventsEndpoint endpoint = new EventsEndpoint(events_text_data);
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.Events endpoint = new Rosette.Api.Endpoints.Events(events_text_data);
+                Response response = endpoint.Call(api);
 
                 // Print out the response headers
                 foreach (KeyValuePair<string, string> h in response.Headers) {

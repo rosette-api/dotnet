@@ -1,4 +1,5 @@
-using rosette_api;
+using Rosette.Api;
+using Rosette.Api.Endpoints;
 
 namespace examples {
     class MorphologyComplete
@@ -11,15 +12,15 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string morphology_complete_data = @"The quick brown fox jumped over the lazy dog. 👍🏾 Yes he did. B)";
                 //The results of the API call will come back in the form of a Dictionary
-                MorphologyEndpoint endpoint = new MorphologyEndpoint(morphology_complete_data, MorphologyFeature.complete);
+                Morphology endpoint = new Morphology(morphology_complete_data, MorphologyFeature.complete);
 
-                RosetteResponse response = endpoint.Call(api);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

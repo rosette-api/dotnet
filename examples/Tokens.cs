@@ -1,4 +1,4 @@
-using rosette_api;
+using Rosette.Api;
 
 namespace examples {
     class Tokens
@@ -11,13 +11,13 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string tokens_data = @"北京大学生物系主任办公室内部会议";
-                TokensEndpoint endpoint = new TokensEndpoint(tokens_data);
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.Tokens endpoint = new Rosette.Api.Endpoints.Tokens(tokens_data);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

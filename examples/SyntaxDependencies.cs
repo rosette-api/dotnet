@@ -1,4 +1,4 @@
-using rosette_api;
+using Rosette.Api;
 
 namespace examples {
     class SyntaxDependencies
@@ -11,13 +11,13 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string syntax_dependencies_data = "Yoshinori Ohsumi, a Japanese cell biologist, was awarded the Nobel Prize in Physiology or Medicine on Monday.";
-                SyntaxDependenciesEndpoint endpoint = new SyntaxDependenciesEndpoint(syntax_dependencies_data);
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.SyntaxDependencies endpoint = new Rosette.Api.Endpoints.SyntaxDependencies(syntax_dependencies_data);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

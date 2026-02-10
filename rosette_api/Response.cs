@@ -2,11 +2,11 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 
-namespace rosette_api;
+namespace Rosette.Api;
 
-public class RosetteResponse
+public class Response
 {
-    public RosetteResponse(HttpResponseMessage responseMsg) {
+    public Response(HttpResponseMessage responseMsg) {
         Content = new Dictionary<string, object>();
         Headers = new Dictionary<string, string>();
 

@@ -1,17 +1,17 @@
-namespace rosette_api;
+namespace Rosette.Api.Endpoints.Core;
 
 /// <summary>
 /// Abstract base class for Rosette API endpoints that accept content and common parameters
 /// </summary>
 /// <typeparam name="T">The concrete endpoint type for fluent API support</typeparam>
-public abstract class ContentBasedEndpoint<T> : EndpointCommon<T> where T : ContentBasedEndpoint<T>
+public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : ContentEndpointBase<T>
 {
     /// <summary>
     /// Constructor for content-based endpoints
     /// </summary>
     /// <param name="endpointName">The API endpoint name (e.g., "language", "categories", "entities")</param>
     /// <param name="content">text, Uri object or FileStream</param>
-    protected ContentBasedEndpoint(string endpointName, object content) : base(endpointName) {
+    protected ContentEndpointBase(string endpointName, object content) : base(endpointName) {
         ArgumentNullException.ThrowIfNull(content);
         SetContent(content);
     }
@@ -91,7 +91,7 @@ public abstract class ContentBasedEndpoint<T> : EndpointCommon<T> where T : Cont
     /// </summary>
     /// <param name="api">RosetteAPI object</param>
     /// <returns>RosetteResponse</returns>
-    public RosetteResponse Call(RosetteAPI api) {
+    public Response Call(ApiClient api) {
         return Funcs.PostCall(api);
     }
 }

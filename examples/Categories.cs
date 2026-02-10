@@ -1,4 +1,4 @@
-using rosette_api;
+using Rosette.Api;
 
 namespace examples {
     class Categories
@@ -11,15 +11,15 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string categories_text_data = @"Sony Pictures is planning to shoot a good portion of the new ""Ghostbusters"" in Boston as well.";
 
-                CategoriesEndpoint endpoint = new CategoriesEndpoint(categories_text_data);
+                Rosette.Api.Endpoints.Categories endpoint = new Rosette.Api.Endpoints.Categories(categories_text_data);
 
-                RosetteResponse response = endpoint.Call(api);
+                Response response = endpoint.Call(api);
                 //The results of the API call will come back in the form of a Dictionary
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }

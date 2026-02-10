@@ -1,6 +1,7 @@
-using rosette_api;
+using Rosette.Api;
+using Rosette.Api.Endpoints;
 
-namespace rosette_apiExamples {
+namespace Rosette.ApiExamples {
     class MorphologyCompoundComponents
     {
         /// <summary>
@@ -11,14 +12,14 @@ namespace rosette_apiExamples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string morphology_compound_components_data = @"Rechtsschutzversicherungsgesellschaften";
                 //The results of the API call will come back in the form of a Dictionary
-                MorphologyEndpoint endpoint = new MorphologyEndpoint(morphology_compound_components_data, MorphologyFeature.compoundComponents);
-                RosetteResponse response = endpoint.Call(api);
+                Morphology endpoint = new Morphology(morphology_compound_components_data, MorphologyFeature.compoundComponents);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

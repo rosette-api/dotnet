@@ -1,4 +1,4 @@
-﻿using rosette_api;
+﻿using Rosette.Api;
 
 namespace examples
 {
@@ -14,14 +14,14 @@ namespace examples
         {
             try
             {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl))
                 {
                     api.UseAlternateURL(altUrl);
                 }
                 string semantic_vectors_data = @"Cambridge, Massachusetts";
-                SemanticsVectorEndpoint endpoint = new SemanticsVectorEndpoint(semantic_vectors_data);
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.SemanticsVector endpoint = new Rosette.Api.Endpoints.SemanticsVector(semantic_vectors_data);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers)
                 {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

@@ -1,13 +1,12 @@
-﻿using rosette_api;
-using Xunit;
+﻿using Rosette.Api.Endpoints;
 
-namespace tests
+namespace Rosette.Api.Tests
 {
     public class TestNameTranslation
     {
         [Fact]
         public void CheckBasicUsage() {
-            NameTranslationEndpoint n = new NameTranslationEndpoint("foo");
+            NameTranslation n = new NameTranslation("foo");
             Assert.Equal("foo", n.Name);
             Assert.Equal("eng", n.TargetLanguage);
             Assert.Empty(n.EntityType);
@@ -20,7 +19,7 @@ namespace tests
 
         [Fact]
         public void CheckAllUsage() {
-            NameTranslationEndpoint n = new NameTranslationEndpoint("foo")
+            NameTranslation n = new NameTranslation("foo")
                 .SetEntityType("PERSON")
                 .SetSourceLanguageOfOrigin("eng")
                 .SetSourceLanguageOfUse("eng")

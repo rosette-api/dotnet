@@ -1,20 +1,19 @@
-﻿using rosette_api;
-using Xunit;
+﻿using Rosette.Api.Endpoints;
 
-namespace tests
+namespace Rosette.Api.Tests
 {
     public class TestForValidEndpoint
     {
         [Fact]
         public void CategoriesEndpoint() {
-            CategoriesEndpoint c = new CategoriesEndpoint("foo");
+            Categories c = new Categories("foo");
 
             Assert.Equal("categories", c.Endpoint);
             Assert.Equal("foo", c.Content);
         }
         [Fact]
         public void EntitiesEndpoint() {
-            EntitiesEndpoint e = new EntitiesEndpoint("foo");
+            Entities e = new Entities("foo");
             Assert.Equal("entities", e.Endpoint);
             Assert.Equal("foo", e.Content);
         }
@@ -22,33 +21,33 @@ namespace tests
         [Fact]
         public void EventsEndpoint()
         {
-            EventsEndpoint e = new EventsEndpoint("foo");
+            Events e = new Events("foo");
             Assert.Equal("events", e.Endpoint);
             Assert.Equal("foo", e.Content);
         }
 
         [Fact]
         public void InfoEndpoint() {
-            InfoEndpoint i = new InfoEndpoint();
+            Info i = new Info();
             Assert.Equal("info", i.Endpoint);
         }
 
         [Fact]
         public void LanguageEndpoint() {
-            LanguageEndpoint l = new LanguageEndpoint("foo");
+            Language l = new Language("foo");
 
             Assert.Equal("language", l.Endpoint);
             Assert.Equal("foo", l.Content);
         }
 
         [Theory]
-        [InlineData(rosette_api.MorphologyFeature.complete)]
-        [InlineData(rosette_api.MorphologyFeature.compoundComponents)]
-        [InlineData(rosette_api.MorphologyFeature.hanReadings)]
-        [InlineData(rosette_api.MorphologyFeature.lemmas)]
-        [InlineData(rosette_api.MorphologyFeature.partsOfSpeech)]
+        [InlineData(MorphologyFeature.complete)]
+        [InlineData(MorphologyFeature.compoundComponents)]
+        [InlineData(MorphologyFeature.hanReadings)]
+        [InlineData(MorphologyFeature.lemmas)]
+        [InlineData(MorphologyFeature.partsOfSpeech)]
         public void MorphologyEndpoint(MorphologyFeature feature) {
-            MorphologyEndpoint m = new MorphologyEndpoint("foo", feature);
+            Morphology m = new Morphology("foo", feature);
 
             Assert.Equal("morphology/" + m.FeatureAsString(feature), m.Endpoint);
             Assert.Equal("foo", m.Content);
@@ -56,20 +55,20 @@ namespace tests
 
         [Fact]
         public void NameSimilarityEndpoint() {
-            RosetteName rn = new RosetteName("foo");
-            NameSimilarityEndpoint ns = new NameSimilarityEndpoint(rn, rn);
+            Name rn = new Name("foo");
+            NameSimilarity ns = new NameSimilarity(rn, rn);
             Assert.Equal("name-similarity", ns.Endpoint);
         }
 
         [Fact]
         public void PingEndpoint() {
-            PingEndpoint p = new PingEndpoint();
+            Ping p = new Ping();
             Assert.Equal("ping", p.Endpoint);
         }
 
         [Fact]
         public void RelationshipsEndpoint() {
-            RelationshipsEndpoint r = new RelationshipsEndpoint("foo");
+            Relationships r = new Relationships("foo");
 
             Assert.Equal("relationships", r.Endpoint);
             Assert.Equal("foo", r.Content);
@@ -78,28 +77,28 @@ namespace tests
         [Fact]
         public void SemanticVectorsEndpoint()
         {
-            SemanticsVectorEndpoint s = new SemanticsVectorEndpoint("foo");
+            SemanticsVector s = new SemanticsVector("foo");
             Assert.Equal("semantics/vector", s.Endpoint);
             Assert.Equal("foo", s.Content);
         }
 
         [Fact]
         public void SentencesEndpoint() {
-            SentencesEndpoint s = new SentencesEndpoint("foo");
+            Sentences s = new Sentences("foo");
             Assert.Equal("sentences", s.Endpoint);
             Assert.Equal("foo", s.Content);
         }
 
         [Fact]
         public void SentimentEndpoint() {
-            SentimentEndpoint s = new SentimentEndpoint("foo");
+            Sentiment s = new Sentiment("foo");
             Assert.Equal("sentiment", s.Endpoint);
             Assert.Equal("foo", s.Content);
         }
 
         [Fact]
         public void SyntaxDependenciesEndpoint() {
-            SyntaxDependenciesEndpoint s = new SyntaxDependenciesEndpoint("foo");
+            SyntaxDependencies s = new SyntaxDependencies("foo");
 
             Assert.Equal("syntax/dependencies", s.Endpoint);
             Assert.Equal("foo", s.Content);
@@ -107,7 +106,7 @@ namespace tests
 
         [Fact]
         public void TextEmbeddingEndpoint() {
-            TextEmbeddingEndpoint t = new TextEmbeddingEndpoint("foo");
+            TextEmbedding t = new TextEmbedding("foo");
 
             Assert.Equal("text-embedding", t.Endpoint);
             Assert.Equal("foo", t.Content);
@@ -115,7 +114,7 @@ namespace tests
 
         [Fact]
         public void TokensEndpoint() {
-            TokensEndpoint t = new TokensEndpoint("foo");
+            Tokens t = new Tokens("foo");
 
             Assert.Equal("tokens", t.Endpoint);
             Assert.Equal("foo", t.Content);
@@ -123,7 +122,7 @@ namespace tests
 
         [Fact]
         public void TopicsEndpoint() {
-            TopicsEndpoint t = new TopicsEndpoint("foo");
+            Topics t = new Topics("foo");
 
             Assert.Equal("topics", t.Endpoint);
             Assert.Equal("foo", t.Content);
@@ -131,7 +130,7 @@ namespace tests
 
         [Fact]
         public void TransliterationEndpoint() {
-            TransliterationEndpoint t = new TransliterationEndpoint("foo");
+            Transliteration t = new Transliteration("foo");
 
             Assert.Equal("transliteration", t.Endpoint);
             Assert.Equal("foo", t.Content);

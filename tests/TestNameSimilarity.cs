@@ -1,18 +1,17 @@
-﻿using rosette_api;
-using Xunit;
+﻿using Rosette.Api.Endpoints;
 
-namespace tests
+namespace Rosette.Api.Tests
 {
     public class TestNameSimilarity
     {
         [Fact]
         public void CheckForNull() {
-            var exception = Record.Exception(() => new NameSimilarityEndpoint(null, null));
+            var exception = Record.Exception(() => new NameSimilarity(null, null));
             Assert.IsType<ArgumentNullException>(exception);
             Assert.Equal("Value cannot be null. (Parameter 'name1')", exception.Message);
 
-            RosetteName rn = new RosetteName("foo");
-            exception = Record.Exception(() => new NameSimilarityEndpoint(rn, null));
+            Name rn = new Name("foo");
+            exception = Record.Exception(() => new NameSimilarity(rn, null));
             Assert.IsType<ArgumentNullException>(exception);
             Assert.Equal("Value cannot be null. (Parameter 'name2')", exception.Message);
         }

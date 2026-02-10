@@ -1,18 +1,18 @@
-using rosette_api;
-using Xunit;
+using Rosette.Api.Endpoints;
+using Rosette.Api.Endpoints.Core;
 
-namespace tests {
-    public class TestEndpointCommon
+namespace Rosette.Api.Tests {
+    public class EndpointBaseTests
     {
 
 
-        private static RosetteAPI Init() {
-            return new RosetteAPI("testkey");
+        private static ApiClient Init() {
+            return new ApiClient("testkey");
         }
 
         [Fact]
         public void CheckEndpoint() {
-            EndpointCommon<EntitiesEndpoint> ec = new EndpointCommon<EntitiesEndpoint>("foo");
+            EndpointBase<Entities> ec = new EndpointBase<Entities>("foo");
             Assert.Equal("foo", ec.Endpoint);
         }
 
@@ -20,7 +20,7 @@ namespace tests {
 
         [Fact]
         public void CheckOptions() {
-            EntitiesEndpoint e = new EntitiesEndpoint("foo").SetOption("test", "value");
+            Entities e = new Entities("foo").SetOption("test", "value");
 
             Assert.Equal("value", e.Options["test"]);
 
@@ -39,7 +39,7 @@ namespace tests {
 
         [Fact]
         public void CheckUrlParameters() {
-            EntitiesEndpoint e = new EntitiesEndpoint("foo").SetUrlParameter("test", "value");
+            Entities e = new Entities("foo").SetUrlParameter("test", "value");
 
             Assert.Equal("value", e.UrlParameters["test"]);
 

@@ -1,39 +1,38 @@
-﻿using rosette_api;
-using Xunit;
+﻿using Rosette.Api.Endpoints;
 
-namespace tests
+namespace Rosette.Api.Tests
 {
     public class TestNameDeduplication
     {
         [Fact]
         public void CheckBasicUsage() {
-            List<RosetteName> names = new List<RosetteName> {
-                new RosetteName("foo"),
-                new RosetteName("bar")
+            List<Name> names = new List<Name> {
+                new Name("foo"),
+                new Name("bar")
             };
-            NameDeduplicationEndpoint n = new NameDeduplicationEndpoint(names);
+            NameDeduplication n = new NameDeduplication(names);
             Assert.Equal(names, n.Names);
             Assert.Equal(0.75f, n.Threshold);
         }
 
         [Fact]
         public void CheckProfileID() {
-            List<RosetteName> names = new List<RosetteName> {
-                new RosetteName("foo"),
-                new RosetteName("bar")
+            List<Name> names = new List<Name> {
+                new Name("foo"),
+                new Name("bar")
             };
-            NameDeduplicationEndpoint n = new NameDeduplicationEndpoint(names).SetProfileID("profileid");
+            NameDeduplication n = new NameDeduplication(names).SetProfileID("profileid");
             Assert.Equal(names, n.Names);
             Assert.Equal("profileid", n.ProfileID);
         }
 
         [Fact]
         public void CheckThreshold() {
-            List<RosetteName> names = new List<RosetteName> {
-                new RosetteName("foo"),
-                new RosetteName("bar")
+            List<Name> names = new List<Name> {
+                new Name("foo"),
+                new Name("bar")
             };
-            NameDeduplicationEndpoint n = new NameDeduplicationEndpoint(names).SetThreshold(0.8f);
+            NameDeduplication n = new NameDeduplication(names).SetThreshold(0.8f);
             Assert.Equal(names, n.Names);
             Assert.Equal(0.8f, n.Threshold);
         }

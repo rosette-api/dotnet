@@ -1,13 +1,10 @@
-﻿using rosette_api;
-using Xunit;
-
-namespace tests
+﻿namespace Rosette.Api.Tests
 {
     public class TestRosetteName
     {
         [Fact]
         public void CheckName() {
-            RosetteName rn = new RosetteName("foo");
+            Name rn = new Name("foo");
             Assert.Equal("foo", rn.Text);
             Assert.Null(rn.EntityType);
             Assert.Null(rn.Language);
@@ -16,28 +13,28 @@ namespace tests
 
         [Fact]
         public void CheckWithEntityType() {
-            RosetteName rn = new RosetteName("foo").SetEntityType("PERSON");
+            Name rn = new Name("foo").SetEntityType("PERSON");
             Assert.Equal("foo", rn.Text);
             Assert.Equal("PERSON", rn.EntityType);
         }
 
         [Fact]
         public void CheckWithLanguage() {
-            RosetteName rn = new RosetteName("foo").SetLanguage("eng");
+            Name rn = new Name("foo").SetLanguage("eng");
             Assert.Equal("foo", rn.Text);
             Assert.Equal("eng", rn.Language);
         }
 
         [Fact]
         public void CheckWithScript() {
-            RosetteName rn = new RosetteName("foo").SetScript("zho");
+            Name rn = new Name("foo").SetScript("zho");
             Assert.Equal("foo", rn.Text);
             Assert.Equal("zho", rn.Script);
         }
 
         [Fact]
         public void CheckAll() {
-            RosetteName rn = new RosetteName("foo")
+            Name rn = new Name("foo")
                 .SetEntityType("PERSON")
                 .SetLanguage("eng")
                 .SetScript("zho");

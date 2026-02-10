@@ -39,9 +39,9 @@ Here is one way to run the examples.
 - Build the package from source.
   ```
   cd /dotnet
-  dotnet restore rosette_api.slnx
-  dotnet build /p:Configuration=Release rosette_api.slnx
-  dotnet build /p:Configuration=Debug rosette_api.slnx
+  dotnet restore Rosette.Api.slnx
+  dotnet build /p:Configuration=Release Rosette.Api.slnx
+  dotnet build /p:Configuration=Debug Rosette.Api.slnx
 
   ```
 
@@ -60,7 +60,7 @@ Here is one way to run the examples.
 
   dotnet new console --framework net10.0
   cp ../Language.cs ./Program.cs
-  dotnet add reference ../../rosette_api/rosette_api.csproj
+  dotnet add reference ../../rosette_api/Rosette.Api.csproj
 
   ```
 

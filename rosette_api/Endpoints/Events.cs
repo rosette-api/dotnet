@@ -1,12 +1,14 @@
-﻿namespace rosette_api;
+﻿using Rosette.Api.Endpoints.Core;
 
-public class EventsEndpoint : ContentBasedEndpoint<EventsEndpoint>
+namespace Rosette.Api.Endpoints;
+
+public class Events : ContentEndpointBase<Events>
 {
     /// <summary>
     /// EventsEndpoint returns the events extracted from the endpoint
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public EventsEndpoint(object content) : base("events", content)
+    public Events(object content) : base("events", content)
     {
     }
 }
