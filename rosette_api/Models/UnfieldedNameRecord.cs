@@ -1,3 +1,4 @@
+using rosette_api.Models.JsonConverter;
 using System.Text.Json.Serialization;
 
 namespace Rosette.Api.Models;
