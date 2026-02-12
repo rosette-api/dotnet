@@ -151,7 +151,8 @@ public class EndpointExecutor {
     public virtual Response PostCall(ApiClient api) {
         string url = api.URI + Endpoint + ToQueryString();
         if (Filestream == null) {
-            HttpContent content = new StringContent(JsonSerializer.Serialize(AppendOptions(_params)));
+            var requestBody = JsonSerializer.Serialize(AppendOptions(_params));
+            HttpContent content = new StringContent(requestBody);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, content));
             var response = task.Result;

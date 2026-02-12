@@ -96,10 +96,13 @@ namespace Rosette.Api.Tests
         [Fact]
         public void RecordSimilarityEndpoint()
         {
-            RecordSimilarity rs = new RecordSimilarity("foo");
+            var fields = new Dictionary<string, RecordSimilarityFieldInfo>();
+            var properties = new RecordSimilarityProperties();
+            var records = new RecordSimilarityRecords();
+
+            RecordSimilarity rs = new RecordSimilarity(fields, properties, records);
 
             Assert.Equal("record-similarity", rs.Endpoint);
-            Assert.Equal("foo", rs.Content);
         }
 
         [Fact]
