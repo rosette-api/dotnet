@@ -1,8 +1,9 @@
-using Rosette.Api;
+﻿using Rosette.Api;
 using Rosette.Api.Models;
 
-namespace examples {
-    class Events
+namespace examples
+{
+    class SimilarTerms
     {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
@@ -10,19 +11,26 @@ namespace examples {
         /// </summary>
         /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
         /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string? altUrl = null) {
-            try {
+        private void RunEndpoint(string apiKey, string? altUrl = null)
+        {
+            try
+            {
                 ApiClient api = new ApiClient(apiKey);
-                if (!string.IsNullOrEmpty(altUrl)) {
+                if (!string.IsNullOrEmpty(altUrl))
+                {
                     api.UseAlternateURL(altUrl);
                 }
-                string events_text_data = @"I am looking for flights to Super Bowl 2022 in Inglewood, LA.";
 
-                Rosette.Api.Endpoints.Events endpoint = new Rosette.Api.Endpoints.Events(events_text_data);
+                var similar_terms_data = "spy";
+                var resultLanguages = new List<string>() { "spa", "deu", "jpn" };
+
+                Rosette.Api.Endpoints.SimilarTerms endpoint = new Rosette.Api.Endpoints.SimilarTerms(similar_terms_data);
+                endpoint.SetOption("resultLanguages", resultLanguages);
                 Response response = endpoint.Call(api);
 
                 // Print out the response headers
-                foreach (KeyValuePair<string, string> h in response.Headers) {
+                foreach (KeyValuePair<string, string> h in response.Headers)
+                {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }
                 // Print out the content in JSON format.  The Content property returns an IDictionary.
@@ -32,7 +40,8 @@ namespace examples {
                 response = endpoint.SetUrlParameter("output", "rosette").Call(api);
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("Exception: " + e.Message);
             }
         }
@@ -40,11 +49,14 @@ namespace examples {
         /// Main is a simple entrypoint for command line calling of the endpoint examples
         /// </summary>
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
-        static void Main(string[] args) {
-            if (args.Length != 0) {
-                new Events().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+        static void Main(string[] args)
+        {
+            if (args.Length != 0)
+            {
+                new SimilarTerms().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
-            else {
+            else
+            {
                 Console.WriteLine("An API Key is required");
             }
         }

@@ -1,4 +1,5 @@
 ﻿using Rosette.Api.Endpoints.Core;
+using Rosette.Api.Models;
 
 namespace Rosette.Api.Endpoints
 {

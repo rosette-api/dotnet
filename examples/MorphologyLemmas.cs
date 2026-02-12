@@ -1,5 +1,6 @@
 using Rosette.Api;
 using Rosette.Api.Endpoints;
+using Rosette.Api.Models;
 
 namespace examples {
     class MorphologyLemmas
@@ -20,6 +21,7 @@ namespace examples {
                 //The results of the API call will come back in the form of a Dictionary
                 Morphology endpoint = new Morphology(morphology_lemmas_data, MorphologyFeature.lemmas);
                 Response response = endpoint.Call(api);
+
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Text.Json;
 using Rosette.Api.Endpoints.Core;
+using Rosette.Api.Models;
 
 namespace Rosette.Api.Tests
 {

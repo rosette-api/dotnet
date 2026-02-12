@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using Rosette.Api.Models;
+using System.Collections.Specialized;
 using System.Text;
 using System.Text.Json;
 

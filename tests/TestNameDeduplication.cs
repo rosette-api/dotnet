@@ -1,4 +1,5 @@
 ﻿using Rosette.Api.Endpoints;
+using Rosette.Api.Models;
 
 namespace Rosette.Api.Tests
 {

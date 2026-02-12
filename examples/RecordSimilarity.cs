@@ -1,9 +1,9 @@
-using Rosette.Api;
-using Rosette.Api.Endpoints;
+﻿using Rosette.Api;
 using Rosette.Api.Models;
 
-namespace examples {
-    class MorphologyPartsOfSpeech
+namespace examples
+{
+    class RecordSimilarity
     {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
@@ -11,21 +11,35 @@ namespace examples {
         /// </summary>
         /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
         /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string? altUrl =null) {
-            try {
+        private void RunEndpoint(string apiKey, string? altUrl = null)
+        {
+            try
+            {
                 ApiClient api = new ApiClient(apiKey);
-                if (!string.IsNullOrEmpty(altUrl)) {
+                if (!string.IsNullOrEmpty(altUrl))
+                {
                     api.UseAlternateURL(altUrl);
                 }
-                string morphology_parts_of_speech_data = @"The fact is that the geese just went back to get a rest and I'm not banking on their return soon";
-                Morphology endpoint = new Morphology(morphology_parts_of_speech_data, MorphologyFeature.partsOfSpeech);
+
+                string events_text_data = @"I am looking for flights to Super Bowl 2022 in Inglewood, LA.";
+
+                Rosette.Api.Endpoints.RecordSimilarity endpoint = new Rosette.Api.Endpoints.RecordSimilarity(events_text_data);
                 Response response = endpoint.Call(api);
-                foreach (KeyValuePair<string, string> h in response.Headers) {
+
+                // Print out the response headers
+                foreach (KeyValuePair<string, string> h in response.Headers)
+                {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }
+                // Print out the content in JSON format.  The Content property returns an IDictionary.
+                Console.WriteLine(response.ContentAsJson(pretty: true));
+
+                // Retrieve the Events with full ADM
+                response = endpoint.SetUrlParameter("output", "rosette").Call(api);
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine("Exception: " + e.Message);
             }
         }
@@ -33,11 +47,14 @@ namespace examples {
         /// Main is a simple entrypoint for command line calling of the endpoint examples
         /// </summary>
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
-        static void Main(string[] args) {
-            if (args.Length != 0) {
-                new MorphologyPartsOfSpeech().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+        static void Main(string[] args)
+        {
+            if (args.Length != 0)
+            {
+                new RecordSimilarity().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
-            else {
+            else
+            {
                 Console.WriteLine("An API Key is required");
             }
         }

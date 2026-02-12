@@ -1,5 +1,6 @@
 using Rosette.Api;
 using Rosette.Api.Endpoints;
+using Rosette.Api.Models;
 
 namespace examples {
     class MorphologyHanReadings

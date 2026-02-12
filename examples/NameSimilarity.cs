@@ -1,8 +1,9 @@
 using Rosette.Api;
 using Rosette.Api.Endpoints;
+using Rosette.Api.Models;
 
 namespace examples {
-    class NameMatch
+    class NameSimilarity
     {
         /// <summary>
         /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
@@ -16,9 +17,11 @@ namespace examples {
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                string matched_name_data1 = @"Michael Jackson";
-                string matched_name_data2 = @"迈克尔·杰克逊";
-                NameSimilarity endpoint = new NameSimilarity(new Name(matched_name_data1), new Name(matched_name_data2));
+
+                var name1 = new Name("Michael Jackson").SetLanguage("eng").SetEntityType(EntityType.Person);
+                var name2 = new Name("迈克尔·杰克逊").SetEntityType(EntityType.Person);
+
+                Rosette.Api.Endpoints.NameSimilarity endpoint = new Rosette.Api.Endpoints.NameSimilarity(name1, name2);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
@@ -35,7 +38,7 @@ namespace examples {
         /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
         static void Main(string[] args) {
             if (args.Length != 0) {
-                new NameMatch().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+                new NameSimilarity().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
             }
             else {
                 Console.WriteLine("An API Key is required");

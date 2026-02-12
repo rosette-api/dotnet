@@ -1,4 +1,5 @@
 using Rosette.Api;
+using Rosette.Api.Models;
 
 namespace examples {
     class Ping

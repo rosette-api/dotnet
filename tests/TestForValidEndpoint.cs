@@ -1,18 +1,32 @@
 ﻿using Rosette.Api.Endpoints;
+using Rosette.Api.Models;
 
 namespace Rosette.Api.Tests
 {
     public class TestForValidEndpoint
     {
+
         [Fact]
-        public void CategoriesEndpoint() {
+        public void AddressSimilarityEndpoint()
+        {
+            Address a = new Address("foo");
+
+            AddressSimilarity asim = new AddressSimilarity(a,a);
+            Assert.Equal("address-similarity", asim.Endpoint);
+        }
+
+        [Fact]
+        public void CategoriesEndpoint()
+        {
             Categories c = new Categories("foo");
 
             Assert.Equal("categories", c.Endpoint);
             Assert.Equal("foo", c.Content);
         }
+
         [Fact]
-        public void EntitiesEndpoint() {
+        public void EntitiesEndpoint()
+        {
             Entities e = new Entities("foo");
             Assert.Equal("entities", e.Endpoint);
             Assert.Equal("foo", e.Content);
@@ -27,13 +41,15 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void InfoEndpoint() {
+        public void InfoEndpoint()
+        {
             Info i = new Info();
             Assert.Equal("info", i.Endpoint);
         }
 
         [Fact]
-        public void LanguageEndpoint() {
+        public void LanguageEndpoint()
+        {
             Language l = new Language("foo");
 
             Assert.Equal("language", l.Endpoint);
@@ -46,7 +62,8 @@ namespace Rosette.Api.Tests
         [InlineData(MorphologyFeature.hanReadings)]
         [InlineData(MorphologyFeature.lemmas)]
         [InlineData(MorphologyFeature.partsOfSpeech)]
-        public void MorphologyEndpoint(MorphologyFeature feature) {
+        public void MorphologyEndpoint(MorphologyFeature feature)
+        {
             Morphology m = new Morphology("foo", feature);
 
             Assert.Equal("morphology/" + m.FeatureAsString(feature), m.Endpoint);
@@ -54,20 +71,40 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void NameSimilarityEndpoint() {
+        public void NameSimilarityEndpoint()
+        {
             Name rn = new Name("foo");
             NameSimilarity ns = new NameSimilarity(rn, rn);
             Assert.Equal("name-similarity", ns.Endpoint);
         }
 
         [Fact]
-        public void PingEndpoint() {
+        public void NameTranslationEndpoint()
+        {
+            NameTranslation nt = new NameTranslation("foo");
+
+            Assert.Equal("name-translation", nt.Endpoint);
+        }
+
+        [Fact]
+        public void PingEndpoint()
+        {
             Ping p = new Ping();
             Assert.Equal("ping", p.Endpoint);
         }
 
         [Fact]
-        public void RelationshipsEndpoint() {
+        public void RecordSimilarityEndpoint()
+        {
+            RecordSimilarity rs = new RecordSimilarity("foo");
+
+            Assert.Equal("record-similarity", rs.Endpoint);
+            Assert.Equal("foo", rs.Content);
+        }
+
+        [Fact]
+        public void RelationshipsEndpoint()
+        {
             Relationships r = new Relationships("foo");
 
             Assert.Equal("relationships", r.Endpoint);
@@ -83,21 +120,33 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void SentencesEndpoint() {
+        public void SentencesEndpoint()
+        {
             Sentences s = new Sentences("foo");
             Assert.Equal("sentences", s.Endpoint);
             Assert.Equal("foo", s.Content);
         }
 
         [Fact]
-        public void SentimentEndpoint() {
+        public void SentimentEndpoint()
+        {
             Sentiment s = new Sentiment("foo");
             Assert.Equal("sentiment", s.Endpoint);
             Assert.Equal("foo", s.Content);
         }
 
         [Fact]
-        public void SyntaxDependenciesEndpoint() {
+        public void SimilarTermsEndpoint()
+        {
+            SimilarTerms st = new SimilarTerms("foo");
+
+            Assert.Equal("semantics/similar", st.Endpoint);
+            Assert.Equal("foo", st.Content);
+        }
+
+        [Fact]
+        public void SyntaxDependenciesEndpoint()
+        {
             SyntaxDependencies s = new SyntaxDependencies("foo");
 
             Assert.Equal("syntax/dependencies", s.Endpoint);
@@ -105,7 +154,8 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void TextEmbeddingEndpoint() {
+        public void TextEmbeddingEndpoint()
+        {
             TextEmbedding t = new TextEmbedding("foo");
 
             Assert.Equal("text-embedding", t.Endpoint);
@@ -113,7 +163,8 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void TokensEndpoint() {
+        public void TokensEndpoint()
+        {
             Tokens t = new Tokens("foo");
 
             Assert.Equal("tokens", t.Endpoint);
@@ -121,7 +172,8 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void TopicsEndpoint() {
+        public void TopicsEndpoint()
+        {
             Topics t = new Topics("foo");
 
             Assert.Equal("topics", t.Endpoint);
@@ -129,7 +181,8 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public void TransliterationEndpoint() {
+        public void TransliterationEndpoint()
+        {
             Transliteration t = new Transliteration("foo");
 
             Assert.Equal("transliteration", t.Endpoint);

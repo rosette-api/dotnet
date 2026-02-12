@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Rosette.Api;
+namespace Rosette.Api.Models;
 
 public class Name
 {
@@ -34,11 +34,22 @@ public class Name
     }
 
     /// <summary>
+    /// SetEntityType sets the entity type using the EntityType enum
+    /// </summary>
+    /// <param name="type">entity type</param>
+    /// <returns>updated Name object</returns>
+    public Name SetEntityType(EntityType type)
+    {
+        EntityType = type.ToString().ToUpperInvariant();
+        return this;
+    }
+
+    /// <summary>
     /// SetEntityType sets the optional entity type. PERSON, LOCATION and ORGANIZATION
     /// are currently supported.
     /// </summary>
     /// <param name="type">entity type, PERSON, LOCATION or ORGANIZATION</param>
-    /// <returns>updated RosetteName object</returns>
+    /// <returns>updated Name object</returns>
     public Name SetEntityType(string type)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(type);
@@ -59,7 +70,7 @@ public class Name
     /// SetLanguage sets the optional ISO-639-3 language code for the name's language
     /// </summary>
     /// <param name="language">ISO-639-3 language code</param>
-    /// <returns>updated RosetteName object</returns>
+    /// <returns>updated Name object</returns>
     public Name SetLanguage(string language)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(language);
@@ -71,7 +82,7 @@ public class Name
     /// SetScript sets the ISO-15924 code for the name's script
     /// </summary>
     /// <param name="script">ISO-15924 script code</param>
-    /// <returns>updated RosetteName object</returns>
+    /// <returns>updated Name object</returns>
     public Name SetScript(string script)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(script);

@@ -2,7 +2,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 
-namespace Rosette.Api;
+namespace Rosette.Api.Models;
 
 public class Response
 {

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Rosette.Api.Models;
+using System.Net;
 using System.Text.Json;
 
 namespace Rosette.Api.Tests
