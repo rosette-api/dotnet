@@ -10,7 +10,7 @@ namespace Rosette.Api.Endpoints
         /// </summary>
         /// <param name="address1">RosetteAddress object</param>
         /// <param name="address2">RosetteAddress object</param>
-        public AddressSimilarity(IAddress? address1, IAddress? address2) : base("address-similarity")
+        public AddressSimilarity(AddressField? address1, AddressField? address2) : base("address-similarity")
         {
             ArgumentNullException.ThrowIfNull(address1);
             Params["address1"] = address1;

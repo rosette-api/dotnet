@@ -21,13 +21,8 @@ namespace examples
                     api.UseAlternateURL(altUrl);
                 }
 
-                var add1 = new UnfieldedAddress("160 Pennsilvana Avenue, Washington, D.C., 20500");
-                var add2 = new Address()
-                    .SetHouseNumber("1600")
-                    .SetRoad("Pennsylvania Ave. NW")
-                    .SetCity("Washington")
-                    .SetState("D.C.")
-                    .SetPostCode("20500");
+                var add1 = new UnfieldedAddressRecord { Address = "160 Pennsylvana Avenue, Washington, D.C., 20500" };
+                var add2 = new FieldedAddressRecord(houseNumber: "1600", road: "Pennsylvania Ave N.W.", city: "Washington", state: "DC", postcode: "20500");
 
 
                 Rosette.Api.Endpoints.AddressSimilarity endpoint = new Rosette.Api.Endpoints.AddressSimilarity(add1, add2);

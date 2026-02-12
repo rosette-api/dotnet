@@ -9,7 +9,7 @@ namespace Rosette.Api.Tests
         [Fact]
         public void AddressSimilarityEndpoint()
         {
-            Address a = new Address("foo");
+            var a = new UnfieldedAddressRecord { Address = "foo" };
 
             AddressSimilarity asim = new AddressSimilarity(a,a);
             Assert.Equal("address-similarity", asim.Endpoint);
