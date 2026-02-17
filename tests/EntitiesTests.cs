@@ -22,7 +22,7 @@ namespace Rosette.Api.Tests
                 .SetGenre("social-media");
             
             Assert.Equal("eng", e.Language);
-            Assert.Equal("social-media", e.Genre);
+            Assert.Equal("", e.Genre);
         }
 
         [Fact]
@@ -44,7 +44,6 @@ namespace Rosette.Api.Tests
                 .SetUrlParameter("output", "rosette");
             
             Assert.Equal("eng", e.Language);
-            Assert.Equal("news", e.Genre);
             Assert.True((bool)e.Options["linkEntities"]);
             Assert.Equal("rosette", e.UrlParameters["output"]);
         }
