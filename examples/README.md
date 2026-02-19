@@ -21,27 +21,25 @@ Here is one way to run the examples.
 
 - Set up the environment.
   ```
-  apt update
-  apt install -y wget
+  apt-get update -y
+  apt-get install -y wget
+  apt-get install -y curl
+  apt-get install -y libicu76
+  apt-get install -y libgssapi-krb5-2
 
-  wget https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-  dpkg -i packages-microsoft-prod.deb
-
-  apt update
-  apt install -y dotnet-sdk-10.0
-
-  dotnet --version
-  dotnet --list-sdks
-  dotnet --list-runtimes
+  wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+  chmod +x ./dotnet-install.sh
+  ./dotnet-install.sh --version latest
+  export PATH="$PATH:/root/.dotnet"
 
   ```
 
 - Build the package from source.
   ```
   cd /dotnet
-  dotnet restore Rosette.Api.slnx
-  dotnet build /p:Configuration=Release Rosette.Api.slnx
-  dotnet build /p:Configuration=Debug Rosette.Api.slnx
+  dotnet restore rosette_api.slnx
+  dotnet build /p:Configuration=Release rosette_api.slnx
+  dotnet build /p:Configuration=Debug rosette_api.slnx
 
   ```
 
@@ -60,7 +58,7 @@ Here is one way to run the examples.
 
   dotnet new console --framework net10.0
   cp ../Language.cs ./Program.cs
-  dotnet add reference ../../rosette_api/Rosette.Api.csproj
+  dotnet add reference ../../rosette_api/rosette_api.csproj
 
   ```
 
