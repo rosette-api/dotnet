@@ -11,7 +11,7 @@ public class FieldedAddressRecord : AddressField
     [JsonPropertyName("house")]
     public string? House { get; set; }
 
-    [JsonPropertyName("house_number")]
+    [JsonPropertyName("houseNumber")]
     public string? HouseNumber { get; set; }
 
     [JsonPropertyName("road")]
@@ -32,7 +32,7 @@ public class FieldedAddressRecord : AddressField
     [JsonPropertyName("suburb")]
     public string? Suburb { get; set; }
 
-    [JsonPropertyName("city_district")]
+    [JsonPropertyName("cityDistrict")]
     public string? CityDistrict { get; set; }
 
     [JsonPropertyName("city")]
@@ -41,19 +41,19 @@ public class FieldedAddressRecord : AddressField
     [JsonPropertyName("island")]
     public string? Island { get; set; }
 
-    [JsonPropertyName("state_district")]
+    [JsonPropertyName("stateDistrict")]
     public string? StateDistrict { get; set; }
 
     [JsonPropertyName("state")]
     public string? State { get; set; }
 
-    [JsonPropertyName("country_region")]
+    [JsonPropertyName("countryRegion")]
     public string? CountryRegion { get; set; }
 
     [JsonPropertyName("country")]
     public string? Country { get; set; }
 
-    [JsonPropertyName("world_region")]
+    [JsonPropertyName("worldRegion")]
     public string? WorldRegion { get; set; }
 
     [JsonPropertyName("postcode")]

@@ -12,54 +12,10 @@ public class RecordSimilarityFieldConverter : JsonConverter<RecordSimilarityFiel
 {
     public override RecordSimilarityField? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        // Attempt to deserialize based on JSON structure
-        return reader.TokenType switch
-        {
-            JsonTokenType.String => new StringRecord { Text = reader.GetString() ?? string.Empty },
-            JsonTokenType.Number => new NumberRecord(reader.GetDouble()),
-            JsonTokenType.True or JsonTokenType.False => new BooleanRecord(reader.GetBoolean()),
-            JsonTokenType.StartObject => DeserializeObject(ref reader, options),
-            _ => null
-        };
-    }
-
-    private static RecordSimilarityField? DeserializeObject(ref Utf8JsonReader reader, JsonSerializerOptions options)
-    {
-        using var doc = JsonDocument.ParseValue(ref reader);
-        var root = doc.RootElement;
-
-        // Check for known property patterns to determine type
-        if (root.TryGetProperty("text", out _))
-        {
-            if (root.TryGetProperty("language", out _) ||
-                root.TryGetProperty("entityType", out _))
-            {
-                return JsonSerializer.Deserialize<FieldedNameRecord>(root.GetRawText(), options);
-            }
-            return JsonSerializer.Deserialize<UnfieldedNameRecord>(root.GetRawText(), options);
-        }
-
-        if (root.TryGetProperty("date", out _))
-        {
-            if (root.TryGetProperty("format", out _))
-            {
-                return JsonSerializer.Deserialize<FieldedDateRecord>(root.GetRawText(), options);
-            }
-            return JsonSerializer.Deserialize<UnfieldedDateRecord>(root.GetRawText(), options);
-        }
-
-        if (root.TryGetProperty("address", out _))
-        {
-            return JsonSerializer.Deserialize<UnfieldedAddressRecord>(root.GetRawText(), options);
-        }
-
-        if (root.TryGetProperty("house", out _) || root.TryGetProperty("city", out _))
-        {
-            return JsonSerializer.Deserialize<FieldedAddressRecord>(root.GetRawText(), options);
-        }
-
-        // Default to unknown field
-        return new UnknownFieldRecord(JsonNode.Parse(root.GetRawText()));
+        throw new NotSupportedException(
+            "Deserialization of RecordSimilarityField is not supported. " +
+            "Unfielded records cannot be reliably reconstructed from JSON responses " +
+            "because type information is lost. Please work with the raw JSON response data instead.");
     }
 
     public override void Write(Utf8JsonWriter writer, RecordSimilarityField value, JsonSerializerOptions options)

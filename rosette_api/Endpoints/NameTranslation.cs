@@ -13,6 +13,7 @@ namespace Rosette.Api.Endpoints
         private const string TARGET_LANGUAGE = "targetLanguage";
         private const string TARGET_SCHEME = "targetScheme";
         private const string TARGET_SCRIPT = "targetScript";
+        private const string MAXIMUM_RESULTS = "maximumResults";
 
         public NameTranslation(string name, string targetLanguage="eng") : base("name-translation") {
             SetName(name);
@@ -138,6 +139,26 @@ namespace Rosette.Api.Endpoints
                 Params[TARGET_SCRIPT].ToString() :
                 string.Empty;
         }
+
+        /// <summary>
+        /// SetMaximumResults sets the optional maximum number of results to return
+        /// </summary>
+        /// <param name="maximumResults">maximum number of results</param>
+        /// <returns>this</returns>
+        public NameTranslation SetMaximumResults(string maximumResults)
+        {
+            Params[MAXIMUM_RESULTS] = maximumResults;
+
+            return this;
+        }
+
+        public string? MaximumResults { get =>
+                Params.ContainsKey(MAXIMUM_RESULTS) ?
+                Params[MAXIMUM_RESULTS].ToString() :
+                string.Empty;
+        }
+
+        
 
         public Response Call(ApiClient api) {
             return Funcs.PostCall(api);
