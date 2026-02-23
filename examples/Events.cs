@@ -16,7 +16,7 @@ namespace examples {
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                string events_text_data = @"I am looking for flights to Super Bowl 2022 in Inglewood, LA.";
+                string events_text_data = @"Bill Gates went to the store.";
 
                 Rosette.Api.Endpoints.Events endpoint = new Rosette.Api.Endpoints.Events(events_text_data);
                 Response response = endpoint.Call(api);

@@ -1,5 +1,6 @@
 using System.IO.Compression;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace Rosette.Api.Models;
@@ -47,10 +48,17 @@ public class Response
     /// <returns>IDictionary of string, object</returns>
     public IDictionary<string, object> Content {get; private set;}
 
-    public object ContentAsJson(bool pretty=false) {
-        return pretty ?
-        JsonSerializer.Serialize(Content, new JsonSerializerOptions { WriteIndented = true }) :
-        JsonSerializer.Serialize(Content); }
+    public object ContentAsJson(bool pretty = false)
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = pretty,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping  // Don't escape Unicode characters
+        };
+
+        return JsonSerializer.Serialize(Content, options);
+    }
+
     public int StatusCode {get; private set;}
 
 
