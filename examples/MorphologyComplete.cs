@@ -19,7 +19,7 @@ namespace examples {
                 }
                 string morphology_complete_data = @"The quick brown fox jumped over the lazy dog. 👍🏾 Yes he did. B)";
                 //The results of the API call will come back in the form of a Dictionary
-                Morphology endpoint = new Morphology(morphology_complete_data, MorphologyFeature.complete);
+                Morphology endpoint = new(morphology_complete_data, MorphologyFeature.complete);
 
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {

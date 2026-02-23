@@ -19,7 +19,7 @@ namespace Rosette.ApiExamples {
                 }
                 string morphology_compound_components_data = @"Rechtsschutzversicherungsgesellschaften";
                 //The results of the API call will come back in the form of a Dictionary
-                Morphology endpoint = new Morphology(morphology_compound_components_data, MorphologyFeature.compoundComponents);
+                Morphology endpoint = new(morphology_compound_components_data, MorphologyFeature.compoundComponents);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

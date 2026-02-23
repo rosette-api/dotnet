@@ -17,7 +17,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string tokens_data = @"北京大学生物系主任办公室内部会议";
-                Rosette.Api.Endpoints.Tokens endpoint = new Rosette.Api.Endpoints.Tokens(tokens_data);
+                Rosette.Api.Endpoints.Tokens endpoint = new(tokens_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

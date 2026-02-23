@@ -21,7 +21,7 @@ namespace examples
                     api.UseAlternateURL(altUrl);
                 }
                 string semantic_vectors_data = @"Cambridge, Massachusetts";
-                Rosette.Api.Endpoints.SemanticsVector endpoint = new Rosette.Api.Endpoints.SemanticsVector(semantic_vectors_data);
+                Rosette.Api.Endpoints.SemanticsVector endpoint = new(semantic_vectors_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers)
                 {

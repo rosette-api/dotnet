@@ -18,7 +18,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string morphology_parts_of_speech_data = @"The fact is that the geese just went back to get a rest and I'm not banking on their return soon";
-                Morphology endpoint = new Morphology(morphology_parts_of_speech_data, MorphologyFeature.partsOfSpeech);
+                Morphology endpoint = new(morphology_parts_of_speech_data, MorphologyFeature.partsOfSpeech);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

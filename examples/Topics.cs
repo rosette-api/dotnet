@@ -17,7 +17,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string topics_data = @"Lily Collins is in talks to join Nicholas Hoult in Chernin Entertainment and Fox Searchlight's J.R.R. Tolkien biopic Tolkien. Anthony Boyle, known for playing Scorpius Malfoy in the British play Harry Potter and the Cursed Child, also has signed on for the film centered on the famed author. In Tolkien, Hoult will play the author of the Hobbit and Lord of the Rings book series that were later adapted into two Hollywood trilogies from Peter Jackson. Dome Karukoski is directing the project.";
-                Rosette.Api.Endpoints.Topics endpoint = new Rosette.Api.Endpoints.Topics(topics_data);
+                Rosette.Api.Endpoints.Topics endpoint = new(topics_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

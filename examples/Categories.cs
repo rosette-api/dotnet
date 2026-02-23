@@ -18,7 +18,7 @@ namespace examples {
                 }
                 string categories_text_data = @"Sony Pictures is planning to shoot a good portion of the new ""Ghostbusters"" in Boston as well.";
 
-                Rosette.Api.Endpoints.Categories endpoint = new Rosette.Api.Endpoints.Categories(categories_text_data);
+                Rosette.Api.Endpoints.Categories endpoint = new(categories_text_data);
 
                 Response response = endpoint.Call(api);
                 //The results of the API call will come back in the form of a Dictionary

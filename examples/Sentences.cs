@@ -17,7 +17,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string sentences_data = @"This land is your land. This land is my land, from California to the New York island; from the red wood forest to the Gulf Stream waters. This land was made for you and Me. As I was walking that ribbon of highway, I saw above me that endless skyway: I saw below me that golden valley: This land was made for you and me.";
-                Rosette.Api.Endpoints.Sentences endpoint = new Rosette.Api.Endpoints.Sentences(sentences_data);
+                Rosette.Api.Endpoints.Sentences endpoint = new(sentences_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

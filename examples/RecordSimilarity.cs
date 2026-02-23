@@ -86,7 +86,7 @@ namespace examples
                     }
                 };
 
-                Rosette.Api.Endpoints.RecordSimilarity endpoint = new Rosette.Api.Endpoints.RecordSimilarity(fields, properties, records);
+                Rosette.Api.Endpoints.RecordSimilarity endpoint = new(fields, properties, records);
                 Response response = endpoint.Call(api);
 
                 // Print out the response headers

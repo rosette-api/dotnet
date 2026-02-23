@@ -21,7 +21,7 @@ namespace examples {
 
                 string language_data = @"Por favor Señorita, says the man.";
 
-                Rosette.Api.Endpoints.Language endpoint = new Rosette.Api.Endpoints.Language(language_data);
+                Rosette.Api.Endpoints.Language endpoint = new(language_data);
                 //The results of the API call will come back in the form of a Dictionary
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {

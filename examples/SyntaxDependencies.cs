@@ -17,7 +17,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string syntax_dependencies_data = "Yoshinori Ohsumi, a Japanese cell biologist, was awarded the Nobel Prize in Physiology or Medicine on Monday.";
-                Rosette.Api.Endpoints.SyntaxDependencies endpoint = new Rosette.Api.Endpoints.SyntaxDependencies(syntax_dependencies_data);
+                Rosette.Api.Endpoints.SyntaxDependencies endpoint = new(syntax_dependencies_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

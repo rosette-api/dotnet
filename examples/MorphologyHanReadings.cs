@@ -19,7 +19,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string morphology_han_readings_data = @"北京大学生物系主任办公室内部会议";
-                Morphology endpoint = new Morphology(morphology_han_readings_data, MorphologyFeature.hanReadings);
+                Morphology endpoint = new(morphology_han_readings_data, MorphologyFeature.hanReadings);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

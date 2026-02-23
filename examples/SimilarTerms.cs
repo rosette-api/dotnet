@@ -24,7 +24,7 @@ namespace examples
                 var similar_terms_data = "spy";
                 var resultLanguages = new List<string>() { "spa", "deu", "jpn" };
 
-                Rosette.Api.Endpoints.SimilarTerms endpoint = new Rosette.Api.Endpoints.SimilarTerms(similar_terms_data);
+                Rosette.Api.Endpoints.SimilarTerms endpoint = new(similar_terms_data);
                 endpoint.SetOption("resultLanguages", resultLanguages);
                 Response response = endpoint.Call(api);
 
@@ -34,10 +34,6 @@ namespace examples
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }
                 // Print out the content in JSON format.  The Content property returns an IDictionary.
-                Console.WriteLine(response.ContentAsJson(pretty: true));
-
-                // Retrieve the Events with full ADM
-                response = endpoint.SetUrlParameter("output", "rosette").Call(api);
                 Console.WriteLine(response.ContentAsJson(pretty: true));
             }
             catch (Exception e)

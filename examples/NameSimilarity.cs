@@ -21,7 +21,7 @@ namespace examples {
                 var name1 = new Name("Michael Jackson").SetLanguage("eng").SetEntityType(EntityType.Person);
                 var name2 = new Name("迈克尔·杰克逊").SetEntityType(EntityType.Person);
 
-                Rosette.Api.Endpoints.NameSimilarity endpoint = new Rosette.Api.Endpoints.NameSimilarity(name1, name2);
+                Rosette.Api.Endpoints.NameSimilarity endpoint = new(name1, name2);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

@@ -16,7 +16,7 @@ namespace examples {
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                Rosette.Api.Endpoints.Info endpoint = new Rosette.Api.Endpoints.Info();
+                Rosette.Api.Endpoints.Info endpoint = new();
                 Response response = endpoint.Call(api);
 
                 foreach (KeyValuePair<string, string> h in response.Headers) {
