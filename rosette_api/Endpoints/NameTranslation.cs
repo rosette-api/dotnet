@@ -145,20 +145,18 @@ namespace Rosette.Api.Endpoints
         /// </summary>
         /// <param name="maximumResults">maximum number of results</param>
         /// <returns>this</returns>
-        public NameTranslation SetMaximumResults(string maximumResults)
+        public NameTranslation SetMaximumResults(int maximumResults)
         {
             Params[MAXIMUM_RESULTS] = maximumResults;
 
             return this;
         }
 
-        public string? MaximumResults { get =>
+        public int? MaximumResults { get =>
                 Params.ContainsKey(MAXIMUM_RESULTS) ?
-                Params[MAXIMUM_RESULTS].ToString() :
-                string.Empty;
+                (int?)Params[MAXIMUM_RESULTS] :
+                null;
         }
-
-        
 
         public Response Call(ApiClient api) {
             return Funcs.PostCall(api);
