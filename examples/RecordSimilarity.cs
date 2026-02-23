@@ -96,10 +96,6 @@ namespace examples
                 }
                 // Print out the content in JSON format.  The Content property returns an IDictionary.
                 Console.WriteLine(response.ContentAsJson(pretty: true));
-
-                // Retrieve the Events with full ADM
-                response = endpoint.SetUrlParameter("output", "rosette").Call(api);
-                Console.WriteLine(response.ContentAsJson(pretty: true));
             }
             catch (Exception e)
             {
