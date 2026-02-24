@@ -56,10 +56,10 @@ public class FieldedAddressRecord : AddressField
     [JsonPropertyName("worldRegion")]
     public string? WorldRegion { get; set; }
 
-    [JsonPropertyName("postcode")]
+    [JsonPropertyName("postCode")]
     public string? Postcode { get; set; }
 
-    [JsonPropertyName("po_box")]
+    [JsonPropertyName("poBox")]
     public string? PoBox { get; set; }
 
     /// <summary>

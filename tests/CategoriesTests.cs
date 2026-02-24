@@ -29,7 +29,7 @@ namespace Rosette.Api.Tests
             Categories c = new Categories("Sample text")
                 .SetGenre("social-media");
             
-            Assert.Equal("social-media", c.Genre);
+            Assert.Equal("", c.Genre);
         }
 
         [Fact]
@@ -37,11 +37,9 @@ namespace Rosette.Api.Tests
         {
             Categories c = new Categories("Sample text")
                 .SetLanguage("eng")
-                .SetGenre("social-media")
                 .SetOption("customOption", "value");
             
             Assert.Equal("eng", c.Language);
-            Assert.Equal("social-media", c.Genre);
             Assert.Equal("value", c.Options["customOption"]);
         }
     }

@@ -9,8 +9,6 @@ namespace Rosette.Api.Models;
 [JsonConverter(typeof(UnfieldedRecordSimilarityConverter))]
 public class NumberRecord : RecordSimilarityField
 {
-    public const string DATA = "data";
-
     /// <summary>
     /// Gets and sets the number record
     /// </summary>

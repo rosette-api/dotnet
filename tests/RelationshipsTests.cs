@@ -28,11 +28,9 @@ namespace Rosette.Api.Tests
         {
             Relationships r = new Relationships("Sample relationship text.")
                 .SetLanguage("eng")
-                .SetGenre("news")
                 .SetOption("accuracy", "high");
             
             Assert.Equal("eng", r.Language);
-            Assert.Equal("news", r.Genre);
             Assert.Equal("high", r.Options["accuracy"]);
         }
     }

@@ -11,6 +11,7 @@ namespace Rosette.Api.Tests
             Assert.Null(rn.EntityType);
             Assert.Null(rn.Language);
             Assert.Null(rn.Script);
+            Assert.Null(rn.Gender);
         }
 
         [Fact]
@@ -35,15 +36,25 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
+        public void CheckWithGender()
+        {
+            Name rn = new Name("foo").SetGender(GenderType.Female);
+            Assert.Equal("foo", rn.Text);
+            Assert.Equal(GenderType.Female, rn.Gender);
+        }
+
+        [Fact]
         public void CheckAll() {
             Name rn = new Name("foo")
                 .SetEntityType("PERSON")
                 .SetLanguage("eng")
-                .SetScript("zho");
+                .SetScript("zho")
+                .SetGender(GenderType.Male);
             Assert.Equal("foo", rn.Text);
             Assert.Equal("PERSON", rn.EntityType);
             Assert.Equal("eng", rn.Language);
             Assert.Equal("zho", rn.Script);
+            Assert.Equal(GenderType.Male, rn.Gender);
         }
     }
 }

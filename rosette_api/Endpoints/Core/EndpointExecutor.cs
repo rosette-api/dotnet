@@ -1,6 +1,7 @@
 ﻿using Rosette.Api.Models;
 using System.Collections.Specialized;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace Rosette.Api.Endpoints.Core;
@@ -148,18 +149,31 @@ public class EndpointExecutor {
     /// </summary>
     /// <param name="api">RosetteAPI object</param>
     /// <returns>Rosette Response</returns>
-    public virtual Response PostCall(ApiClient api) {
+    public virtual Response PostCall(ApiClient api)
+    {
         string url = api.URI + Endpoint + ToQueryString();
-        if (Filestream == null) {
-            var requestBody = JsonSerializer.Serialize(AppendOptions(_params));
-            HttpContent content = new StringContent(requestBody);
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+        if (Filestream == null)
+        {
+            // Use relaxed encoder to send actual Unicode characters
+            var serializeOptions = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+
+            HttpContent content = new StringContent(
+                JsonSerializer.Serialize(AppendOptions(_params), serializeOptions),
+                Encoding.UTF8,
+                "application/json"
+            );
+
             Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, content));
             var response = task.Result;
 
             return new Response(response);
         }
-        else {
+        else
+        {
             return PostAsMultipart(api, url);
         }
     }
@@ -185,21 +199,32 @@ public class EndpointExecutor {
     /// <param name="api">RosetteAPI object</param>
     /// <param name="url">Endpoint URL</param>
     /// <returns>RosetteResponse object</returns>
-    private Response PostAsMultipart(ApiClient api, string url) {
-
-        using (var _multiPartContent = new MultipartFormDataContent()) {
+    private Response PostAsMultipart(ApiClient api, string url)
+    {
+        using (var _multiPartContent = new MultipartFormDataContent())
+        {
             var streamContent = new StreamContent(Filestream);
             streamContent.Headers.Add("Content-Type", FileContentType);
             streamContent.Headers.Add("Content-Disposition", "mixed; name=\"content\"; filename=\"" + Path.GetFileName(Filestream.Name) + "\"");
             _multiPartContent.Add(streamContent, "content", Path.GetFileName(Filestream.Name));
 
-            if (_options.Count > 0 || _params.Count > 0) {
-                var stringContent = new StringContent(JsonSerializer.Serialize(AppendOptions(_params)), Encoding.UTF8, "application/json");
+            if (_options.Count > 0 || _params.Count > 0)
+            {
+                var serializeOptions = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                };
+
+                var stringContent = new StringContent(
+                    JsonSerializer.Serialize(AppendOptions(_params), serializeOptions),
+                    Encoding.UTF8,
+                    "application/json"
+                );
                 stringContent.Headers.Add("Content-Disposition", "mixed; name=\"request\"");
                 _multiPartContent.Add(stringContent, "request");
             }
-            Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, _multiPartContent));
 
+            Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, _multiPartContent));
             var response = task.Result;
             return new Response(response);
         }

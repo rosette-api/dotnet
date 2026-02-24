@@ -13,7 +13,8 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="endpointName">The API endpoint name (e.g., "language", "categories", "entities")</param>
     /// <param name="content">text, Uri object or FileStream</param>
-    protected ContentEndpointBase(string endpointName, object content) : base(endpointName) {
+    protected ContentEndpointBase(string endpointName, object content) : base(endpointName) 
+    {
         ArgumentNullException.ThrowIfNull(content);
         SetContent(content);
     }
@@ -23,7 +24,8 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
     /// <returns>Updated endpoint instance</returns>
-    public T SetContent(object content) {
+    public T SetContent(object content) 
+    {
         ArgumentNullException.ThrowIfNull(content);
         Funcs.Content = content;
         return (T)this;
@@ -39,7 +41,8 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="language">ISO 639-3 language code</param>
     /// <returns>Updated endpoint instance</returns>
-    public T SetLanguage(string language) {
+    public T SetLanguage(string language) 
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(language);
         Funcs.Language = language;
         return (T)this;
@@ -51,13 +54,14 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     public string? Language => Funcs.Language;
 
     /// <summary>
-    /// SetGenre sets the optional document genre, e.g. social-media
+    /// SetGenre is not supported for the endpoints and will be ignored.
+    /// This override prevents the genre from being set.
     /// </summary>
-    /// <param name="genre">document genre</param>
+    /// <param name="genre">document genre (ignored)</param>
     /// <returns>Updated endpoint instance</returns>
-    public T SetGenre(string genre) {
-        ArgumentException.ThrowIfNullOrWhiteSpace(genre);
-        Funcs.Genre = genre;
+    public T SetGenre(string genre)
+    {
+        // Genre is not supported for the endpoints - ignore the value
         return (T)this;
     }
 
@@ -72,7 +76,8 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="contentType">Content-Type</param>
     /// <returns>Updated endpoint instance</returns>
-    public T SetFileContentType(string contentType) {
+    public T SetFileContentType(string contentType) 
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
         Funcs.FileContentType = contentType;
         return (T)this;
@@ -93,7 +98,8 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="api">RosetteAPI object</param>
     /// <returns>RosetteResponse</returns>
-    public Response Call(ApiClient api) {
+    public Response Call(ApiClient api) 
+    {
         return Funcs.PostCall(api);
     }
 }

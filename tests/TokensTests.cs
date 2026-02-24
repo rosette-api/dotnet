@@ -26,11 +26,9 @@ namespace Rosette.Api.Tests
         public void CheckFluentAPI()
         {
             Tokens t = new Tokens("Sample text")
-                .SetLanguage("jpn")
-                .SetGenre("social-media");
+                .SetLanguage("jpn");
             
             Assert.Equal("jpn", t.Language);
-            Assert.Equal("social-media", t.Genre);
         }
     }
 }

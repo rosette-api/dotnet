@@ -29,7 +29,7 @@ namespace Rosette.Api.Tests
             Sentiment s = new Sentiment("Sample text")
                 .SetGenre("social-media");
             
-            Assert.Equal("social-media", s.Genre);
+            Assert.Equal("", s.Genre);
         }
 
         [Fact]
@@ -37,11 +37,9 @@ namespace Rosette.Api.Tests
         {
             Sentiment s = new Sentiment("Great service!")
                 .SetLanguage("eng")
-                .SetGenre("review")
                 .SetOption("sentiment.threshold", 0.5);
             
             Assert.Equal("eng", s.Language);
-            Assert.Equal("review", s.Genre);
             Assert.Equal(0.5, s.Options["sentiment.threshold"]);
         }
     }

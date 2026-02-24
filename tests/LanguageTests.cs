@@ -37,7 +37,7 @@ namespace Rosette.Api.Tests
             Language l = new Language("Sample text")
                 .SetGenre("social-media");
             
-            Assert.Equal("social-media", l.Genre);
+            Assert.Equal("", l.Genre);
         }
     }
 }

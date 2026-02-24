@@ -27,11 +27,9 @@ namespace Rosette.Api.Tests
         public void CheckFluentAPI()
         {
             Sentences s = new Sentences("Text content.")
-                .SetLanguage("eng")
-                .SetGenre("news");
+                .SetLanguage("eng");
             
             Assert.Equal("eng", s.Language);
-            Assert.Equal("news", s.Genre);
         }
     }
 }
