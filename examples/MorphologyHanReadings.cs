@@ -1,4 +1,6 @@
-using rosette_api;
+using Rosette.Api;
+using Rosette.Api.Endpoints;
+using Rosette.Api.Models;
 
 namespace examples {
     class MorphologyHanReadings
@@ -12,13 +14,13 @@ namespace examples {
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try
             {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string morphology_han_readings_data = @"北京大学生物系主任办公室内部会议";
-                MorphologyEndpoint endpoint = new MorphologyEndpoint(morphology_han_readings_data, MorphologyFeature.hanReadings);
-                RosetteResponse response = endpoint.Call(api);
+                Morphology endpoint = new(morphology_han_readings_data, MorphologyFeature.hanReadings);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

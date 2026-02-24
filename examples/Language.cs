@@ -1,4 +1,5 @@
-using rosette_api;
+using Rosette.Api;
+using Rosette.Api.Models;
 
 namespace examples {
     class Language
@@ -11,7 +12,7 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
@@ -20,9 +21,9 @@ namespace examples {
 
                 string language_data = @"Por favor Señorita, says the man.";
 
-                LanguageEndpoint endpoint = new LanguageEndpoint(language_data);
+                Rosette.Api.Endpoints.Language endpoint = new(language_data);
                 //The results of the API call will come back in the form of a Dictionary
-                RosetteResponse response = endpoint.Call(api);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

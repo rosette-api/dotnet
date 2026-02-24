@@ -1,4 +1,5 @@
-using rosette_api;
+using Rosette.Api;
+using Rosette.Api.Models;
 
 namespace examples {
     class Entities
@@ -11,14 +12,14 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string entities_text_data = @"The Securities and Exchange Commission today announced the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating with litigators in the SEC’s 11 regional offices around the country.";
 
-                EntitiesEndpoint endpoint = new EntitiesEndpoint(entities_text_data).SetGenre("social-media");
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.Entities endpoint = new Rosette.Api.Endpoints.Entities(entities_text_data).SetGenre("social-media");
+                Response response = endpoint.Call(api);
 
                 // Print out the response headers
                 foreach (KeyValuePair<string, string> h in response.Headers) {

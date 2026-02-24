@@ -1,4 +1,5 @@
-using rosette_api;
+using Rosette.Api;
+using Rosette.Api.Models;
 
 namespace examples {
     class NameDeduplication
@@ -11,17 +12,17 @@ namespace examples {
         /// <param name="altUrl">Optional alternate URL</param>
         private void RunEndpoint(string apiKey, string? altUrl =null) {
             try {
-                RosetteAPI api = new RosetteAPI(apiKey);
+                ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
                 string name_dedupe_data = @"Alice Terry,Alice Thierry,Betty Grable,Betty Gable,Norma Shearer,Norm Shearer,Brigitte Helm,Bridget Helem,Judy Holliday,Julie Halliday";
 
                 List<string> dedupe_names = name_dedupe_data.Split(',').ToList<string>();
-                List<RosetteName> names = dedupe_names.Select(name => new RosetteName(name)).ToList();
+                List<Name> names = dedupe_names.Select(name => new Name(name)).ToList();
 
-                NameDeduplicationEndpoint endpoint = new NameDeduplicationEndpoint(names).SetThreshold(0.75f);
-                RosetteResponse response = endpoint.Call(api);
+                Rosette.Api.Endpoints.NameDeduplication endpoint = new Rosette.Api.Endpoints.NameDeduplication(names).SetThreshold(0.75f);
+                Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
                 }

@@ -21,18 +21,16 @@ Here is one way to run the examples.
 
 - Set up the environment.
   ```
-  apt update
-  apt install -y wget
+  apt-get update -y
+  apt-get install -y wget
+  apt-get install -y curl
+  apt-get install -y libicu76
+  apt-get install -y libgssapi-krb5-2
 
-  wget https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-  dpkg -i packages-microsoft-prod.deb
-
-  apt update
-  apt install -y dotnet-sdk-10.0
-
-  dotnet --version
-  dotnet --list-sdks
-  dotnet --list-runtimes
+  wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+  chmod +x ./dotnet-install.sh
+  ./dotnet-install.sh --version latest
+  export PATH="$PATH:/root/.dotnet"
 
   ```
 
