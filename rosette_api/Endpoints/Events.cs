@@ -8,7 +8,5 @@ public class Events : ContentEndpointBase<Events>
     /// EventsEndpoint returns the events extracted from the endpoint
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public Events(object content) : base("events", content)
-    {
-    }
+    public Events(object content) : base("events", content) { }
 }

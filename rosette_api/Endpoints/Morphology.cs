@@ -77,14 +77,7 @@ namespace Rosette.Api.Endpoints
         }
         public string FileContentType => Funcs.FileContentType;
         public string Filename => Funcs.Filename;
-        /// <summary>
-        /// Call passes the data to the server and returns the response
-        /// </summary>
-        /// <param name="api">RosetteAPI object</param>
-        /// <returns>RosetteResponse</returns>
-        public Response Call(ApiClient api) {
-            return Funcs.PostCall(api);
-        }
+
         /// <summary>
         /// FeatureAsString returns the feature enum in its endpoint string form
         /// </summary>
@@ -102,5 +95,14 @@ namespace Rosette.Api.Endpoints
             return _featureEndpoint[feature];
         }
 
+        public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+        {
+            return Funcs.PostCallAsync(api, cancellationToken);
+        }
+
+        public new Response Call(ApiClient api)
+        {
+            return Funcs.PostCall(api);
+        }
     }
 }

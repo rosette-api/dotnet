@@ -94,6 +94,17 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     public string Filename => Funcs.Filename;
 
     /// <summary>
+    /// CallAsync passes the data to the server and returns the response asynchronously
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response</returns>
+    public Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    {
+        return Funcs.PostCallAsync(api, cancellationToken);
+    }
+
+    /// <summary>
     /// Call passes the data to the server and returns the response
     /// </summary>
     /// <param name="api">RosetteAPI object</param>

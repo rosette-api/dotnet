@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using Rosette.Api.Models;
+using System.Collections.Specialized;
 
 namespace Rosette.Api.Endpoints.Core;
 
@@ -87,5 +88,23 @@ public class EndpointBase<T> where T : EndpointBase<T>
         UrlParameters.Remove(parameterKey);
         return (T)this;
     }
+
+    /// <summary>
+    /// CallAsync passes the data to the server and returns the response asynchronously
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response</returns>
+    public Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    {
+        return Funcs.GetCallAsync(api, cancellationToken);
+    }
+
+    /// <summary>
+    /// Call passes the data to the server and returns the response
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <returns>Response</returns>
+    public Response Call(ApiClient api) => Funcs.GetCall(api);
 
 }

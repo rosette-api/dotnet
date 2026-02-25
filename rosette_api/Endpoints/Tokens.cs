@@ -7,6 +7,5 @@ public class Tokens : ContentEndpointBase<Tokens> {
     /// TokensEndpoint returns each entity extracted from the input
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public Tokens(object content) : base("tokens", content) {
-    }
+    public Tokens(object content) : base("tokens", content) { }
 }

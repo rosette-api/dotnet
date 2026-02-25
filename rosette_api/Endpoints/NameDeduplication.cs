@@ -12,6 +12,7 @@ namespace Rosette.Api.Endpoints
         public NameDeduplication(List<Name> names) : base("name-deduplication") {
             SetNames(names);
         }
+
         /// <summary>
         /// SetNames assigns a list of RosetteName objects to be processed
         /// </summary>
@@ -24,6 +25,7 @@ namespace Rosette.Api.Endpoints
             Params["names"] = names;
             return this;
         }
+
         /// <summary>
         /// Names returns the list of RosetteName objects
         /// </summary>
@@ -32,6 +34,7 @@ namespace Rosette.Api.Endpoints
                 Params["names"] as IList<Name> :
                 null;
         }
+
         /// <summary>
         /// SetProfileID sets a profile ID to be used during processing
         /// </summary>
@@ -41,6 +44,7 @@ namespace Rosette.Api.Endpoints
             Params["profileid"] = profileID;
             return this;
         }
+
         /// <summary>
         /// ProfileID returns the profile ID or empty string
         /// </summary>
@@ -49,6 +53,7 @@ namespace Rosette.Api.Endpoints
                 Params["profileid"].ToString() :
                 string.Empty;
         }
+
         /// <summary>
         /// SetThreshold sets the threshold to be used for determining deduplication cluster sizing
         /// </summary>
@@ -58,6 +63,7 @@ namespace Rosette.Api.Endpoints
             Params["threshold"] = threshold;
             return this;
         }
+
         /// <summary>
         /// Threshold returns the threshold or the default, 0.75f
         /// </summary>
@@ -66,14 +72,15 @@ namespace Rosette.Api.Endpoints
                 (float)Params["threshold"] :
                 0.75f;
         }
-        /// <summary>
-        /// Call returns the response from the server
-        /// </summary>
-        /// <param name="api">RosetteAPI object</param>
-        /// <returns>RosetteResponse</returns>
-        public Response Call(ApiClient api) {
-            return Funcs.PostCall(api);
+
+        public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+        {
+            return Funcs.PostCallAsync(api, cancellationToken);
         }
 
+        public new Response Call(ApiClient api)
+        {
+            return Funcs.PostCall(api);
+        }
     }
 }

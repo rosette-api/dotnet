@@ -21,7 +21,12 @@ public class RecordSimilarity : EndpointBase<RecordSimilarity>
         Params["records"] = records;
     }
 
-    public Response Call(ApiClient api)
+    public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    {
+        return Funcs.PostCallAsync(api, cancellationToken);
+    }
+
+    public new Response Call(ApiClient api)
     {
         return Funcs.PostCall(api);
     }

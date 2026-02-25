@@ -7,6 +7,5 @@ public class Topics : ContentEndpointBase<Topics> {
     /// TopicsEndpoint returns the topic extracted from the endpoint
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public Topics(object content) : base("topics", content) {
-    }
+    public Topics(object content) : base("topics", content) { }
 }

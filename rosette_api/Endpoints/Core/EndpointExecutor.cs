@@ -17,6 +17,7 @@ public class EndpointExecutor {
     private const string LANGUAGE = "language";
     private const string GENRE = "genre";
     private const string OPTIONS = "options";
+    private const string HTTP_MEDIA_TYPE = "application/json";
 
     /// <summary>
     /// _params contains the parameters to be sent to the server
@@ -132,30 +133,39 @@ public class EndpointExecutor {
     }
 
     /// <summary>
-    /// GetCall executes the endpoint against the server using GetAsync
+    /// GetCallAsync executes the endpoint against the server using GetAsync
     /// </summary>
-    /// <param name="api">RosetteAPI object</param>
-    /// <returns>RosetteResponse</returns>
-    public Response GetCall(ApiClient api) {
+    /// <param name="api">ApiClient object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response</returns>
+    public async Task<Response> GetCallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    {
         string url = api.URI + Endpoint;
-        Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.GetAsync(url));
-        var response = task.Result;
-
-        return new Response(response);
+        var responseMsg = await api.Client.GetAsync(url, cancellationToken).ConfigureAwait(false);
+        return await Response.CreateAsync(responseMsg).ConfigureAwait(false);
     }
 
     /// <summary>
-    /// Call calls the server with the provided data using PostAsync
+    /// GetCall executes the endpoint against the server using GetAsync
     /// </summary>
-    /// <param name="api">RosetteAPI object</param>
-    /// <returns>Rosette Response</returns>
-    public virtual Response PostCall(ApiClient api)
+    /// <param name="api">ApiClient object</param>
+    /// <returns>Response</returns>
+    public Response GetCall(ApiClient api)
+    {
+        return GetCallAsync(api).GetAwaiter().GetResult();
+    }
+
+    /// PostCallAsync calls the server with the provided data using PostAsync
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response</returns>
+    public virtual async Task<Response> PostCallAsync(ApiClient api, CancellationToken cancellationToken = default)
     {
         string url = api.URI + Endpoint + ToQueryString();
 
         if (Filestream == null)
         {
-            // Use relaxed encoder to send actual Unicode characters
             var serializeOptions = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
@@ -164,18 +174,26 @@ public class EndpointExecutor {
             HttpContent content = new StringContent(
                 JsonSerializer.Serialize(AppendOptions(_params), serializeOptions),
                 Encoding.UTF8,
-                "application/json"
+                HTTP_MEDIA_TYPE
             );
 
-            Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, content));
-            var response = task.Result;
-
-            return new Response(response);
+            var responseMsg = await api.Client.PostAsync(url, content, cancellationToken).ConfigureAwait(false);
+            return await Response.CreateAsync(responseMsg).ConfigureAwait(false);
         }
         else
         {
-            return PostAsMultipart(api, url);
+            return await PostAsMultipartAsync(api, url, cancellationToken).ConfigureAwait(false);
         }
+    }
+
+    /// <summary>
+    /// PostCall calls the server with the provided data using PostAsync
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <returns>Response</returns>
+    public virtual Response PostCall(ApiClient api)
+    {
+        return PostCallAsync(api).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -191,6 +209,43 @@ public class EndpointExecutor {
             dict.Remove(OPTIONS); // Remove returns false if key doesn't exist, no need to check
         }
         return dict;
+    }
+
+    /// <summary>
+    /// PostAsMultipartAsync handles processing of files as a multipart upload
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <param name="url">Endpoint URL</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response object</returns>
+    private async Task<Response> PostAsMultipartAsync(ApiClient api, string url, CancellationToken cancellationToken = default)
+    {
+        using (var multiPartContent = new MultipartFormDataContent())
+        {
+            var streamContent = new StreamContent(Filestream);
+            streamContent.Headers.Add("Content-Type", FileContentType);
+            streamContent.Headers.Add("Content-Disposition", "mixed; name=\"content\"; filename=\"" + Path.GetFileName(Filestream.Name) + "\"");
+            multiPartContent.Add(streamContent, "content", Path.GetFileName(Filestream.Name));
+
+            if (_options.Count > 0 || _params.Count > 0)
+            {
+                var serializeOptions = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                };
+
+                var stringContent = new StringContent(
+                    JsonSerializer.Serialize(AppendOptions(_params), serializeOptions),
+                    Encoding.UTF8,
+                    HTTP_MEDIA_TYPE
+                );
+                stringContent.Headers.Add("Content-Disposition", "mixed; name=\"request\"");
+                multiPartContent.Add(stringContent, "request");
+            }
+
+            var responseMsg = await api.Client.PostAsync(url, multiPartContent, cancellationToken).ConfigureAwait(false);
+            return await Response.CreateAsync(responseMsg).ConfigureAwait(false);
+        }
     }
 
     /// <summary>
@@ -218,7 +273,7 @@ public class EndpointExecutor {
                 var stringContent = new StringContent(
                     JsonSerializer.Serialize(AppendOptions(_params), serializeOptions),
                     Encoding.UTF8,
-                    "application/json"
+                    HTTP_MEDIA_TYPE
                 );
                 stringContent.Headers.Add("Content-Disposition", "mixed; name=\"request\"");
                 _multiPartContent.Add(stringContent, "request");
@@ -260,11 +315,4 @@ public class EndpointExecutor {
         return sb.ToString();
     }
 
-    /// <summary>
-    /// HasContent checks for content to send
-    /// </summary>
-    /// <returns>bool if content, contenturi or filename</returns>
-    private bool HasContent() {
-        return _params.ContainsKey(CONTENT) || _params.ContainsKey(CONTENTURI) || !string.IsNullOrEmpty(Filename);
-    }
 }
