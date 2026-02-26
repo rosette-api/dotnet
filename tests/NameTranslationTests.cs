@@ -5,7 +5,7 @@ namespace Rosette.Api.Tests;
 public class NameTranslationTests
 {
     [Fact]
-    public void CheckBasicUsage() {
+    public void Constructor_SetsNameAndDefaults_WhenCalledWithName() {
         NameTranslation n = new NameTranslation("foo");
         Assert.Equal("foo", n.Name);
         Assert.Equal("eng", n.TargetLanguage);
@@ -18,7 +18,7 @@ public class NameTranslationTests
     }
 
     [Fact]
-    public void CheckAllUsage() {
+    public void FluentAPI_SetsAllProperties_WhenChaining() {
         NameTranslation n = new NameTranslation("foo")
             .SetEntityType("PERSON")
             .SetSourceLanguageOfOrigin("eng")

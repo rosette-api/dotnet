@@ -6,7 +6,7 @@ namespace Rosette.Api.Tests;
 public class NameSimilarityTests
 {
     [Fact]
-    public void CheckForNull() {
+    public void Constructor_ThrowsArgumentNullException_WhenNamesAreNull() {
         var exception = Record.Exception(() => new NameSimilarity(null, null));
         Assert.IsType<ArgumentNullException>(exception);
         Assert.Equal("Value cannot be null. (Parameter 'name1')", exception.Message);

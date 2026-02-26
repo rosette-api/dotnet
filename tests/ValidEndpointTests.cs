@@ -7,7 +7,7 @@ public class ValidEndpointTests
 {
 
     [Fact]
-    public void AddressSimilarityEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingAddressSimilarity()
     {
         var a = new UnfieldedAddressRecord { Address = "foo" };
 
@@ -16,7 +16,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void CategoriesEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingCategories()
     {
         Categories c = new Categories("foo");
 
@@ -25,7 +25,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void EntitiesEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingEntities()
     {
         Entities e = new Entities("foo");
         Assert.Equal("entities", e.Endpoint);
@@ -33,7 +33,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void EventsEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingEvents()
     {
         Events e = new Events("foo");
         Assert.Equal("events", e.Endpoint);
@@ -41,14 +41,14 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void InfoEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingInfo()
     {
         Info i = new Info();
         Assert.Equal("info", i.Endpoint);
     }
 
     [Fact]
-    public void LanguageEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingLanguage()
     {
         Language l = new Language("foo");
 
@@ -62,7 +62,7 @@ public class ValidEndpointTests
     [InlineData(MorphologyFeature.hanReadings)]
     [InlineData(MorphologyFeature.lemmas)]
     [InlineData(MorphologyFeature.partsOfSpeech)]
-    public void MorphologyEndpoint(MorphologyFeature feature)
+    public void Constructor_SetsEndpointAndContent_WhenCreatingMorphologyWithFeature(MorphologyFeature feature)
     {
         Morphology m = new Morphology("foo", feature);
 
@@ -71,7 +71,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void NameDeduplicationEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingNameDeduplication()
     {
         List<Name> names = [
             new Name("foo"),
@@ -83,7 +83,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void NameSimilarityEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingNameSimilarity()
     {
         Name rn = new Name("foo");
         NameSimilarity ns = new NameSimilarity(rn, rn);
@@ -91,7 +91,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void NameTranslationEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingNameTranslation()
     {
         NameTranslation nt = new NameTranslation("foo");
 
@@ -99,14 +99,14 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void PingEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingPing()
     {
         Ping p = new Ping();
         Assert.Equal("ping", p.Endpoint);
     }
 
     [Fact]
-    public void RecordSimilarityEndpoint()
+    public void Constructor_SetsEndpoint_WhenCreatingRecordSimilarity()
     {
         var fields = new Dictionary<string, RecordSimilarityFieldInfo>();
         var properties = new RecordSimilarityProperties();
@@ -118,7 +118,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void RelationshipsEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingRelationships()
     {
         Relationships r = new Relationships("foo");
 
@@ -127,7 +127,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void SemanticVectorsEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSemanticsVector()
     {
         SemanticsVector s = new SemanticsVector("foo");
         Assert.Equal("semantics/vector", s.Endpoint);
@@ -135,7 +135,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void SentencesEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSentences()
     {
         Sentences s = new Sentences("foo");
         Assert.Equal("sentences", s.Endpoint);
@@ -143,7 +143,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void SentimentEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSentiment()
     {
         Sentiment s = new Sentiment("foo");
         Assert.Equal("sentiment", s.Endpoint);
@@ -151,7 +151,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void SimilarTermsEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSimilarTerms()
     {
         SimilarTerms st = new SimilarTerms("foo");
 
@@ -160,7 +160,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void SyntaxDependenciesEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSyntaxDependencies()
     {
         SyntaxDependencies s = new SyntaxDependencies("foo");
 
@@ -169,7 +169,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void TextEmbeddingEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTextEmbedding()
     {
         TextEmbedding t = new TextEmbedding("foo");
 
@@ -178,7 +178,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void TokensEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTokens()
     {
         Tokens t = new Tokens("foo");
 
@@ -187,7 +187,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void TopicsEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTopics()
     {
         Topics t = new Topics("foo");
 
@@ -196,7 +196,7 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void TransliterationEndpoint()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTransliteration()
     {
         Transliteration t = new Transliteration("foo");
 

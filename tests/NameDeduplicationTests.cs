@@ -6,7 +6,7 @@ namespace Rosette.Api.Tests;
 public class NameDeduplicationTests
 {
     [Fact]
-    public void CheckBasicUsage() {
+    public void Constructor_SetsNamesAndThreshold_WhenCalledWithNames() {
         List<Name> names = new List<Name> {
             new Name("foo"),
             new Name("bar")
@@ -17,7 +17,7 @@ public class NameDeduplicationTests
     }
 
     [Fact]
-    public void CheckProfileID() {
+    public void SetProfileID_SetsProfileID_WhenCalled() {
         List<Name> names = new List<Name> {
             new Name("foo"),
             new Name("bar")
@@ -28,7 +28,7 @@ public class NameDeduplicationTests
     }
 
     [Fact]
-    public void CheckThreshold() {
+    public void SetThreshold_SetsThreshold_WhenCalled() {
         List<Name> names = new List<Name> {
             new Name("foo"),
             new Name("bar")

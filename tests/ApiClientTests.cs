@@ -1,24 +1,22 @@
-﻿using Rosette.Api.Endpoints;
-
-namespace Rosette.Api.Tests;
+﻿namespace Rosette.Api.Tests;
 
 public class ApiClientTests
 {
     private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/";
     private static readonly string _testKey = "testKey";
-
+        
     private static ApiClient Init() {
         return new ApiClient(_testKey);
     }
 
     [Fact]
-    public void TestKey() {
+    public void ApiKey_ReturnsProvidedKey_WhenInitialized() {
         ApiClient api = Init();
         Assert.Equal(_testKey, api.APIKey);
     }
 
     [Fact]
-    public void TestNullKey() {
+    public void Constructor_ThrowsArgumentNullException_WhenApiKeyIsNull() {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         string key = null;
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -30,7 +28,7 @@ public class ApiClientTests
     }
 
     [Fact]
-    public void TestURI() {
+    public void URI_ReturnsDefaultAndAppendsTrailingSlash_WhenUsingAlternateUrl() {
         ApiClient api = Init();
         Assert.Equal(_defaultUri, api.URI);
 
@@ -41,7 +39,7 @@ public class ApiClientTests
     }
 
     [Fact]
-    public void TestConnections() {
+    public void ConcurrentConnections_ReturnsCorrectValue_WhenDefaultAndAssigned() {
         ApiClient api = Init();
         Assert.Equal(2, api.ConcurrentConnections);
 
@@ -50,7 +48,7 @@ public class ApiClientTests
     }
 
     [Fact]
-    public void TestValidCustomHeader() {
+    public void AddCustomHeader_ThrowsArgumentException_WhenHeaderNameIsInvalid() {
         ApiClient api = Init();
         Exception ex = Assert.Throws<ArgumentException>(() => api.AddCustomHeader("BogusHeader", "BogusValue"));
 
@@ -58,12 +56,12 @@ public class ApiClientTests
     }
 
     [Fact]
-    public void TestVersion() {
+    public void Version_IsNotEmpty_Always() {
         Assert.NotEmpty(ApiClient.Version);
     }
 
     [Fact]
-    public void TestTimeout() {
+    public void Timeout_ReturnsCorrectValue_WhenDefaultAndAssigned() {
         ApiClient api = Init();
         Assert.Equal(300, api.Timeout);
 
@@ -72,7 +70,7 @@ public class ApiClientTests
     }
 
     [Fact]
-    public void TestDebug() {
+    public void Debug_TogglesToTrue_WhenSetDebugCalled() {
         ApiClient api = Init();
         Assert.False(api.Debug);
 
@@ -81,7 +79,7 @@ public class ApiClientTests
     }
 
     [Fact]
-    public void TestDefaultClient() {
+    public void Client_HasCorrectDefaultConfiguration_WhenInitialized() {
         ApiClient api = Init();
 
         Assert.Equal(_defaultUri, api.Client.BaseAddress.AbsoluteUri);

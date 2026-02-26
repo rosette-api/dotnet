@@ -21,7 +21,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void CheckContent() {
+    public void Content_SetStringAndAddToParams_WhenAssigned() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Content.ToString()!);
         f.Content = "Sample Content";
@@ -31,13 +31,13 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void CheckEndpoint() {
+    public void Endpoint_ReturnsProvidedValue_WhenInitialized() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Equal("test", f.Endpoint);
     }
 
     [Fact]
-    public void CheckContentUri() {
+    public void Content_SetUriAndAddToParams_WhenAssignedUri() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Content.ToString()!);
         f.Content = new Uri("http://google.com");
@@ -47,7 +47,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void CheckFilename() {
+    public void Content_SetFileStreamAndFilename_WhenAssignedFileStream() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Content.ToString()!);
         var newFile = Path.GetTempFileName();
@@ -61,7 +61,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void CheckLanguage() {
+    public void Language_SetLanguage_WhenAssigned() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Language!);
         f.Language = "eng";
@@ -69,7 +69,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void CheckGenre() {
+    public void Genre_SetGenre_WhenAssigned() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Genre!);
         f.Genre = "social-media";
@@ -77,7 +77,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void CheckFileContentType() {
+    public void FileContentType_SetContentType_WhenAssigned() {
         EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
         Assert.Equal("text/plain", f.FileContentType);
         f.FileContentType = "octet/stream";
@@ -85,7 +85,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void TestParameterSerialization() {
+    public void Parameters_SerializeCorrectly_WhenOptionsSet() {
         ApiClient api = new ApiClient("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
@@ -107,7 +107,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void TestPostCall() {
+    public void PostCall_ReturnsOKResponse_WhenCalledWithValidContent() {
         ApiClient api = new ApiClient("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
@@ -123,7 +123,7 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public void TestGetCall() {
+    public void GetCall_ReturnsOKResponse_WhenCalled() {
         ApiClient api = new ApiClient("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)

@@ -99,7 +99,7 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// <param name="api">ApiClient object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <returns>Response</returns>
-    public Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
     {
         return Funcs.PostCallAsync(api, cancellationToken);
     }
@@ -109,7 +109,7 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="api">RosetteAPI object</param>
     /// <returns>RosetteResponse</returns>
-    public Response Call(ApiClient api) 
+    public new Response Call(ApiClient api) 
     {
         return Funcs.PostCall(api);
     }

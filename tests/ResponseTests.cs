@@ -7,7 +7,7 @@ namespace Rosette.Api.Tests;
 public class ResponseTests
 {
     [Fact]
-    public void CheckStatusOK() {
+    public void Constructor_SetsStatusCodeAndContent_WhenHttpResponseIsOK() {
         Dictionary<string, string> data = new Dictionary<string, string> {
             { "content", "Some sample content" },
             { "language", "eng" }

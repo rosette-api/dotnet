@@ -11,7 +11,7 @@ namespace Rosette.ApiExamples {
         /// </summary>
         /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
         /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string? altUrl =null) {
+        private void RunEndpoint(string apiKey, string? altUrl = null) {
             try {
                 ApiClient api = new ApiClient(apiKey);
                 if (!string.IsNullOrEmpty(altUrl)) {

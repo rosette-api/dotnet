@@ -603,11 +603,11 @@ namespace Rosette.Api.Tests
             // Act
             var task1 = endpoint1.CallAsync(api);
             var task2 = endpoint2.CallAsync(api);
-            await Task.WhenAll(task1, task2);
+            var results = await Task.WhenAll(task1, task2);
 
             // Assert
-            Assert.Equal((int)HttpStatusCode.OK, task1.Result.StatusCode);
-            Assert.Equal((int)HttpStatusCode.OK, task2.Result.StatusCode);
+            Assert.Equal((int)HttpStatusCode.OK, results[0].StatusCode);
+            Assert.Equal((int)HttpStatusCode.OK, results[1].StatusCode);
         }
 
         [Fact]
