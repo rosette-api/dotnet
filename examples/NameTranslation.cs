@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class NameTranslation
@@ -17,7 +17,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string translated_name_data = @"معمر محمد أبو منيار القذاف";
-                Rosette.Api.Endpoints.NameTranslation endpoint = new(translated_name_data, "eng");
+                Rosette.Api.Client.Endpoints.NameTranslation endpoint = new(translated_name_data, "eng");
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

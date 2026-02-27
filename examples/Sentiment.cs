@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class Sentiment
@@ -25,7 +25,7 @@ namespace examples {
                 sw.Close();
 
                 using (FileStream fs = File.OpenRead(newFile)) {
-                    Rosette.Api.Endpoints.Sentiment endpoint = new Rosette.Api.Endpoints.Sentiment(fs)
+                    Rosette.Api.Client.Endpoints.Sentiment endpoint = new Rosette.Api.Client.Endpoints.Sentiment(fs)
                         .SetFileContentType(@"application/octet-stream")
                         .SetLanguage("eng");
                     Response response = endpoint.Call(api);

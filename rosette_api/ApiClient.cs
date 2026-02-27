@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Rosette.Api;
+namespace Rosette.Api.Client;
 
 public class ApiClient : IDisposable
 {

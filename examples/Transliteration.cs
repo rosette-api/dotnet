@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class Transliteration
@@ -18,7 +18,7 @@ namespace examples {
                 }
                 string transliteration_data = "ana r2ye7 el gam3a el sa3a 3 el 3asr";
 
-                Rosette.Api.Endpoints.Transliteration endpoint = new Rosette.Api.Endpoints.Transliteration(transliteration_data).SetLanguage("ara");
+                Rosette.Api.Client.Endpoints.Transliteration endpoint = new Rosette.Api.Client.Endpoints.Transliteration(transliteration_data).SetLanguage("ara");
                 Response response = endpoint.Call(api);
 
                 foreach (KeyValuePair<string, string> h in response.Headers) {

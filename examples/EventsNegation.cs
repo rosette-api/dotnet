@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class EventsNegation
@@ -18,7 +18,7 @@ namespace examples {
                 }
                 string events_text_data = @"Bill Gates went to the store.";
 
-                Rosette.Api.Endpoints.Events endpoint = new(events_text_data);
+                Rosette.Api.Client.Endpoints.Events endpoint = new(events_text_data);
                 endpoint.SetOption("negation", "ONLY_POSITIVE");
                 Response response = endpoint.Call(api);
 

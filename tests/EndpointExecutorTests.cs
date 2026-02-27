@@ -2,8 +2,9 @@
 using System.Collections.Specialized;
 using System.Net;
 using System.Text.Json;
-using Rosette.Api.Endpoints.Core;
-using Rosette.Api.Models;
+using Rosette.Api.Client.Endpoints.Core;
+using Rosette.Api.Client.Models;
+using Rosette.Api.Client;
 
 namespace Rosette.Api.Tests;
 

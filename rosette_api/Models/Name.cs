@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 public class Name
 {

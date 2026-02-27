@@ -1,4 +1,4 @@
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 /// <summary>
 /// Represents the type of entity for name processing

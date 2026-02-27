@@ -1,8 +1,8 @@
-using Rosette.Api;
-using Rosette.Api.Endpoints;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Endpoints;
+using Rosette.Api.Client.Models;
 
-namespace Rosette.ApiExamples {
+namespace Rosette.Api.ClientExamples {
     class MorphologyCompoundComponents
     {
         /// <summary>

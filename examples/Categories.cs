@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 using System.Text;
 
 namespace examples {
@@ -21,7 +21,7 @@ namespace examples {
                 }
                 string categories_text_data = @"Sony Pictures is planning to shoot a good portion of the new ""Ghostbusters"" in Boston as well.";
 
-                Rosette.Api.Endpoints.Categories endpoint = new Rosette.Api.Endpoints.Categories(categories_text_data);
+                Rosette.Api.Client.Endpoints.Categories endpoint = new Rosette.Api.Client.Endpoints.Categories(categories_text_data);
 
                 Response response = endpoint.Call(api);
                 //The results of the API call will come back in the form of a Dictionary
@@ -55,7 +55,7 @@ namespace examples {
                 }
                 string categories_text_data = @"Sony Pictures is planning to shoot a good portion of the new ""Ghostbusters"" in Boston as well.";
 
-                Rosette.Api.Endpoints.Categories endpoint = new Rosette.Api.Endpoints.Categories(categories_text_data);
+                Rosette.Api.Client.Endpoints.Categories endpoint = new Rosette.Api.Client.Endpoints.Categories(categories_text_data);
 
                 // Use async call with optional timeout
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));

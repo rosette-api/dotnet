@@ -1,4 +1,4 @@
-﻿using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Models;
 
 namespace Rosette.Api.Tests;
 

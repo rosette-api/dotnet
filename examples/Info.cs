@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class Info
@@ -16,7 +16,7 @@ namespace examples {
                 if (!string.IsNullOrEmpty(altUrl)) {
                     api.UseAlternateURL(altUrl);
                 }
-                Rosette.Api.Endpoints.Info endpoint = new();
+                Rosette.Api.Client.Endpoints.Info endpoint = new();
                 Response response = endpoint.Call(api);
 
                 foreach (KeyValuePair<string, string> h in response.Headers) {

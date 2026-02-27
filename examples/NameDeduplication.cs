@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class NameDeduplication
@@ -21,7 +21,7 @@ namespace examples {
                 List<string> dedupe_names = name_dedupe_data.Split(',').ToList<string>();
                 List<Name> names = dedupe_names.Select(name => new Name(name)).ToList();
 
-                Rosette.Api.Endpoints.NameDeduplication endpoint = new Rosette.Api.Endpoints.NameDeduplication(names).SetThreshold(0.75f);
+                Rosette.Api.Client.Endpoints.NameDeduplication endpoint = new Rosette.Api.Client.Endpoints.NameDeduplication(names).SetThreshold(0.75f);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {
                     Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));

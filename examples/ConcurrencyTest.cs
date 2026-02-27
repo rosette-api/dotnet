@@ -1,4 +1,4 @@
-using Rosette.Api;
+using Rosette.Api.Client;
 
 namespace examples {
     public class ConcurrencyTest {
@@ -31,7 +31,7 @@ namespace examples {
 
         private static Task runLookup(int taskId, ApiClient api) {
             string entities_text_data = @"The Securities and Exchange Commission today announced the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating with litigators in the SEC’s 11 regional offices around the country.";
-            Rosette.Api.Endpoints.Entities endpoint = new(entities_text_data);
+            Rosette.Api.Client.Endpoints.Entities endpoint = new(entities_text_data);
             foreach (int call in Enumerable.Range(0, calls)) {
                 Console.WriteLine("Task ID: {0} call {1}", taskId, call);
                 try {

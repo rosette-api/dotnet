@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 public class Response
 {

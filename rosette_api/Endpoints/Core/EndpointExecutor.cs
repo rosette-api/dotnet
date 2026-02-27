@@ -1,10 +1,10 @@
-﻿using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Models;
 using System.Collections.Specialized;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
-namespace Rosette.Api.Endpoints.Core;
+namespace Rosette.Api.Client.Endpoints.Core;
 
 /// <summary>
 /// EndpointProcessor provices the compilation and processing of the endpoint

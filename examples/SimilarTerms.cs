@@ -1,5 +1,5 @@
-﻿using Rosette.Api;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples
 {
@@ -24,7 +24,7 @@ namespace examples
                 var similar_terms_data = "spy";
                 var resultLanguages = new List<string>() { "spa", "deu", "jpn" };
 
-                Rosette.Api.Endpoints.SimilarTerms endpoint = new(similar_terms_data);
+                Rosette.Api.Client.Endpoints.SimilarTerms endpoint = new(similar_terms_data);
                 endpoint.SetOption("resultLanguages", resultLanguages);
                 Response response = endpoint.Call(api);
 

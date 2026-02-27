@@ -1,4 +1,4 @@
-﻿using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Models;
 using System.Net;
 using System.Text.Json;
 

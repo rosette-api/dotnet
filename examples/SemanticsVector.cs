@@ -1,5 +1,5 @@
-﻿using Rosette.Api;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples
 {
@@ -21,7 +21,7 @@ namespace examples
                     api.UseAlternateURL(altUrl);
                 }
                 string semantic_vectors_data = @"Cambridge, Massachusetts";
-                Rosette.Api.Endpoints.SemanticsVector endpoint = new(semantic_vectors_data);
+                Rosette.Api.Client.Endpoints.SemanticsVector endpoint = new(semantic_vectors_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers)
                 {

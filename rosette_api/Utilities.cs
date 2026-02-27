@@ -1,4 +1,4 @@
-﻿namespace Rosette.Api;
+﻿namespace Rosette.Api.Client;
 
 public static class Utilities
 {

@@ -1,6 +1,6 @@
-﻿using Rosette.Api.Endpoints.Core;
+﻿using Rosette.Api.Client.Endpoints.Core;
 
-namespace Rosette.Api.Endpoints;
+namespace Rosette.Api.Client.Endpoints;
 
 public class Sentiment : ContentEndpointBase<Sentiment>
 {

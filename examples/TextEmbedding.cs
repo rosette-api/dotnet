@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class TextEmbedding
@@ -17,7 +17,7 @@ namespace examples {
                     api.UseAlternateURL(altUrl);
                 }
                 string embedding_data = @"Cambridge, Massachusetts";
-                Rosette.Api.Endpoints.TextEmbedding endpoint = new(embedding_data);
+                Rosette.Api.Client.Endpoints.TextEmbedding endpoint = new(embedding_data);
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers)
                 {

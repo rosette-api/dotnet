@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class LanguageMultilingual
@@ -18,7 +18,7 @@ namespace examples {
                 }
                 string language_multilingual_data = @"On Thursday, as protesters gathered in Washington D.C., the United States Federal Communications Commission under Chairman Ajit Pai voted 3-2 to overturn a 2015 decision, commonly called Net Neutrality, that forbade Internet service providers (ISPs) such as Verizon, Comcast, and AT&T from blocking individual websites or charging websites or customers more for faster load times.  Quatre femmes ont été nommées au Conseil de rédaction de la loi du Qatar. Jeudi, le décret royal du Qatar a annoncé que 28 nouveaux membres ont été nommés pour le Conseil de la Choura du pays.  ذكرت مصادر أمنية يونانية، أن 9 موقوفين من منظمة ""د هـ ك ب ج"" الذين كانت قد أوقفتهم الشرطة اليونانية في وقت سابق كانوا يخططون لاغتيال الرئيس التركي رجب طيب أردوغان.";
 
-                Rosette.Api.Endpoints.Language endpoint = new Rosette.Api.Endpoints.Language(language_multilingual_data).SetOption("multilingual", true);
+                Rosette.Api.Client.Endpoints.Language endpoint = new Rosette.Api.Client.Endpoints.Language(language_multilingual_data).SetOption("multilingual", true);
 
                 //The results of the API call will come back in the form of a Dictionary
                 Response response = endpoint.Call(api);

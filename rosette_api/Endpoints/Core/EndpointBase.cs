@@ -1,7 +1,7 @@
-﻿using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Models;
 using System.Collections.Specialized;
 
-namespace Rosette.Api.Endpoints.Core;
+namespace Rosette.Api.Client.Endpoints.Core;
 
 public class EndpointBase<T> where T : EndpointBase<T>
 {

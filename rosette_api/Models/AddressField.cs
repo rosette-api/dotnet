@@ -1,4 +1,4 @@
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 /// <summary>
 /// Abstract parent class for UnfieldedAddress and FieldedAddress

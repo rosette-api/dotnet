@@ -1,4 +1,4 @@
-using Rosette.Api.Endpoints;
+using Rosette.Api.Client.Endpoints;
 
 namespace Rosette.Api.Tests;
 

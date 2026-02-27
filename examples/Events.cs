@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class Events
@@ -18,7 +18,7 @@ namespace examples {
                 }
                 string events_text_data = @"Bill Gates went to the store.";
 
-                Rosette.Api.Endpoints.Events endpoint = new Rosette.Api.Endpoints.Events(events_text_data);
+                Rosette.Api.Client.Endpoints.Events endpoint = new Rosette.Api.Client.Endpoints.Events(events_text_data);
                 Response response = endpoint.Call(api);
 
                 // Print out the response headers

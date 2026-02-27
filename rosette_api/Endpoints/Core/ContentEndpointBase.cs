@@ -1,6 +1,6 @@
-using Rosette.Api.Models;
+using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Endpoints.Core;
+namespace Rosette.Api.Client.Endpoints.Core;
 
 /// <summary>
 /// Abstract base class for Rosette API endpoints that accept content and common parameters

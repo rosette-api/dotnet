@@ -1,5 +1,5 @@
-using Rosette.Api;
-using Rosette.Api.Models;
+using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples {
     class Language
@@ -19,7 +19,7 @@ namespace examples {
 
                 string language_data = @"Por favor Señorita, says the man.";
 
-                Rosette.Api.Endpoints.Language endpoint = new(language_data);
+                Rosette.Api.Client.Endpoints.Language endpoint = new(language_data);
                 //The results of the API call will come back in the form of a Dictionary
                 Response response = endpoint.Call(api);
                 foreach (KeyValuePair<string, string> h in response.Headers) {

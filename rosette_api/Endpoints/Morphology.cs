@@ -1,7 +1,7 @@
-﻿using Rosette.Api.Endpoints.Core;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Endpoints.Core;
+using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Endpoints
+namespace Rosette.Api.Client.Endpoints
 {
     public enum MorphologyFeature {
         /// <summary>provide complete morphology</summary>

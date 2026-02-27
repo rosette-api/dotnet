@@ -1,5 +1,5 @@
-﻿using Rosette.Api;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples
 {
@@ -86,7 +86,7 @@ namespace examples
                     }
                 };
 
-                Rosette.Api.Endpoints.RecordSimilarity endpoint = new(fields, properties, records);
+                Rosette.Api.Client.Endpoints.RecordSimilarity endpoint = new(fields, properties, records);
                 Response response = endpoint.Call(api);
 
                 // Print out the response headers

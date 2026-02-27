@@ -1,5 +1,5 @@
-﻿using Rosette.Api;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
 namespace examples
 {
@@ -25,7 +25,7 @@ namespace examples
                 var add2 = new FieldedAddressRecord(houseNumber: "1600", road: "Pennsylvania Ave N.W.", city: "Washington", state: "DC", postcode: "20500");
 
 
-                Rosette.Api.Endpoints.AddressSimilarity endpoint = new(add1, add2);
+                Rosette.Api.Client.Endpoints.AddressSimilarity endpoint = new(add1, add2);
 
                 Response response = endpoint.Call(api);
 

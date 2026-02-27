@@ -1,4 +1,6 @@
-﻿namespace Rosette.Api.Tests;
+﻿using Rosette.Api.Client;
+
+namespace Rosette.Api.Tests;
 
 public class ApiClientTests
 {
