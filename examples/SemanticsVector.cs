@@ -1,53 +1,52 @@
 ﻿using Rosette.Api.Client;
 using Rosette.Api.Client.Models;
 
-namespace examples
+namespace Rosette.Api.Examples;
+
+class SemanticsVector
 {
-    class SemanticsVector
+    /// <summary>
+    /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
+    /// An optional alternate URL may be provided, i.e. for an on-premise solution.
+    /// </summary>
+    /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
+    /// <param name="altUrl">Optional alternate URL</param>
+    private static void RunEndpoint(string apiKey, string? altUrl = null)
     {
-        /// <summary>
-        /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
-        /// An optional alternate URL may be provided, i.e. for an on-premise solution.
-        /// </summary>
-        /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
-        /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string? altUrl = null)
+        try
         {
-            try
+            ApiClient api = new(apiKey);
+            if (!string.IsNullOrEmpty(altUrl))
             {
-                ApiClient api = new ApiClient(apiKey);
-                if (!string.IsNullOrEmpty(altUrl))
-                {
-                    api.UseAlternateURL(altUrl);
-                }
-                string semantic_vectors_data = @"Cambridge, Massachusetts";
-                Rosette.Api.Client.Endpoints.SemanticsVector endpoint = new(semantic_vectors_data);
-                Response response = endpoint.Call(api);
-                foreach (KeyValuePair<string, string> h in response.Headers)
-                {
-                    Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
-                }
-                Console.WriteLine(response.ContentAsJson(pretty: true));
+                api.UseAlternateURL(altUrl);
             }
-            catch (Exception e)
+            string semantic_vectors_data = @"Cambridge, Massachusetts";
+            Rosette.Api.Client.Endpoints.SemanticsVector endpoint = new(semantic_vectors_data);
+            Response response = endpoint.Call(api);
+            foreach (KeyValuePair<string, string> h in response.Headers)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
             }
+            Console.WriteLine(response.ContentAsJson(pretty: true));
         }
-        /// <summary>
-        /// Main is a simple entrypoint for command line calling of the endpoint examples
-        /// </summary>
-        /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
-        static void Main(string[] args)
+        catch (Exception e)
         {
-            if (args.Length != 0)
-            {
-                new SemanticsVector().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
-            }
-            else
-            {
-                Console.WriteLine("An API Key is required");
-            }
+            Console.WriteLine("Exception: " + e.Message);
+        }
+    }
+    /// <summary>
+    /// Main is a simple entrypoint for command line calling of the endpoint examples
+    /// </summary>
+    /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
+    static void Main(string[] args)
+    {
+        if (args.Length != 0)
+        {
+            RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+        }
+        else
+        {
+            Console.WriteLine("An API Key is required");
         }
     }
 }

@@ -2,46 +2,46 @@ using Rosette.Api.Client;
 using Rosette.Api.Client.Endpoints;
 using Rosette.Api.Client.Models;
 
-namespace examples {
-    class MorphologyComplete
-    {
-        /// <summary>
-        /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
-        /// An optional alternate URL may be provided, i.e. for an on-premise solution.
-        /// </summary>
-        /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
-        /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string? altUrl = null) {
-            try {
-                ApiClient api = new ApiClient(apiKey);
-                if (!string.IsNullOrEmpty(altUrl)) {
-                    api.UseAlternateURL(altUrl);
-                }
-                string morphology_complete_data = @"The quick brown fox jumped over the lazy dog. 👍🏾 Yes he did. B)";
-                //The results of the API call will come back in the form of a Dictionary
-                Morphology endpoint = new(morphology_complete_data, MorphologyFeature.complete);
+namespace Rosette.Api.Examples;
 
-                Response response = endpoint.Call(api);
-                foreach (KeyValuePair<string, string> h in response.Headers) {
-                    Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
-                }
-                Console.WriteLine(response.ContentAsJson(pretty: true));
+class MorphologyComplete
+{
+    /// <summary>
+    /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
+    /// An optional alternate URL may be provided, i.e. for an on-premise solution.
+    /// </summary>
+    /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
+    /// <param name="altUrl">Optional alternate URL</param>
+    private static void RunEndpoint(string apiKey, string? altUrl = null) {
+        try {
+            ApiClient api = new(apiKey);
+            if (!string.IsNullOrEmpty(altUrl)) {
+                api.UseAlternateURL(altUrl);
             }
-            catch (Exception e) {
-                Console.WriteLine("Exception: " + e.Message);
+            string morphology_complete_data = @"The quick brown fox jumped over the lazy dog. 👍🏾 Yes he did. B)";
+            //The results of the API call will come back in the form of a Dictionary
+            Morphology endpoint = new(morphology_complete_data, MorphologyFeature.complete);
+
+            Response response = endpoint.Call(api);
+            foreach (KeyValuePair<string, string> h in response.Headers) {
+                Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
             }
+            Console.WriteLine(response.ContentAsJson(pretty: true));
         }
-        /// <summary>
-        /// Main is a simple entrypoint for command line calling of the endpoint examples
-        /// </summary>
-        /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
-        static void Main(string[] args) {
-            if (args.Length != 0) {
-                new MorphologyComplete().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
-            }
-            else {
-                Console.WriteLine("An API Key is required");
-            }
+        catch (Exception e) {
+            Console.WriteLine("Exception: " + e.Message);
+        }
+    }
+    /// <summary>
+    /// Main is a simple entrypoint for command line calling of the endpoint examples
+    /// </summary>
+    /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
+    static void Main(string[] args) {
+        if (args.Length != 0) {
+            RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+        }
+        else {
+            Console.WriteLine("An API Key is required");
         }
     }
 }
