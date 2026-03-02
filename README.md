@@ -1,28 +1,32 @@
-# Dotnet Client Binding
+<a href="https://www.babelstreet.com/rosette">
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://charts.babelstreet.com/icon-dark.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://charts.babelstreet.com/icon-light.png">
+  <img alt="Babel Street Logo" width="48" height="48">
+</picture>
+</a>
 
-Rosette API Client Library for .Net
+# Analytics by Babel Street
 
-## Summary
+---
 
-This is intended to be a replacement for the C# binding.  Although it is written in C#, it has the following improvements:
+[![NuGet version](https://badge.fury.io/nu/rosette_api.svg)](https://badge.fury.io/nu/rosette_api)
 
-- targets .Net Core 2 rather than Framework
-- updated to handle multi-threaded operations and address some concurrency issues in the old C# binding
-- all new unit tests
-- removal of brittle return types, replaced with IDictionary and JSON so that returned data reflects the latest from the server
+Our product is a full text processing pipeline from data preparation to extracting the most relevant information and
+analysis utilizing precise, focused AI that has built-in human understanding. Text Analytics provides foundational
+linguistic analysis for identifying languages and relating words. The result is enriched and normalized text for
+high-speed search and processing without translation.
 
-## Usage
+Text Analytics extracts events and entities — people, organizations, and places — from unstructured text and adds the
+structure of associating those entities into events that deliver only the necessary information for near real-time
+decision making. Accompanying tools shorten the process of training AI models to recognize domain-specific events.
 
-1. Add the rosette_api package from NuGet: `dotnet add package rosette_api.net` (it's not published yet)
-1. Add `using rosette_api` to your source file
-1. Create a `RosetteAPI` object to manage the HTTP client: `RosetteAPI api = new RosetteAPI(your api key);`
-1. Create an endpoint object: `LanguageEndpoint endpoint = new LanguageEndpoint(content);` Content may be
-    1. A string representing the data to be analyzed
-    1. A filename containing the data to be analyzed
-    1. A valid URL to a web page containing the data to be analyzed
-1. Execute the call: `RosetteResponse response = endpoint.Call(api);`  The response is an object containing `Content`, which is an IDictionary, and `ContentAsJson()`, which is the JSON representation of the `Content`. `Headers` and `StatusCode` are also available.
+The product delivers a multitude of ways to sharpen and expand search results. Semantic similarity expands search
+beyond keywords to words with the same meaning, even in other languages. Sentiment analysis and topic extraction help
+filter results to what’s relevant.
 
-Please refer to the examples and [API documentation](https://rosette-api.github.io/dotnet/) for further details.  Optional parameters to the api and endpoints are accessed via methods.  Required parameters are provided through the constructors.
+## Analytics API Access
+- Analytics Cloud [Sign Up](https://developer.babelstreet.com/signup)
 
 ## Migrating from C# Binding
 
@@ -71,6 +75,46 @@ Dotnet Binding:
   Console.WriteLine(response.ContentAsJson(pretty: true));
 ```
 
+#### Synchronous
+```csharp
+using Rosette.Api.Client;
+using Rosette.Api.Client.Endpoints;
+using Rosette.Api.Client.Models;
+
+ApiClient api = new("YOUR_API_KEY");
+
+string text = @"The Securities and Exchange Commission today announced the leadership 
+of the agency's trial unit. Bridget Fitzpatrick has been named Chief Litigation Counsel 
+of the SEC.";
+
+Entities endpoint = new Entities(text).SetGenre("social-media");
+Response response = endpoint.Call(api);
+
+foreach (KeyValuePair<string, string> h in response.Headers) {
+    Console.WriteLine($"{h.Key}:{h.Value}");
+}
+Console.WriteLine(response.ContentAsJson(pretty: true));
+```
+
+#### Async (Recommended)
+```csharp
+using Rosette.Api.Client;
+using Rosette.Api.Client.Endpoints;
+using Rosette.Api.Client.Models;
+
+ApiClient api = new("YOUR_API_KEY");
+
+string text = @"The Securities and Exchange Commission today announced the leadership 
+of the agency's trial unit. Bridget Fitzpatrick has been named Chief Litigation Counsel 
+of the SEC.";
+
+Entities endpoint = new Entities(text).SetGenre("social-media");
+
+using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+Response response = await endpoint.CallAsync(api, cts.Token);
+
+Console.WriteLine(response.ContentAsJson(pretty: true));
+```
 
 ## Documentation
 
@@ -98,48 +142,20 @@ If you would prefer the manual approach, install dotnet on your computer and ref
 
 ### Building the source
 
-From the root directory of the source tree, `dotnet build`
+From the root directory of the source tree, `dotnet build`.  Note that .NET 10 SDK is a prerequisite for building the source.
 
 ### Running the tests
 
 From the root directory of the source tree, `dotnet test tests/tests.csproj`
 
-### Running the examples against the source code
+#### Examples
+View small example programs for each Rosette endpoint
+in the [examples](https://github.com/rosette-api/dotnet/tree/master/examples) directory.
 
-There does not seem to be a way to compile and run all of the examples without a bit of help. The easiest way to compile and run an example is to create an empty directory using `dotnet new` and update the `.csproj` file to contain:
-
-```csharp
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-      <RestoreSources>$(RestoreSources);../rosette_api/bin/Debug;https://api.nuget.org/v3/index.json</RestoreSources>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="RosetteAPI.Net" Version="1.9.0" />
-  </ItemGroup>
-
-</Project>
-```
-The `RestoreSources` line should be updated to reference wherever the Debug (or Release) build of the packed source lives (see above).  Also note that the Version may be different from what is shown.
-
-Steps:
-
-1. In an empty directory, `dotnet new console -lang c#`.  This will create several files and an obj directory
-1. Remove `Program.cs`
-1. Edit your `.csproj` to contain the `RestoreSources` line from the above example, making sure to include the path to the `pack` output location, and the `ItemGroup` block
-1. Copy an example file into the directory
-1. `dotnet run ${API_KEY}` where API_KEY is your Rosette API key
-1. To run a different example, delete the one in the directory, copy the new one into the directory and `dotnet run ${API_KEY}`
-
-Developer Note:  If you update the source, you will need to do two things:
-
-1. From the source root, `dotnet pack`
-1. `dotnet nuget locals all --clear` to clear the cached package
-
-
-## Status
-
-In development.  Nothing published to NuGet, yet
+#### Documentation & Support
+- [Binding API](https://rosette-api.github.io/java/)
+- [Analytics Platform API](https://docs.babelstreet.com/API/en/index-en.html)
+- [Binding Release Notes](https://github.com/rosette-api/dotnet/wiki/Release-Notes)
+- [Analytics Platform Release Notes](https://docs.babelstreet.com/Release/en/rosette-cloud.html)
+- [Support](https://babelstreet.my.site.com/support/s/)
+- [Binding License: Apache 2.0](LICENSE.txt)
