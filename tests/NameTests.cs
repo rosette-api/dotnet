@@ -6,7 +6,7 @@ public class NameTests
 {
     [Fact]
     public void Constructor_SetsTextAndNullProperties_WhenCreatingName() {
-        Name rn = new Name("foo");
+        Name rn = new("foo");
         Assert.Equal("foo", rn.Text);
         Assert.Null(rn.EntityType);
         Assert.Null(rn.Language);

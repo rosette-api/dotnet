@@ -7,7 +7,7 @@ public class SimilarTermsTests
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        SimilarTerms st = new SimilarTerms("happy");
+        SimilarTerms st = new("happy");
 
         Assert.Equal("semantics/similar", st.Endpoint);
         Assert.Equal("happy", st.Content);

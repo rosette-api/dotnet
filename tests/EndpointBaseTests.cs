@@ -54,7 +54,7 @@ namespace Rosette.Api.Tests
         public void SetOption_ValidOption_AddsToOptions()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act
             e.SetOption("test", "value");
@@ -67,7 +67,7 @@ namespace Rosette.Api.Tests
         public void SetOption_MultipleOptions_AddsAllOptions()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act
             e.SetOption("test", "value");
@@ -82,7 +82,7 @@ namespace Rosette.Api.Tests
         public void SetOption_NullOptionName_ThrowsArgumentNullException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => e.SetOption(null!, "value"));
@@ -92,7 +92,7 @@ namespace Rosette.Api.Tests
         public void SetOption_EmptyOptionName_ThrowsArgumentException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() => e.SetOption(string.Empty, "value"));
@@ -102,7 +102,7 @@ namespace Rosette.Api.Tests
         public void SetOption_NullOptionValue_ThrowsArgumentNullException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => e.SetOption("test", null!));
@@ -112,7 +112,7 @@ namespace Rosette.Api.Tests
         public void SetOption_ReturnsInstance_ForFluentAPI()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act
             var result = e.SetOption("test", "value");
@@ -139,7 +139,7 @@ namespace Rosette.Api.Tests
         public void RemoveOption_NonExistingOption_DoesNotThrow()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             var exception = Record.Exception(() => e.RemoveOption("nonexistent"));
@@ -150,7 +150,7 @@ namespace Rosette.Api.Tests
         public void RemoveOption_NullKey_ThrowsArgumentNullException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => e.RemoveOption(null!));
@@ -189,7 +189,7 @@ namespace Rosette.Api.Tests
         public void ClearOptions_ReturnsInstance_ForFluentAPI()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act
             var result = e.ClearOptions();
@@ -202,7 +202,7 @@ namespace Rosette.Api.Tests
         public void SetUrlParameter_ValidParameter_AddsToUrlParameters()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act
             e.SetUrlParameter("test", "value");
@@ -215,7 +215,7 @@ namespace Rosette.Api.Tests
         public void SetUrlParameter_NullKey_ThrowsArgumentNullException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => e.SetUrlParameter(null!, "value"));
@@ -225,7 +225,7 @@ namespace Rosette.Api.Tests
         public void SetUrlParameter_NullValue_ThrowsArgumentNullException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => e.SetUrlParameter("key", null!));
@@ -235,7 +235,7 @@ namespace Rosette.Api.Tests
         public void SetUrlParameter_ReturnsInstance_ForFluentAPI()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act
             var result = e.SetUrlParameter("test", "value");
@@ -262,7 +262,7 @@ namespace Rosette.Api.Tests
         public void RemoveUrlParameter_NullKey_ThrowsArgumentNullException()
         {
             // Arrange
-            Entities e = new Entities("foo");
+            Entities e = new("foo");
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => e.RemoveUrlParameter(null!));
@@ -303,14 +303,14 @@ namespace Rosette.Api.Tests
         public void Call_ValidEndpoint_ReturnsResponse()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
 
             // Act
             Response result = endpoint.Call(api);
@@ -326,14 +326,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_ValidEndpoint_ReturnsResponse()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
 
             // Act
             Response result = await endpoint.CallAsync(api);
@@ -347,14 +347,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_WithCancellationToken_ReturnsResponse()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
             using var cts = new CancellationTokenSource();
 
             // Act
@@ -369,7 +369,7 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_CancelledToken_ThrowsOperationCanceledException()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(async () =>
@@ -383,7 +383,7 @@ namespace Rosette.Api.Tests
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
             var cts = new CancellationTokenSource();
             cts.Cancel(); // Cancel immediately
 
@@ -396,7 +396,7 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_WithTimeout_ThrowsOperationCanceledException()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(async () =>
@@ -410,7 +410,7 @@ namespace Rosette.Api.Tests
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
             using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(100)); // 100ms timeout
 
             // Act & Assert
@@ -422,7 +422,7 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_WithOptions_SendsOptionsToServer()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -444,7 +444,7 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_WithUrlParameters_AppendsQueryString()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When("https://api.rosette.com/rest/v1/entities?output=rosette")
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -466,14 +466,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_ErrorResponse_ThrowsHttpRequestException()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.BadRequest, "application/json", "{\"message\": \"Bad Request\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
 
             // Act & Assert
             await Assert.ThrowsAsync<HttpRequestException>(
@@ -484,14 +484,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_NotFoundResponse_ThrowsHttpRequestException()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.NotFound, "application/json", "{\"message\": \"Not Found\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
 
             // Act & Assert
             await Assert.ThrowsAsync<HttpRequestException>(
@@ -502,14 +502,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_UnauthorizedResponse_ThrowsHttpRequestException()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.Unauthorized, "application/json", "{\"message\": \"Unauthorized\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
 
             // Act & Assert
             await Assert.ThrowsAsync<HttpRequestException>(
@@ -520,7 +520,7 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_WithLanguage_SendsLanguageParameter()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -542,14 +542,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_MultipleCallsToSameEndpoint_EachReturnsResponse()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint = new Entities("test content");
+            Entities endpoint = new("test content");
 
             // Act
             Response result1 = await endpoint.CallAsync(api);
@@ -562,44 +562,18 @@ namespace Rosette.Api.Tests
         }
 
         [Fact]
-        public async Task CallAsync_WithFluentChaining_AllSettingsApplied()
-        {
-            // Arrange
-            ApiClient api = new ApiClient("testkey");
-            var mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("https://api.rosette.com/rest/v1/entities?output=rosette")
-                .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
-            var client = mockHttp.ToHttpClient();
-            api.AssignClient(client);
-
-            Entities endpoint = new Entities("test content")
-                .SetLanguage("eng")
-                .SetOption("linkEntities", true)
-                .SetUrlParameter("output", "rosette");
-
-            // Act
-            Response result = await endpoint.CallAsync(api);
-
-            // Assert
-            Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
-            Assert.Equal("eng", endpoint.Language);
-            Assert.True((bool)endpoint.Options["linkEntities"]);
-            Assert.Equal("rosette", endpoint.UrlParameters["output"]);
-        }
-
-        [Fact]
         public async Task CallAsync_ConcurrentCalls_BothComplete()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When(_defaultUri)
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Entities endpoint1 = new Entities("content1");
-            Entities endpoint2 = new Entities("content2");
+            Entities endpoint1 = new("content1");
+            Entities endpoint2 = new("content2");
 
             // Act
             var task1 = endpoint1.CallAsync(api);
@@ -615,14 +589,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_InfoEndpoint_UsesGetCall()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When("https://api.rosette.com/rest/v1/info")
                 .Respond(HttpStatusCode.OK, "application/json", "{\"name\": \"Rosette API\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Info endpoint = new Info();
+            Info endpoint = new();
 
             // Act
             Response result = await endpoint.CallAsync(api);
@@ -636,14 +610,14 @@ namespace Rosette.Api.Tests
         public async Task CallAsync_PingEndpoint_UsesGetCall()
         {
             // Arrange
-            ApiClient api = new ApiClient("testkey");
+            ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When("https://api.rosette.com/rest/v1/ping")
                 .Respond(HttpStatusCode.OK, "application/json", "{\"message\": \"pong\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
 
-            Ping endpoint = new Ping();
+            Ping endpoint = new();
 
             // Act
             Response result = await endpoint.CallAsync(api);

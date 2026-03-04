@@ -8,7 +8,7 @@ namespace Rosette.Api.Tests
         public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
         {
             string text = "John works at Microsoft.";
-            Relationships r = new Relationships(text);
+            Relationships r = new(text);
 
             Assert.Equal("relationships", r.Endpoint);
             Assert.Equal(text, r.Content);

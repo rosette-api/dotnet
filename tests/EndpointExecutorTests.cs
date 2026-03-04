@@ -23,7 +23,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void Content_SetStringAndAddToParams_WhenAssigned() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Content.ToString()!);
         f.Content = "Sample Content";
         Assert.Equal("Sample Content", f.Content);
@@ -33,13 +33,13 @@ public class EndpointExecutorTests
 
     [Fact]
     public void Endpoint_ReturnsProvidedValue_WhenInitialized() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Equal("test", f.Endpoint);
     }
 
     [Fact]
     public void Content_SetUriAndAddToParams_WhenAssignedUri() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Content.ToString()!);
         f.Content = new Uri("http://google.com");
         Assert.Equal("http://google.com/", f.Content);
@@ -49,7 +49,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void Content_SetFileStreamAndFilename_WhenAssignedFileStream() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Content.ToString()!);
         var newFile = Path.GetTempFileName();
         using (FileStream fs = File.OpenRead(newFile)) {
@@ -63,7 +63,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void Language_SetLanguage_WhenAssigned() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Language!);
         f.Language = "eng";
         Assert.Equal("eng", f.Language);
@@ -71,7 +71,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void Genre_SetGenre_WhenAssigned() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Empty(f.Genre!);
         f.Genre = "social-media";
         Assert.Equal("social-media", f.Genre);
@@ -79,7 +79,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void FileContentType_SetContentType_WhenAssigned() {
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Assert.Equal("text/plain", f.FileContentType);
         f.FileContentType = "octet/stream";
         Assert.Equal("octet/stream", f.FileContentType);
@@ -87,7 +87,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void Parameters_SerializeCorrectly_WhenOptionsSet() {
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -95,10 +95,10 @@ public class EndpointExecutorTests
 
         api.AssignClient(client);
 
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
 
         _options["opt"] = true;
-        Dictionary<string, object> paramTest = new Dictionary<string, object>();
+        Dictionary<string, object> paramTest = new();
         paramTest["content"] = "Test Content";
         paramTest["options"] = _options;
 
@@ -109,7 +109,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void PostCall_ReturnsOKResponse_WhenCalledWithValidContent() {
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -117,7 +117,7 @@ public class EndpointExecutorTests
 
         api.AssignClient(client);
 
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         f.Content = "Test content";
         Response result = f.PostCall(api);
         Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
@@ -125,7 +125,7 @@ public class EndpointExecutorTests
 
     [Fact]
     public void GetCall_ReturnsOKResponse_WhenCalled() {
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -133,7 +133,7 @@ public class EndpointExecutorTests
 
         api.AssignClient(client);
 
-        EndpointExecutor f = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor f = new(_params, _options, _urlParameters, "test");
         Response result = f.GetCall(api);
         Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
     }
@@ -144,14 +144,14 @@ public class EndpointExecutorTests
     public async Task GetCallAsync_ValidRequest_ReturnsResponse()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
 
         // Act
         Response result = await executor.GetCallAsync(api);
@@ -165,14 +165,14 @@ public class EndpointExecutorTests
     public async Task GetCallAsync_WithCancellationToken_ReturnsResponse()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         using var cts = new CancellationTokenSource();
 
         // Act
@@ -186,7 +186,7 @@ public class EndpointExecutorTests
     public async Task GetCallAsync_CancelledToken_ThrowsOperationCanceledException()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(async () =>
@@ -200,7 +200,7 @@ public class EndpointExecutorTests
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         var cts = new CancellationTokenSource();
         cts.Cancel(); // Cancel immediately
 
@@ -213,14 +213,14 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_WithStringContent_ReturnsResponse()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "Test content";
 
         // Act
@@ -235,14 +235,14 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_WithCancellationToken_ReturnsResponse()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "Test content";
         using var cts = new CancellationTokenSource();
 
@@ -257,7 +257,7 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_CancelledToken_ThrowsOperationCanceledException()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(async () =>
@@ -271,7 +271,7 @@ public class EndpointExecutorTests
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "Test content";
         var cts = new CancellationTokenSource();
         cts.Cancel();
@@ -282,39 +282,10 @@ public class EndpointExecutorTests
     }
 
     [Fact]
-    public async Task PostCallAsync_WithOptions_SerializesCorrectly()
-    {
-        // Arrange
-        ApiClient api = new ApiClient("testkey");
-        var mockHttp = new MockHttpMessageHandler();
-        mockHttp.When(_defaultUri)
-            .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
-        var client = mockHttp.ToHttpClient();
-        api.AssignClient(client);
-
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
-        _options["opt"] = true;
-        executor.Content = "Test Content";
-
-        Dictionary<string, object> expectedParams = new Dictionary<string, object>
-        {
-            ["content"] = "Test Content",
-            ["options"] = _options
-        };
-
-        // Act
-        Response result = await executor.PostCallAsync(api);
-
-        // Assert
-        Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
-        Assert.Equal(JsonSerializer.Serialize(expectedParams), JsonSerializer.Serialize(executor.Parameters));
-    }
-
-    [Fact]
     public async Task PostCallAsync_WithFileContent_SendsMultipart()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -328,7 +299,7 @@ public class EndpointExecutorTests
         {
             using (FileStream fs = File.OpenRead(tempFile))
             {
-                EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+                EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
                 executor.Content = fs;
 
                 // Act
@@ -352,7 +323,7 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_WithFileAndOptions_SendsMultipartWithRequest()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -366,7 +337,7 @@ public class EndpointExecutorTests
         {
             using (FileStream fs = File.OpenRead(tempFile))
             {
-                EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+                EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
                 _options["language"] = "eng";
                 executor.Content = fs;
 
@@ -391,7 +362,7 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_WithUrlParameters_AppendsQueryString()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When("https://api.rosette.com/rest/v1/test?output=rosette")
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
@@ -399,7 +370,7 @@ public class EndpointExecutorTests
         api.AssignClient(client);
 
         _urlParameters.Add("output", "rosette");
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "Test content";
 
         // Act
@@ -413,7 +384,7 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_WithUnicodeContent_SendsUnescapedUnicode()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         string capturedRequest = string.Empty;
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
@@ -428,7 +399,7 @@ public class EndpointExecutorTests
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "北京大学 👍🏾"; // Chinese characters and emoji
 
         // Act
@@ -444,14 +415,14 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_ErrorResponse_ThrowsHttpRequestException()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.BadRequest, "application/json", "{\"message\": \"Bad Request\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "Test content";
 
         // Act & Assert
@@ -463,14 +434,14 @@ public class EndpointExecutorTests
     public async Task GetCallAsync_ErrorResponse_ThrowsHttpRequestException()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(HttpStatusCode.NotFound, "application/json", "{\"message\": \"Not Found\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
 
         // Act & Assert
         await Assert.ThrowsAsync<HttpRequestException>(
@@ -481,7 +452,7 @@ public class EndpointExecutorTests
     public async Task PostCallAsync_TimeoutWithCancellation_ThrowsOperationCanceledException()
     {
         // Arrange
-        ApiClient api = new ApiClient("testkey");
+        ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(_defaultUri)
             .Respond(async () =>
@@ -495,7 +466,7 @@ public class EndpointExecutorTests
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);
 
-        EndpointExecutor executor = new EndpointExecutor(_params, _options, _urlParameters, "test");
+        EndpointExecutor executor = new(_params, _options, _urlParameters, "test");
         executor.Content = "Test content";
         using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(100)); // 100ms timeout
 

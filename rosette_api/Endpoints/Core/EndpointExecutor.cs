@@ -249,43 +249,6 @@ public class EndpointExecutor {
     }
 
     /// <summary>
-    /// PostAsMultipart handles processing of files as a multipart upload
-    /// </summary>
-    /// <param name="api">RosetteAPI object</param>
-    /// <param name="url">Endpoint URL</param>
-    /// <returns>RosetteResponse object</returns>
-    private Response PostAsMultipart(ApiClient api, string url)
-    {
-        using (var _multiPartContent = new MultipartFormDataContent())
-        {
-            var streamContent = new StreamContent(Filestream);
-            streamContent.Headers.Add("Content-Type", FileContentType);
-            streamContent.Headers.Add("Content-Disposition", "mixed; name=\"content\"; filename=\"" + Path.GetFileName(Filestream.Name) + "\"");
-            _multiPartContent.Add(streamContent, "content", Path.GetFileName(Filestream.Name));
-
-            if (_options.Count > 0 || _params.Count > 0)
-            {
-                var serializeOptions = new JsonSerializerOptions
-                {
-                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-                };
-
-                var stringContent = new StringContent(
-                    JsonSerializer.Serialize(AppendOptions(_params), serializeOptions),
-                    Encoding.UTF8,
-                    HTTP_MEDIA_TYPE
-                );
-                stringContent.Headers.Add("Content-Disposition", "mixed; name=\"request\"");
-                _multiPartContent.Add(stringContent, "request");
-            }
-
-            Task<HttpResponseMessage> task = Task.Run<HttpResponseMessage>(async () => await api.Client.PostAsync(url, _multiPartContent));
-            var response = task.Result;
-            return new Response(response);
-        }
-    }
-
-    /// <summary>
     /// clearKey removes the specified key from the _params dictionary
     /// </summary>
     /// <param name="key">key name</param>

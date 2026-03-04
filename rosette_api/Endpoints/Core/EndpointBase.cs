@@ -95,7 +95,7 @@ public class EndpointBase<T> where T : EndpointBase<T>
     /// <param name="api">ApiClient object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <returns>Response</returns>
-    public Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    public virtual Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
     {
         return Funcs.GetCallAsync(api, cancellationToken);
     }
@@ -105,6 +105,6 @@ public class EndpointBase<T> where T : EndpointBase<T>
     /// </summary>
     /// <param name="api">ApiClient object</param>
     /// <returns>Response</returns>
-    public Response Call(ApiClient api) => Funcs.GetCall(api);
+    public virtual Response Call(ApiClient api) => Funcs.GetCall(api);
 
 }

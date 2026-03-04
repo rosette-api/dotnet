@@ -8,7 +8,7 @@ public class SentencesTests
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
         string text = "This is the first sentence. This is the second sentence.";
-        Sentences s = new Sentences(text);
+        Sentences s = new(text);
 
         Assert.Equal("sentences", s.Endpoint);
         Assert.Equal(text, s.Content);

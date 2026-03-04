@@ -7,7 +7,7 @@ public class LanguageTests
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        Language l = new Language("Por favor Señorita, says the man.");
+        Language l = new("Por favor Señorita, says the man.");
 
         Assert.Equal("language", l.Endpoint);
         Assert.Equal("Por favor Señorita, says the man.", l.Content);
@@ -16,8 +16,8 @@ public class LanguageTests
     [Fact]
     public void Constructor_SetsContentFromUri_WhenCalledWithUri()
     {
-        Uri uri = new Uri("http://example.com");
-        Language l = new Language(uri);
+        Uri uri = new("http://example.com");
+        Language l = new(uri);
 
         Assert.Equal("http://example.com/", l.Content.ToString());
     }

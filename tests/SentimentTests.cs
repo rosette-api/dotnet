@@ -7,7 +7,7 @@ public class SentimentTests
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        Sentiment s = new Sentiment("This is a great product!");
+        Sentiment s = new("This is a great product!");
 
         Assert.Equal("sentiment", s.Endpoint);
         Assert.Equal("This is a great product!", s.Content);

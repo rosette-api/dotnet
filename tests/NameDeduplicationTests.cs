@@ -7,18 +7,20 @@ public class NameDeduplicationTests
 {
     [Fact]
     public void Constructor_SetsNamesAndThreshold_WhenCalledWithNames() {
-        List<Name> names = new List<Name> {
+        List<Name> names = new()
+        {
             new Name("foo"),
             new Name("bar")
         };
-        NameDeduplication n = new NameDeduplication(names);
+        NameDeduplication n = new(names);
         Assert.Equal(names, n.Names);
         Assert.Equal(0.75f, n.Threshold);
     }
 
     [Fact]
     public void SetProfileID_SetsProfileID_WhenCalled() {
-        List<Name> names = new List<Name> {
+        List<Name> names = new()
+        {
             new Name("foo"),
             new Name("bar")
         };
@@ -29,7 +31,8 @@ public class NameDeduplicationTests
 
     [Fact]
     public void SetThreshold_SetsThreshold_WhenCalled() {
-        List<Name> names = new List<Name> {
+        List<Name> names = new()
+        {
             new Name("foo"),
             new Name("bar")
         };

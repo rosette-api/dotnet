@@ -11,7 +11,7 @@ public class NameSimilarityTests
         Assert.IsType<ArgumentNullException>(exception);
         Assert.Equal("Value cannot be null. (Parameter 'name1')", exception.Message);
 
-        Name rn = new Name("foo");
+        Name rn = new("foo");
         exception = Record.Exception(() => new NameSimilarity(rn, null));
         Assert.IsType<ArgumentNullException>(exception);
         Assert.Equal("Value cannot be null. (Parameter 'name2')", exception.Message);

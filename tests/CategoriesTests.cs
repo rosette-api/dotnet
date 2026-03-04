@@ -7,7 +7,7 @@ public class CategoriesTests
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        Categories c = new Categories("Sample text for categorization");
+        Categories c = new("Sample text for categorization");
 
         Assert.Equal("categories", c.Endpoint);
         Assert.Equal("Sample text for categorization", c.Content);

@@ -34,7 +34,7 @@ There are breaking changes between the C# Binding and the Dotnet Binding.  In or
 
 Example (C# Binding):
 
-Scene: On-Premise retrieval of entities with full ADM
+Scene: On-Premise retrieval of entities
 
 ``` csharp
   string alturl = "localhost:1234/rest/v1";
@@ -42,7 +42,13 @@ Scene: On-Premise retrieval of entities with full ADM
   // C# sets the url parameter at the api level, affecting all endpoints until reset
   api.SetUrlParameter("output", "rosette");
 
-  string entities_text_data = @"The Securities and Exchange Commission today announced the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating with litigators in the SEC’s 11 regional offices around the country.";
+  string entities_text_data = @"The Securities and Exchange Commission today announced 
+  the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief 
+  Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s 
+  Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman 
+  have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible 
+  for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating 
+  with litigators in the SEC’s 11 regional offices around the country.";
 
   EntitiesResponse response = api.Entity(entities_text_data, null, null, null, "social-media");
   foreach (KeyValuePair<string, string> h in response.Headers) {
@@ -58,9 +64,15 @@ Dotnet Binding:
   // The alternate URL is set via a method, rather than through the constructor
   RosetteAPI api = new RosetteAPI(apiKey).UseAlternateURL(altUrl);
 
-  string entities_text_data = @"The Securities and Exchange Commission today announced the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating with litigators in the SEC’s 11 regional offices around the country.";
+  string entities_text_data = @"The Securities and Exchange Commission today announced 
+  the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief 
+  Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s 
+  Deputy Chief Litigation Counsel. Since December 2016, Ms. Fitzpatrick and Mr. Gottesman 
+  have served as Co-Acting Chief Litigation Counsel.  In that role, they were jointly responsible 
+  for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating 
+  with litigators in the SEC’s 11 regional offices around the country.";
 
-  // Create the endpoint.  In this case we set the genre and want the full ADM.  Note that the url parameters are set for the endpoint only, so other endpoints
+  // Create the endpoint.  Note that the url parameters are set for the endpoint only, so other endpoints
   // are not affected.
   EntitiesEndpoint endpoint = new EntitiesEndpoint(entities_text_data)
     .SetGenre("social-media")
@@ -75,7 +87,7 @@ Dotnet Binding:
   Console.WriteLine(response.ContentAsJson(pretty: true));
 ```
 
-#### Synchronous
+## Synchronous
 ```csharp
 using Rosette.Api.Client;
 using Rosette.Api.Client.Endpoints;
@@ -96,7 +108,7 @@ foreach (KeyValuePair<string, string> h in response.Headers) {
 Console.WriteLine(response.ContentAsJson(pretty: true));
 ```
 
-#### Async (Recommended)
+## Async (Recommended)
 ```csharp
 using Rosette.Api.Client;
 using Rosette.Api.Client.Endpoints;
@@ -104,16 +116,33 @@ using Rosette.Api.Client.Models;
 
 ApiClient api = new("YOUR_API_KEY");
 
-string text = @"The Securities and Exchange Commission today announced the leadership 
-of the agency's trial unit. Bridget Fitzpatrick has been named Chief Litigation Counsel 
-of the SEC.";
+string text_data1 = @"The Securities and Exchange Commission today announced 
+  the leadership of the agency’s trial unit.  Bridget Fitzpatrick has been named Chief 
+  Litigation Counsel of the SEC and David Gottesman will continue to serve as the agency’s 
+  Deputy Chief Litigation Counsel.";
+string text_data2 = @"Since December 2016, Ms. Fitzpatrick and Mr. Gottesman 
+  have served as Co-Acting Chief Litigation Counsel.";
+string text_data3 = @"In that role, they were jointly responsible 
+  for supervising the trial unit at the agency’s Washington D.C. headquarters as well as coordinating 
+  with litigators in the SEC’s 11 regional offices around the country.";
 
-Entities endpoint = new Entities(text).SetGenre("social-media");
+string[] texts = new[] { 
+    text_data1, 
+    text_data2, 
+    text_data3 };
 
-using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-Response response = await endpoint.CallAsync(api, cts.Token);
+using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30)); 
 
-Console.WriteLine(response.ContentAsJson(pretty: true));
+Task<Response>[] tasks = texts
+    .Select(text => new Entities(text).SetGenre("social-media").CallAsync(api, cts.Token))
+    .ToArray();
+
+Response[] responses = await Task.WhenAll(tasks);
+
+foreach (var response in responses) 
+{
+    Console.WriteLine(response.ContentAsJson(pretty: true)); 
+}
 ```
 
 ## Documentation
@@ -153,9 +182,9 @@ View small example programs for each Rosette endpoint
 in the [examples](https://github.com/rosette-api/dotnet/tree/master/examples) directory.
 
 #### Documentation & Support
-- [Binding API](https://rosette-api.github.io/java/)
-- [Analytics Platform API](https://docs.babelstreet.com/API/en/index-en.html)
+- [Binding API](https://rosette-api.github.io/dotnet)
+- [Analytics Platform API](http://documentation.babelstreet.com/analytics)
 - [Binding Release Notes](https://github.com/rosette-api/dotnet/wiki/Release-Notes)
-- [Analytics Platform Release Notes](https://docs.babelstreet.com/Release/en/rosette-cloud.html)
-- [Support](https://babelstreet.my.site.com/support/s/)
+- [Analytics Platform Release Notes](https://docs.babelstreet.com/r/Hosted-Services-Release-Notes)
+- [Support](https://babelstreet.my.site.com/support/s/contactsupport)
 - [Binding License: Apache 2.0](LICENSE.txt)

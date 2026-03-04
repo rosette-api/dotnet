@@ -8,7 +8,7 @@ public class EntitiesTests
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
         string text = "Bill Murray will appear in new Ghostbusters film.";
-        Entities e = new Entities(text);
+        Entities e = new(text);
 
         Assert.Equal("entities", e.Endpoint);
         Assert.Equal(text, e.Content);

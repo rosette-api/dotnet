@@ -6,7 +6,7 @@ public class NameTranslationTests
 {
     [Fact]
     public void Constructor_SetsNameAndDefaults_WhenCalledWithName() {
-        NameTranslation n = new NameTranslation("foo");
+        NameTranslation n = new("foo");
         Assert.Equal("foo", n.Name);
         Assert.Equal("eng", n.TargetLanguage);
         Assert.Empty(n.EntityType);

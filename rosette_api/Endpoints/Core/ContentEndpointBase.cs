@@ -94,23 +94,23 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     public string Filename => Funcs.Filename;
 
     /// <summary>
+    /// Call passes the data to the server and returns the response
+    /// </summary>
+    /// <param name="api">RosetteAPI object</param>
+    /// <returns>RosetteResponse</returns>
+    public override Response Call(ApiClient api) 
+    {
+        return Funcs.PostCall(api);
+    }
+
+    /// <summary>
     /// CallAsync passes the data to the server and returns the response asynchronously
     /// </summary>
     /// <param name="api">ApiClient object</param>
     /// <param name="cancellationToken">Optional cancellation token</param>
     /// <returns>Response</returns>
-    public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    public override Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
     {
         return Funcs.PostCallAsync(api, cancellationToken);
-    }
-
-    /// <summary>
-    /// Call passes the data to the server and returns the response
-    /// </summary>
-    /// <param name="api">RosetteAPI object</param>
-    /// <returns>RosetteResponse</returns>
-    public new Response Call(ApiClient api) 
-    {
-        return Funcs.PostCall(api);
     }
 }

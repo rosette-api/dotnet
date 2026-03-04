@@ -7,7 +7,7 @@ public class TokensTests
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        Tokens t = new Tokens("This is sample text");
+        Tokens t = new("This is sample text");
 
         Assert.Equal("tokens", t.Endpoint);
         Assert.Equal("This is sample text", t.Content);
