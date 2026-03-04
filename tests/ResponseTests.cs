@@ -1,28 +1,28 @@
-﻿using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Models;
 using System.Net;
 using System.Text.Json;
 
-namespace Rosette.Api.Tests
+namespace Rosette.Api.Tests;
+
+public class ResponseTests
 {
-    public class ResponseTests
-    {
-        [Fact]
-        public void CheckStatusOK() {
-            Dictionary<string, string> data = new Dictionary<string, string> {
-                { "content", "Some sample content" },
-                { "language", "eng" }
-            };
-            string json = JsonSerializer.Serialize(data);
+    [Fact]
+    public void Constructor_SetsStatusCodeAndContent_WhenHttpResponseIsOK() {
+        Dictionary<string, string> data = new()
+        {
+            { "content", "Some sample content" },
+            { "language", "eng" }
+        };
+        string json = JsonSerializer.Serialize(data);
 
-            HttpResponseMessage msg = new HttpResponseMessage(HttpStatusCode.OK);
-            msg.Content = new StringContent(json);
-            msg.Headers.Add("Test-Header", "Test Header Content");
+        HttpResponseMessage msg = new(HttpStatusCode.OK);
+        msg.Content = new StringContent(json);
+        msg.Headers.Add("Test-Header", "Test Header Content");
 
-            Response response = new Response(msg);
+        Response response = new(msg);
 
-            Assert.Equal((int)HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(json, response.ContentAsJson());
+        Assert.Equal((int)HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(json, response.ContentAsJson());
 
-        }
     }
 }

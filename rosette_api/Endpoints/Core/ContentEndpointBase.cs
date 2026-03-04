@@ -1,6 +1,6 @@
-using Rosette.Api.Models;
+using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Endpoints.Core;
+namespace Rosette.Api.Client.Endpoints.Core;
 
 /// <summary>
 /// Abstract base class for Rosette API endpoints that accept content and common parameters
@@ -98,8 +98,19 @@ public abstract class ContentEndpointBase<T> : EndpointBase<T> where T : Content
     /// </summary>
     /// <param name="api">RosetteAPI object</param>
     /// <returns>RosetteResponse</returns>
-    public Response Call(ApiClient api) 
+    public override Response Call(ApiClient api) 
     {
         return Funcs.PostCall(api);
+    }
+
+    /// <summary>
+    /// CallAsync passes the data to the server and returns the response asynchronously
+    /// </summary>
+    /// <param name="api">ApiClient object</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response</returns>
+    public override Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+    {
+        return Funcs.PostCallAsync(api, cancellationToken);
     }
 }

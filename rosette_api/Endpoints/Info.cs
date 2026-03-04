@@ -1,12 +1,9 @@
-﻿using Rosette.Api.Endpoints.Core;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Endpoints.Core;
 
-namespace Rosette.Api.Endpoints
+namespace Rosette.Api.Client.Endpoints
 {
     public class Info : EndpointBase<Info>
     {
         public Info() : base("info") { }
-
-        public Response Call(ApiClient api) => Funcs.GetCall(api);
     }
 }

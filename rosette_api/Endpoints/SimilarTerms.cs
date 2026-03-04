@@ -1,6 +1,6 @@
-using Rosette.Api.Endpoints.Core;
+using Rosette.Api.Client.Endpoints.Core;
 
-namespace Rosette.Api.Endpoints;
+namespace Rosette.Api.Client.Endpoints;
 
 public class SimilarTerms : ContentEndpointBase<SimilarTerms>
 {
@@ -8,7 +8,5 @@ public class SimilarTerms : ContentEndpointBase<SimilarTerms>
     /// SimilarTerms returns terms that are similar to the input
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public SimilarTerms(object content) : base("semantics/similar", content)
-    {
-    }
+    public SimilarTerms(object content) : base("semantics/similar", content) { }
 }

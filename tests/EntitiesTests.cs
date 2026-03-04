@@ -1,51 +1,50 @@
-using Rosette.Api.Endpoints;
+using Rosette.Api.Client.Endpoints;
 
-namespace Rosette.Api.Tests
+namespace Rosette.Api.Tests;
+
+public class EntitiesTests
 {
-    public class EntitiesTests
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        [Fact]
-        public void CheckBasicUsage()
-        {
-            string text = "Bill Murray will appear in new Ghostbusters film.";
-            Entities e = new Entities(text);
-            
-            Assert.Equal("entities", e.Endpoint);
-            Assert.Equal(text, e.Content);
-        }
+        string text = "Bill Murray will appear in new Ghostbusters film.";
+        Entities e = new(text);
 
-        [Fact]
-        public void CheckWithLanguageAndGenre()
-        {
-            Entities e = new Entities("Sample text")
-                .SetLanguage("eng")
-                .SetGenre("social-media");
-            
-            Assert.Equal("eng", e.Language);
-            Assert.Equal("", e.Genre);
-        }
+        Assert.Equal("entities", e.Endpoint);
+        Assert.Equal(text, e.Content);
+    }
 
-        [Fact]
-        public void CheckWithUrlParameter()
-        {
-            Entities e = new Entities("Sample text")
-                .SetUrlParameter("output", "rosette");
-            
-            Assert.Equal("rosette", e.UrlParameters["output"]);
-        }
+    [Fact]
+    public void SetLanguageAndGenre_SetsProperties_WhenCalled()
+    {
+        Entities e = new Entities("Sample text")
+            .SetLanguage("eng")
+            .SetGenre("social-media");
 
-        [Fact]
-        public void CheckFluentAPI()
-        {
-            Entities e = new Entities("Apple announced a new iPhone.")
-                .SetLanguage("eng")
-                .SetGenre("news")
-                .SetOption("linkEntities", true)
-                .SetUrlParameter("output", "rosette");
-            
-            Assert.Equal("eng", e.Language);
-            Assert.True((bool)e.Options["linkEntities"]);
-            Assert.Equal("rosette", e.UrlParameters["output"]);
-        }
+        Assert.Equal("eng", e.Language);
+        Assert.Equal("", e.Genre);
+    }
+
+    [Fact]
+    public void SetUrlParameter_AddsParameterToUrlParameters_WhenCalled()
+    {
+        Entities e = new Entities("Sample text")
+            .SetUrlParameter("output", "rosette");
+
+        Assert.Equal("rosette", e.UrlParameters["output"]);
+    }
+
+    [Fact]
+    public void FluentAPI_AllowsMethodChaining_WhenSettingMultipleProperties()
+    {
+        Entities e = new Entities("Apple announced a new iPhone.")
+            .SetLanguage("eng")
+            .SetGenre("news")
+            .SetOption("linkEntities", true)
+            .SetUrlParameter("output", "rosette");
+
+        Assert.Equal("eng", e.Language);
+        Assert.True((bool)e.Options["linkEntities"]);
+        Assert.Equal("rosette", e.UrlParameters["output"]);
     }
 }

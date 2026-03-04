@@ -1,7 +1,7 @@
-﻿using Rosette.Api.Endpoints.Core;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Endpoints.Core;
+using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Endpoints
+namespace Rosette.Api.Client.Endpoints
 {
     public class NameTranslation : EndpointBase<NameTranslation>
     {
@@ -19,6 +19,7 @@ namespace Rosette.Api.Endpoints
             SetName(name);
             SetTargetLanguage(targetLanguage);
         }
+
         /// <summary>
         /// SetName defines the name to be translated
         /// </summary>
@@ -29,11 +30,13 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? Name { get =>
                 Params.ContainsKey(NAME) ?
                 Params[NAME].ToString() :
                 string.Empty;
         }
+
         /// <summary>
         /// SetEntityType sets the optional entity type, PERSON, LOCATION or ORGANIZATION
         /// </summary>
@@ -44,11 +47,13 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? EntityType { get =>
                 Params.ContainsKey(ENTITY_TYPE) ?
                 Params[ENTITY_TYPE].ToString() :
                 string.Empty;
         }
+
         /// <summary>
         /// SetSourceLanguageOfOrigin sets the optional ISO 639-3 code for the name's language of origin
         /// </summary>
@@ -59,6 +64,7 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? SourceLanguageOfOrigin { get =>
                 Params.ContainsKey(SOURCE_LANGUAGE_OF_ORIGIN) ?
                 Params[SOURCE_LANGUAGE_OF_ORIGIN].ToString() :
@@ -74,11 +80,13 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? SourceLanguageOfUse { get =>
                 Params.ContainsKey(SOURCE_LANGUAGE_OF_USE) ?
                 Params[SOURCE_LANGUAGE_OF_USE].ToString() :
                 String.Empty;
         }
+
         /// <summary>
         /// SetSourceScript sets the optional ISO 15924 code for the name's script
         /// </summary>
@@ -94,6 +102,7 @@ namespace Rosette.Api.Endpoints
                 Params[SOURCE_SCRIPT].ToString() :
                 string.Empty;
         }
+
         /// <summary>
         /// SetTargetLanguage sets the ISO 639-3 code for the translation language.
         /// Defaults to "eng"
@@ -105,11 +114,13 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? TargetLanguage { get =>
                 Params.ContainsKey(TARGET_LANGUAGE) ?
                 Params[TARGET_LANGUAGE].ToString() :
                 String.Empty;
         }
+
         /// <summary>
         /// SetTargetScheme sets the optional transliteration scheme for the translation
         /// </summary>
@@ -120,11 +131,13 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? TargetScheme { get =>
                 Params.ContainsKey(TARGET_SCHEME) ?
                 Params[TARGET_SCHEME].ToString() :
                 string.Empty;
         }
+
         /// <summary>
         /// SetTargetScript sets the optional ISO 15924 code for the translation script
         /// </summary>
@@ -135,6 +148,7 @@ namespace Rosette.Api.Endpoints
 
             return this;
         }
+
         public string? TargetScript { get => Params.ContainsKey(TARGET_SCRIPT) ?
                 Params[TARGET_SCRIPT].ToString() :
                 string.Empty;
@@ -158,7 +172,13 @@ namespace Rosette.Api.Endpoints
                 null;
         }
 
-        public Response Call(ApiClient api) {
+        public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+        {
+            return Funcs.PostCallAsync(api, cancellationToken);
+        }
+
+        public new Response Call(ApiClient api)
+        {
             return Funcs.PostCall(api);
         }
     }

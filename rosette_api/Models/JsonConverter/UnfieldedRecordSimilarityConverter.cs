@@ -1,8 +1,7 @@
-using Rosette.Api.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace rosette_api.Models.JsonConverter;
+namespace Rosette.Api.Client.Models.JsonConverter;
 
 /// <summary>
 /// JsonConverter for Unfielded Record Similarity objects

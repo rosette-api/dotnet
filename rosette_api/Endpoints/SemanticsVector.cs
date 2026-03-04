@@ -1,6 +1,6 @@
-﻿using Rosette.Api.Endpoints.Core;
+﻿using Rosette.Api.Client.Endpoints.Core;
 
-namespace Rosette.Api.Endpoints;
+namespace Rosette.Api.Client.Endpoints;
 
 public class SemanticsVector : ContentEndpointBase<SemanticsVector>
 {
@@ -8,7 +8,5 @@ public class SemanticsVector : ContentEndpointBase<SemanticsVector>
     /// SemanticVectorsEndpoint returns the relationships between entities in the input text
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public SemanticsVector(object content) : base("semantics/vector", content)
-    {
-    }
+    public SemanticsVector(object content) : base("semantics/vector", content) { }
 }

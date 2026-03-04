@@ -1,8 +1,8 @@
-﻿using rosette_api.Models.JsonConverter;
+﻿using Rosette.Api.Client.Models.JsonConverter;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 [JsonConverter(typeof(RecordSimilarityRecordsConverter))]
 public class RecordSimilarityRecords

@@ -3,96 +3,150 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 public class Response
 {
-    public Response(HttpResponseMessage responseMsg) {
+    // Private constructor for async factory
+    private Response()
+    {
         Content = new Dictionary<string, object>();
         Headers = new Dictionary<string, string>();
+    }
 
+    // Keep existing synchronous constructor for backward compatibility
+    public Response(HttpResponseMessage responseMsg) : this()
+    {
         StatusCode = (int)responseMsg.StatusCode;
 
-        if (responseMsg.IsSuccessStatusCode) {
-            foreach (var header in responseMsg.Headers) {
-                Headers.Add(header.Key, string.Join("", header.Value));
-            }
-            foreach (var header in responseMsg.Content.Headers) {
-                Headers.Add(header.Key, string.Join("", header.Value));
-            }
+        if (responseMsg.IsSuccessStatusCode)
+        {
+            ProcessHeaders(responseMsg);
             byte[] byteArray = responseMsg.Content.ReadAsByteArrayAsync().Result;
-            if(byteArray[0] == '\x1f' && byteArray[1] == '\x8b' && byteArray[2] == '\x08') {
-                byteArray = Decompress(byteArray);
-            }
-            string result = string.Empty;
-            using (StreamReader reader = new StreamReader(new MemoryStream(byteArray), Encoding.UTF8)) {
-                result = reader.ReadToEnd();
-            }
-
+            string result = ProcessContent(byteArray);
             Content = JsonSerializer.Deserialize<Dictionary<string, object>>(result)!;
         }
-        else {
-            throw new HttpRequestException(string.Format("{0}: {1}: {2}", (int)responseMsg.StatusCode, responseMsg.ReasonPhrase, ContentToString(responseMsg.Content)));
+        else
+        {
+            throw new HttpRequestException(
+                $"{(int)responseMsg.StatusCode}: {responseMsg.ReasonPhrase}: {ContentToString(responseMsg.Content)}");
         }
+    }
+
+    /// <summary>
+    /// CreateAsync creates a Response asynchronously from an HttpResponseMessage
+    /// </summary>
+    /// <param name="responseMsg">HTTP response message</param>
+    /// <param name="cancellationToken">Optional cancellation token</param>
+    /// <returns>Response</returns>
+    public static async Task<Response> CreateAsync(HttpResponseMessage responseMsg, CancellationToken cancellationToken = default)
+    {
+        var response = new Response
+        {
+            StatusCode = (int)responseMsg.StatusCode
+        };
+
+        if (responseMsg.IsSuccessStatusCode)
+        {
+            response.ProcessHeaders(responseMsg);
+            byte[] byteArray = await responseMsg.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
+            string result = response.ProcessContent(byteArray);
+            response.Content = JsonSerializer.Deserialize<Dictionary<string, object>>(result)!;
+        }
+        else
+        {
+            string errorContent = await ContentToStringAsync(responseMsg.Content, cancellationToken).ConfigureAwait(false);
+            throw new HttpRequestException(
+                $"{(int)responseMsg.StatusCode}: {responseMsg.ReasonPhrase}: {errorContent}");
+        }
+
+        return response;
     }
 
     /// <summary>
     /// Headers provides read access to the Response Headers collection
     /// </summary>
-    /// <returns>IDictionary of string, string</returns>
-    public IDictionary<string, string> Headers {get; private set;}
+    public IDictionary<string, string> Headers { get; private set; }
 
     /// <summary>
     /// Content provides read access to the Response IDictionary
     /// </summary>
-    /// <returns>IDictionary of string, object</returns>
-    public IDictionary<string, object> Content {get; private set;}
+    public IDictionary<string, object> Content { get; private set; }
+
+    /// <summary>
+    /// StatusCode returns the HTTP status code
+    /// </summary>
+    public int StatusCode { get; private set; }
 
     public object ContentAsJson(bool pretty = false)
     {
         var options = new JsonSerializerOptions
         {
             WriteIndented = pretty,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping  // Don't escape Unicode characters
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
         return JsonSerializer.Serialize(Content, options);
     }
 
-    public int StatusCode {get; private set;}
+    private void ProcessHeaders(HttpResponseMessage responseMsg)
+    {
+        foreach (var header in responseMsg.Headers)
+        {
+            Headers.Add(header.Key, string.Join("", header.Value));
+        }
+        foreach (var header in responseMsg.Content.Headers)
+        {
+            Headers.Add(header.Key, string.Join("", header.Value));
+        }
+    }
 
+    private string ProcessContent(byte[] byteArray)
+    {
+        if (byteArray.Length >= 3 && byteArray[0] == '\x1f' && byteArray[1] == '\x8b' && byteArray[2] == '\x08')
+        {
+            byteArray = Decompress(byteArray);
+        }
 
-    /// <summary>Decompress decompresses GZIP files
-    /// Source: http://www.dotnetperls.com/decompress
-    /// </summary>
-    /// <param name="gzip">(byte[]): Data in byte form to decompress</param>
-    /// <returns>(byte[]) Decompressed data</returns>
-    private byte[] Decompress(byte[] gzip) {
-        // Create a GZIP stream with decompression mode.
-        // ... Then create a buffer and write into while reading from the GZIP stream.
-        using (GZipStream stream = new GZipStream(new MemoryStream(gzip), CompressionMode.Decompress)) {
+        using (StreamReader reader = new StreamReader(new MemoryStream(byteArray), Encoding.UTF8))
+        {
+            return reader.ReadToEnd();
+        }
+    }
+
+    private byte[] Decompress(byte[] gzip)
+    {
+        using (GZipStream stream = new GZipStream(new MemoryStream(gzip), CompressionMode.Decompress))
+        {
             const int size = 4096;
             byte[] buffer = new byte[size];
-            using (MemoryStream memory = new MemoryStream()) {
-                int count = 0;
-                do {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                int count;
+                do
+                {
                     count = stream.Read(buffer, 0, size);
-                    if (count > 0) {
+                    if (count > 0)
+                    {
                         memory.Write(buffer, 0, count);
                     }
-                }
-                while (count > 0);
+                } while (count > 0);
                 return memory.ToArray();
             }
         }
     }
-    internal static string ContentToString(HttpContent httpContent) {
-        if (httpContent != null) {
-            var readAsStringAsync = httpContent.ReadAsStringAsync();
-            return readAsStringAsync.Result;
+
+    internal static string ContentToString(HttpContent httpContent)
+    {
+        return httpContent?.ReadAsStringAsync().Result ?? string.Empty;
+    }
+
+    internal static async Task<string> ContentToStringAsync(HttpContent httpContent, CancellationToken cancellationToken = default)
+    {
+        if (httpContent != null)
+        {
+            return await httpContent.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         }
-        else {
-            return string.Empty;
-        }
+        return string.Empty;
     }
 }

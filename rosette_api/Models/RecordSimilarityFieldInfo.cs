@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Rosette.Api.Models {
+namespace Rosette.Api.Client.Models {
 
     /// <summary>
     /// Class for representing record similarity field information

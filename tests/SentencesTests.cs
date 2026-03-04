@@ -1,35 +1,34 @@
-using Rosette.Api.Endpoints;
+using Rosette.Api.Client.Endpoints;
 
-namespace Rosette.Api.Tests
+namespace Rosette.Api.Tests;
+
+public class SentencesTests
 {
-    public class SentencesTests
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
-        [Fact]
-        public void CheckBasicUsage()
-        {
-            string text = "This is the first sentence. This is the second sentence.";
-            Sentences s = new Sentences(text);
-            
-            Assert.Equal("sentences", s.Endpoint);
-            Assert.Equal(text, s.Content);
-        }
+        string text = "This is the first sentence. This is the second sentence.";
+        Sentences s = new(text);
 
-        [Fact]
-        public void CheckWithLanguage()
-        {
-            Sentences s = new Sentences("Sample text.")
-                .SetLanguage("eng");
-            
-            Assert.Equal("eng", s.Language);
-        }
+        Assert.Equal("sentences", s.Endpoint);
+        Assert.Equal(text, s.Content);
+    }
 
-        [Fact]
-        public void CheckFluentAPI()
-        {
-            Sentences s = new Sentences("Text content.")
-                .SetLanguage("eng");
-            
-            Assert.Equal("eng", s.Language);
-        }
+    [Fact]
+    public void SetLanguage_SetsLanguageProperty_WhenCalled()
+    {
+        Sentences s = new Sentences("Sample text.")
+            .SetLanguage("eng");
+
+        Assert.Equal("eng", s.Language);
+    }
+
+    [Fact]
+    public void FluentAPI_AllowsMethodChaining_WhenSettingLanguage()
+    {
+        Sentences s = new Sentences("Text content.")
+            .SetLanguage("eng");
+
+        Assert.Equal("eng", s.Language);
     }
 }

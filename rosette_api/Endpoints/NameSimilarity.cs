@@ -1,7 +1,7 @@
-﻿using Rosette.Api.Endpoints.Core;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client.Endpoints.Core;
+using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Endpoints
+namespace Rosette.Api.Client.Endpoints
 {
     public class NameSimilarity : EndpointBase<NameSimilarity> {
         /// <summary>
@@ -16,7 +16,13 @@ namespace Rosette.Api.Endpoints
             Params["name2"] = name2;
         }
 
-        public Response Call(ApiClient api) {
+        public new Task<Response> CallAsync(ApiClient api, CancellationToken cancellationToken = default)
+        {
+            return Funcs.PostCallAsync(api, cancellationToken);
+        }
+
+        public new Response Call(ApiClient api)
+        {
             return Funcs.PostCall(api);
         }
     }

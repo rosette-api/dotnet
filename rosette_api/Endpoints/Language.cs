@@ -1,6 +1,6 @@
-﻿using Rosette.Api.Endpoints.Core;
+﻿using Rosette.Api.Client.Endpoints.Core;
 
-namespace Rosette.Api.Endpoints;
+namespace Rosette.Api.Client.Endpoints;
 
 public class Language : ContentEndpointBase<Language>
 {
@@ -8,7 +8,6 @@ public class Language : ContentEndpointBase<Language>
     /// LanguageEndpoint returns the language extracted from the endpoint
     /// </summary>
     /// <param name="content">text, Uri object or FileStream</param>
-    public Language(object content) : base("language", content)
-    {
-    }
+    public Language(object content) : base("language", content) { }
 }
+

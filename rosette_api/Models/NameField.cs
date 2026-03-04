@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Rosette.Api.Models;
+namespace Rosette.Api.Client.Models;
 
 /// <summary>
 /// Abstract parent class for UnfieldedName and FieldedName

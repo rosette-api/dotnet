@@ -1,60 +1,59 @@
-﻿using Rosette.Api;
-using Rosette.Api.Models;
+﻿using Rosette.Api.Client;
+using Rosette.Api.Client.Models;
 
-namespace examples
+namespace Rosette.Api.Examples;
+
+class SimilarTerms
 {
-    class SimilarTerms
+    /// <summary>
+    /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
+    /// An optional alternate URL may be provided, i.e. for an on-premise solution.
+    /// </summary>
+    /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
+    /// <param name="altUrl">Optional alternate URL</param>
+    private static void RunEndpoint(string apiKey, string? altUrl = null)
     {
-        /// <summary>
-        /// RunEndpoint runs the example.  By default the endpoint will be run against the Rosette Cloud Service.
-        /// An optional alternate URL may be provided, i.e. for an on-premise solution.
-        /// </summary>
-        /// <param name="apiKey">Required api key (obtained from Basis Technology)</param>
-        /// <param name="altUrl">Optional alternate URL</param>
-        private void RunEndpoint(string apiKey, string? altUrl = null)
+        try
         {
-            try
+            ApiClient api = new(apiKey);
+            if (!string.IsNullOrEmpty(altUrl))
             {
-                ApiClient api = new ApiClient(apiKey);
-                if (!string.IsNullOrEmpty(altUrl))
-                {
-                    api.UseAlternateURL(altUrl);
-                }
-
-                var similar_terms_data = "spy";
-                var resultLanguages = new List<string>() { "spa", "deu", "jpn" };
-
-                Rosette.Api.Endpoints.SimilarTerms endpoint = new(similar_terms_data);
-                endpoint.SetOption("resultLanguages", resultLanguages);
-                Response response = endpoint.Call(api);
-
-                // Print out the response headers
-                foreach (KeyValuePair<string, string> h in response.Headers)
-                {
-                    Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
-                }
-                // Print out the content in JSON format.  The Content property returns an IDictionary.
-                Console.WriteLine(response.ContentAsJson(pretty: true));
+                api.UseAlternateURL(altUrl);
             }
-            catch (Exception e)
+
+            var similar_terms_data = "spy";
+            var resultLanguages = new List<string>() { "spa", "deu", "jpn" };
+
+            Rosette.Api.Client.Endpoints.SimilarTerms endpoint = new(similar_terms_data);
+            endpoint.SetOption("resultLanguages", resultLanguages);
+            Response response = endpoint.Call(api);
+
+            // Print out the response headers
+            foreach (KeyValuePair<string, string> h in response.Headers)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                Console.WriteLine(string.Format("{0}:{1}", h.Key, h.Value));
             }
+            // Print out the content in JSON format.  The Content property returns an IDictionary.
+            Console.WriteLine(response.ContentAsJson(pretty: true));
         }
-        /// <summary>
-        /// Main is a simple entrypoint for command line calling of the endpoint examples
-        /// </summary>
-        /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
-        static void Main(string[] args)
+        catch (Exception e)
         {
-            if (args.Length != 0)
-            {
-                new SimilarTerms().RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
-            }
-            else
-            {
-                Console.WriteLine("An API Key is required");
-            }
+            Console.WriteLine("Exception: " + e.Message);
+        }
+    }
+    /// <summary>
+    /// Main is a simple entrypoint for command line calling of the endpoint examples
+    /// </summary>
+    /// <param name="args">Command line args, expects API Key, (optional) alt URL</param>
+    static void Main(string[] args)
+    {
+        if (args.Length != 0)
+        {
+            RunEndpoint(args[0], args.Length > 1 ? args[1] : null);
+        }
+        else
+        {
+            Console.WriteLine("An API Key is required");
         }
     }
 }
