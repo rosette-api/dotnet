@@ -13,7 +13,7 @@ public class EndpointExecutorTests
     private readonly Dictionary<string, object> _params;
     private readonly Dictionary<string, object> _options;
     private readonly NameValueCollection _urlParameters;
-    private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/*";
+    private static readonly string _defaultUri = "https://analytics.babelstreet.com/rest/v1/*";
 
     public EndpointExecutorTests() {
         _params = new Dictionary<string, object>();
@@ -364,7 +364,7 @@ public class EndpointExecutorTests
         // Arrange
         ApiClient api = new("testkey");
         var mockHttp = new MockHttpMessageHandler();
-        mockHttp.When("https://api.rosette.com/rest/v1/test?output=rosette")
+        mockHttp.When("https://analytics.babelstreet.com/rest/v1/test?output=rosette")
             .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
         var client = mockHttp.ToHttpClient();
         api.AssignClient(client);

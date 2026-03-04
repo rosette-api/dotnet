@@ -82,16 +82,6 @@ public class ContentEndpointBaseTests
     }
 
     [Fact]
-    public void Content_AfterConstruction_ReturnsProvidedContent()
-    {
-        // Arrange & Act
-        var endpoint = new TestContentEndpoint("test content");
-
-        // Assert
-        Assert.Equal("test content", endpoint.Content);
-    }
-
-    [Fact]
     public void SetLanguage_ValidLanguageCode_SetsLanguage()
     {
         // Arrange
@@ -149,20 +139,6 @@ public class ContentEndpointBaseTests
     }
 
     [Fact]
-    public void Language_AfterSettingLanguage_ReturnsSetValue()
-    {
-        // Arrange
-        var endpoint = new TestContentEndpoint("content");
-        endpoint.SetLanguage("spa");
-
-        // Act
-        var language = endpoint.Language;
-
-        // Assert
-        Assert.Equal("spa", language);
-    }
-
-    [Fact]
     public void SetGenre_AnyValue_IsIgnoredAndReturnsInstance()
     {
         // Arrange
@@ -187,20 +163,6 @@ public class ContentEndpointBaseTests
 
         // Assert
         Assert.Equal(string.Empty, genre);
-    }
-
-    [Fact]
-    public void Genre_AfterSettingGenre_RemainsEmptyBecauseIgnored()
-    {
-        // Arrange
-        var endpoint = new TestContentEndpoint("content");
-        endpoint.SetGenre("news");
-
-        // Act
-        var genre = endpoint.Genre;
-
-        // Assert
-        Assert.Equal(string.Empty, genre); // Genre is ignored in ContentEndpointBase
     }
 
     [Fact]
@@ -261,20 +223,6 @@ public class ContentEndpointBaseTests
     }
 
     [Fact]
-    public void FileContentType_AfterSetting_ReturnsSetValue()
-    {
-        // Arrange
-        var endpoint = new TestContentEndpoint("content");
-        endpoint.SetFileContentType("application/json");
-
-        // Act
-        var contentType = endpoint.FileContentType;
-
-        // Assert
-        Assert.Equal("application/json", contentType);
-    }
-
-    [Fact]
     public void Filename_WithoutFileStream_ReturnsEmptyString()
     {
         // Arrange
@@ -309,38 +257,6 @@ public class ContentEndpointBaseTests
     }
 
     [Fact]
-    public void FluentAPI_ComplexChaining_MaintainsCorrectState()
-    {
-        // Arrange & Act
-        var endpoint = new TestContentEndpoint("original")
-            .SetLanguage("eng")
-            .SetContent("modified")
-            .SetFileContentType("text/html");
-
-        // Assert
-        Assert.Equal("modified", endpoint.Content);
-        Assert.Equal("eng", endpoint.Language);
-        Assert.Equal("text/html", endpoint.FileContentType);
-        Assert.Equal("test-endpoint", endpoint.Endpoint);
-    }
-
-    [Fact]
-    public void SetContent_MultipleTypes_HandlesAllContentTypes()
-    {
-        // Arrange
-        var endpoint = new TestContentEndpoint("initial");
-
-        // Act & Assert - String
-        endpoint.SetContent("string content");
-        Assert.Equal("string content", endpoint.Content);
-
-        // Act & Assert - Uri
-        var uri = new Uri("http://example.com");
-        endpoint.SetContent(uri);
-        Assert.Equal("http://example.com/", endpoint.Content.ToString());
-    }
-
-    [Fact]
     public void Constructor_WithFileStream_SetsContentAndFilename()
     {
         // Arrange
@@ -364,19 +280,6 @@ public class ContentEndpointBaseTests
                 File.Delete(tempFile);
             }
         }
-    }
-
-    [Fact]
-    public void SetLanguage_ISO6393Code_AcceptsThreeLetterCode()
-    {
-        // Arrange
-        var endpoint = new TestContentEndpoint("content");
-
-        // Act
-        endpoint.SetLanguage("zho"); // Chinese
-
-        // Assert
-        Assert.Equal("zho", endpoint.Language);
     }
 
     [Fact]

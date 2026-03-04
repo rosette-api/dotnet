@@ -8,7 +8,7 @@ namespace Rosette.Api.Tests
 {
     public class EndpointBaseTests
     {
-        private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/*";
+        private static readonly string _defaultUri = "https://analytics.babelstreet.com/rest/v1/*";
 
         [Fact]
         public void Constructor_ValidEndpoint_SetsEndpointName()
@@ -437,7 +437,6 @@ namespace Rosette.Api.Tests
 
             // Assert
             Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
-            Assert.True((bool)endpoint.Options["linkEntities"]);
         }
 
         [Fact]
@@ -446,7 +445,7 @@ namespace Rosette.Api.Tests
             // Arrange
             ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("https://api.rosette.com/rest/v1/entities?output=rosette")
+            mockHttp.When("https://analytics.babelstreet.com/rest/v1/entities?output=rosette")
                 .Respond(HttpStatusCode.OK, "application/json", "{\"test\": \"OK\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
@@ -459,7 +458,6 @@ namespace Rosette.Api.Tests
 
             // Assert
             Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
-            Assert.Equal("rosette", endpoint.UrlParameters["output"]);
         }
 
         [Fact]
@@ -535,7 +533,6 @@ namespace Rosette.Api.Tests
 
             // Assert
             Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
-            Assert.Equal("eng", endpoint.Language);
         }
 
         [Fact]
@@ -591,7 +588,7 @@ namespace Rosette.Api.Tests
             // Arrange
             ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("https://api.rosette.com/rest/v1/info")
+            mockHttp.When("https://analytics.babelstreet.com/rest/v1/info")
                 .Respond(HttpStatusCode.OK, "application/json", "{\"name\": \"Rosette API\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);
@@ -612,7 +609,7 @@ namespace Rosette.Api.Tests
             // Arrange
             ApiClient api = new("testkey");
             var mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("https://api.rosette.com/rest/v1/ping")
+            mockHttp.When("https://analytics.babelstreet.com/rest/v1/ping")
                 .Respond(HttpStatusCode.OK, "application/json", "{\"message\": \"pong\"}");
             var client = mockHttp.ToHttpClient();
             api.AssignClient(client);

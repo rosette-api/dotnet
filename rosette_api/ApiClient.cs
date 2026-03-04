@@ -19,7 +19,7 @@ public class ApiClient : IDisposable
 
     /// <summary>
     /// URI is the uri of the Rosette API server.
-    /// Default: https://api.rosette.com/rest/v1/
+    /// Default: https://analytics.babelstreet.com/rest/v1/
     /// </summary>
     public string URI { get; private set; }
 
@@ -54,7 +54,7 @@ public class ApiClient : IDisposable
     public ApiClient(string apiKey) {
         ArgumentNullException.ThrowIfNull(apiKey);
         APIKey = apiKey;
-        URI = "https://api.rosette.com/rest/v1/";
+        URI = "https://analytics.babelstreet.com/rest/v1/";
         Client = null;
         ConcurrentConnections = 2;
         Timeout = 300;

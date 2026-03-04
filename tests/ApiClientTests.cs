@@ -4,7 +4,7 @@ namespace Rosette.Api.Tests;
 
 public class ApiClientTests
 {
-    private static readonly string _defaultUri = "https://api.rosette.com/rest/v1/";
+    private static readonly string _defaultUri = "https://analytics.babelstreet.com/rest/v1/";
     private static readonly string _testKey = "testKey";
         
     private static ApiClient Init() {
