@@ -20,15 +20,6 @@ public class RecordSimilarityFieldConverter : JsonConverter<RecordSimilarityFiel
     {
         switch (value)
         {
-            case UnfieldedNameRecord unfieldedName:
-                writer.WriteStringValue(unfieldedName.Text);
-                break;
-            case UnfieldedDateRecord unfieldedDate:
-                writer.WriteStringValue(unfieldedDate.Date);
-                break;
-            case UnfieldedAddressRecord unfieldedAddress:
-                writer.WriteStringValue(unfieldedAddress.Address);
-                break;
             case FieldedNameRecord fieldedName:
                 JsonSerializer.Serialize(writer, fieldedName, options);
                 break;
@@ -38,24 +29,11 @@ public class RecordSimilarityFieldConverter : JsonConverter<RecordSimilarityFiel
             case FieldedAddressRecord fieldedAddress:
                 JsonSerializer.Serialize(writer, fieldedAddress, options);
                 break;
-            case NumberRecord numberRecord:
-                writer.WriteNumberValue(numberRecord.Number);
-                break;
-            case BooleanRecord booleanRecord:
-                writer.WriteBooleanValue(booleanRecord.Boolean);
-                break;
-            case StringRecord stringRecord:
-                writer.WriteStringValue(stringRecord.Text);
-                break;
-            case UnknownFieldRecord unknownField:
-                if (unknownField.Data != null)
-                {
-                    unknownField.Data.WriteTo(writer, options);
-                }
-                else
-                {
-                    writer.WriteNullValue();
-                }
+            // Unfielded records are handled by UnfieldedRecordSimilarityConverter
+            case UnfieldedNameRecord or UnfieldedDateRecord or UnfieldedAddressRecord:
+            case NumberRecord or BooleanRecord or StringRecord or UnknownFieldRecord:
+                // Use the UnfieldedRecordSimilarityConverter for these types
+                JsonSerializer.Serialize(writer, value, value.GetType(), options);
                 break;
             default:
                 JsonSerializer.Serialize(writer, value, value.GetType(), options);
