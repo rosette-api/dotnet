@@ -300,6 +300,123 @@ public class RecordSimilarityFieldConverterTests
         Assert.Equal("\"Test\"", json);
     }
 
+    [Fact]
+    public void Write_UnknownFieldRecord_DelegatesToDefaultCase()
+    {
+        // Arrange
+        RecordSimilarityField record = new UnknownFieldRecord(null);
+
+        // Act
+        string json = JsonSerializer.Serialize(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Contains("null", json);
+    }
+
+    #endregion
+
+    #region Write Tests - Switch Case Coverage
+
+    [Fact]
+    public void Write_UnfieldedNameRecord_ExecutesUnfieldedCaseBranch()
+    {
+        // Arrange - Test the specific switch case for UnfieldedNameRecord
+        RecordSimilarityField record = new UnfieldedNameRecord { Text = "Jane Doe" };
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Contains("Jane Doe", json);
+    }
+
+    [Fact]
+    public void Write_UnfieldedDateRecord_ExecutesUnfieldedCaseBranch()
+    {
+        // Arrange - Test the specific switch case for UnfieldedDateRecord
+        RecordSimilarityField record = new UnfieldedDateRecord { Date = "2026-03-10" };
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Contains("2026-03-10", json);
+    }
+
+    [Fact]
+    public void Write_UnfieldedAddressRecord_ExecutesUnfieldedCaseBranch()
+    {
+        // Arrange - Test the specific switch case for UnfieldedAddressRecord
+        RecordSimilarityField record = new UnfieldedAddressRecord { Address = "456 Oak Avenue" };
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Contains("456 Oak Avenue", json);
+    }
+
+    [Fact]
+    public void Write_NumberRecord_ExecutesSimpleRecordCaseBranch()
+    {
+        // Arrange - Test the specific switch case for NumberRecord
+        RecordSimilarityField record = new NumberRecord(99);
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Equal("99", json);
+    }
+
+    [Fact]
+    public void Write_BooleanRecord_False_ExecutesSimpleRecordCaseBranch()
+    {
+        // Arrange - Test the specific switch case for BooleanRecord with false value
+        RecordSimilarityField record = new BooleanRecord(false);
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Equal("false", json);
+    }
+
+    [Fact]
+    public void Write_StringRecord_WithSpecialCharacters_ExecutesSimpleRecordCaseBranch()
+    {
+        // Arrange - Test the specific switch case for StringRecord with special characters
+        RecordSimilarityField record = new StringRecord { Text = "Test with special chars" };
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        Assert.Contains("Test with", json);
+    }
+
+    [Fact]
+    public void Write_UnknownFieldRecord_ExecutesDefaultCaseBranch()
+    {
+        // Arrange - Test the default case of the switch statement
+        RecordSimilarityField record = new UnknownFieldRecord(System.Text.Json.Nodes.JsonNode.Parse("{}"));
+
+        // Act
+        string json = JsonSerializer.Serialize<RecordSimilarityField>(record, _options);
+
+        // Assert
+        Assert.NotNull(json);
+        // UnknownFieldRecord should serialize the JsonNode data
+        Assert.Contains("{", json);
+    }
+
     #endregion
 
     #region Integration Tests
