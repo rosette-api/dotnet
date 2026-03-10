@@ -6,6 +6,8 @@ namespace Rosette.Api.Tests;
 
 public class ResponseTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsStatusCodeAndContent_WhenHttpResponseIsOK() {
         Dictionary<string, string> data = new()
@@ -25,4 +27,6 @@ public class ResponseTests
         Assert.Equal(json, response.ContentAsJson());
 
     }
+
+    #endregion
 }

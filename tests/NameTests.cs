@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests;
 
 public class NameTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsTextAndNullProperties_WhenCreatingName() {
         Name rn = new("foo");
@@ -13,6 +15,10 @@ public class NameTests
         Assert.Null(rn.Script);
         Assert.Null(rn.Gender);
     }
+
+    #endregion
+
+    #region Property Setting Tests
 
     [Fact]
     public void SetEntityType_SetsEntityType_WhenCalled() {
@@ -43,6 +49,10 @@ public class NameTests
         Assert.Equal(GenderType.Female, rn.Gender);
     }
 
+    #endregion
+
+    #region Fluent API Tests
+
     [Fact]
     public void FluentAPI_SetsAllProperties_WhenChaining() {
         Name rn = new Name("foo")
@@ -56,4 +66,6 @@ public class NameTests
         Assert.Equal("zho", rn.Script);
         Assert.Equal(GenderType.Male, rn.Gender);
     }
+
+    #endregion
 }

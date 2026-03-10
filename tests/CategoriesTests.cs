@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests;
 
 public class CategoriesTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
@@ -12,6 +14,10 @@ public class CategoriesTests
         Assert.Equal("categories", c.Endpoint);
         Assert.Equal("Sample text for categorization", c.Content);
     }
+
+    #endregion
+
+    #region Property Configuration Tests
 
     [Fact]
     public void SetLanguage_SetsLanguageProperty_WhenCalled()
@@ -32,6 +38,10 @@ public class CategoriesTests
         Assert.Equal("", c.Genre);
     }
 
+    #endregion
+
+    #region Fluent API Tests
+
     [Fact]
     public void FluentAPI_AllowsMethodChaining_WhenSettingMultipleProperties()
     {
@@ -42,4 +52,6 @@ public class CategoriesTests
         Assert.Equal("eng", c.Language);
         Assert.Equal("value", c.Options["customOption"]);
     }
+
+    #endregion
 }

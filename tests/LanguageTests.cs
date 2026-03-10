@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests;
 
 public class LanguageTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
@@ -22,6 +24,10 @@ public class LanguageTests
         Assert.Equal("http://example.com/", l.Content.ToString());
     }
 
+    #endregion
+
+    #region Property Configuration Tests
+
     [Fact]
     public void SetContent_UpdatesContent_WhenCalled()
     {
@@ -39,4 +45,6 @@ public class LanguageTests
 
         Assert.Equal("", l.Genre);
     }
+
+    #endregion
 }

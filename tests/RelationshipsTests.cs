@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests
 {
     public class RelationshipsTests
     {
+        #region Constructor Tests
+
         [Fact]
         public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
         {
@@ -14,6 +16,10 @@ namespace Rosette.Api.Tests
             Assert.Equal(text, r.Content);
         }
 
+        #endregion
+
+        #region Property Configuration Tests
+
         [Fact]
         public void SetLanguage_SetsLanguageProperty_WhenCalled()
         {
@@ -22,6 +28,10 @@ namespace Rosette.Api.Tests
 
             Assert.Equal("eng", r.Language);
         }
+
+        #endregion
+
+        #region Fluent API Tests
 
         [Fact]
         public void FluentAPI_AllowsMethodChaining_WhenSettingMultipleProperties()
@@ -33,5 +43,7 @@ namespace Rosette.Api.Tests
             Assert.Equal("eng", r.Language);
             Assert.Equal("high", r.Options["accuracy"]);
         }
+
+        #endregion
     }
 }

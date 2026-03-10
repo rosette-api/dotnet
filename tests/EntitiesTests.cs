@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests;
 
 public class EntitiesTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
@@ -13,6 +15,10 @@ public class EntitiesTests
         Assert.Equal("entities", e.Endpoint);
         Assert.Equal(text, e.Content);
     }
+
+    #endregion
+
+    #region Property Configuration Tests
 
     [Fact]
     public void SetLanguageAndGenre_SetsProperties_WhenCalled()
@@ -34,6 +40,10 @@ public class EntitiesTests
         Assert.Equal("rosette", e.UrlParameters["output"]);
     }
 
+    #endregion
+
+    #region Fluent API Tests
+
     [Fact]
     public void FluentAPI_AllowsMethodChaining_WhenSettingMultipleProperties()
     {
@@ -47,4 +57,6 @@ public class EntitiesTests
         Assert.True((bool)e.Options["linkEntities"]);
         Assert.Equal("rosette", e.UrlParameters["output"]);
     }
+
+    #endregion
 }

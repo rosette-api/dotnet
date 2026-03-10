@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests;
 
 public class TokensTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
@@ -12,6 +14,10 @@ public class TokensTests
         Assert.Equal("tokens", t.Endpoint);
         Assert.Equal("This is sample text", t.Content);
     }
+
+    #endregion
+
+    #region Property Configuration Tests
 
     [Fact]
     public void SetLanguage_SetsLanguageProperty_WhenCalled()
@@ -22,6 +28,10 @@ public class TokensTests
         Assert.Equal("eng", t.Language);
     }
 
+    #endregion
+
+    #region Fluent API Tests
+
     [Fact]
     public void FluentAPI_AllowsMethodChaining_WhenSettingLanguage()
     {
@@ -30,4 +40,6 @@ public class TokensTests
 
         Assert.Equal("jpn", t.Language);
     }
+
+    #endregion
 }

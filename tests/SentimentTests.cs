@@ -4,6 +4,8 @@ namespace Rosette.Api.Tests;
 
 public class SentimentTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
@@ -12,6 +14,10 @@ public class SentimentTests
         Assert.Equal("sentiment", s.Endpoint);
         Assert.Equal("This is a great product!", s.Content);
     }
+
+    #endregion
+
+    #region Property Configuration Tests
 
     [Fact]
     public void SetLanguage_SetsLanguageProperty_WhenCalled()
@@ -32,6 +38,10 @@ public class SentimentTests
         Assert.Equal("", s.Genre);
     }
 
+    #endregion
+
+    #region Fluent API Tests
+
     [Fact]
     public void FluentAPI_AllowsMethodChaining_WhenSettingMultipleProperties()
     {
@@ -42,4 +52,6 @@ public class SentimentTests
         Assert.Equal("eng", s.Language);
         Assert.Equal(0.5, s.Options["sentiment.threshold"]);
     }
+
+    #endregion
 }
