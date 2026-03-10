@@ -25,7 +25,7 @@ public static class Utilities
             {
                 return false;
             }
-            if (!kvp.Value.Equals(secondValue))
+            if (!EqualityComparer<TValue>.Default.Equals(kvp.Value, secondValue))
             {
                 return false;
             }
