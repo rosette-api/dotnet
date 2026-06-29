@@ -11,6 +11,11 @@ namespace Rosette.Api.Client.Models
         [JsonPropertyName("threshold")]
         public double? Threshold { get; set; } = 0.0;
 
+        /// <summary>
+        ///  Gets or sets the record similarity request's matching fields boost bias
+        /// </summary>
+        [JsonPropertyName("matchingFieldsBoostBias")]
+        public double? MatchingFieldsBoostBias { get; set; }
 
         /// <summary>
         /// Gets or sets the record similarity request's include explain info parameter
@@ -51,12 +56,19 @@ namespace Rosette.Api.Client.Models
         /// Full constructor
         /// </summary>
         /// <param name="threshold">The score threshold</param>
+        /// <param name="matchingFieldsBoostBias">The matching fields boost bias</param>
         /// <param name="includeExplainInfo">The include explain info parameter</param>
         /// <param name="parameters">A map of string parameter names to string parameter values</param>
         /// <param name="parameterUniverse">The parameter universe to use</param>
-        public RecordSimilarityProperties(double threshold, bool includeExplainInfo, Dictionary<string, string> parameters, string parameterUniverse)
+        public RecordSimilarityProperties(
+            double threshold, 
+            double matchingFieldsBoostBias,
+            bool includeExplainInfo, 
+            Dictionary<string, string> parameters, 
+            string parameterUniverse)
         {
             this.Threshold = threshold;
+            this.MatchingFieldsBoostBias = matchingFieldsBoostBias;
             this.IncludeExplainInfo = includeExplainInfo;
             this.Parameters = parameters;
             this.ParameterUniverse = parameterUniverse;
@@ -77,7 +89,8 @@ namespace Rosette.Api.Client.Models
                     this.IncludeExplainInfo == other.IncludeExplainInfo,
                     this.Parameters != null && other.Parameters != null ?
                         Utilities.DictionaryEquals(this.Parameters, other.Parameters) : this.Parameters == other.Parameters,
-                    this.ParameterUniverse == other.ParameterUniverse
+                    this.ParameterUniverse == other.ParameterUniverse,
+                    this.MatchingFieldsBoostBias == other.MatchingFieldsBoostBias
                 };
                 return conditions.All(condition => condition);
             }
@@ -97,7 +110,8 @@ namespace Rosette.Api.Client.Models
             int h1 = this.IncludeExplainInfo.GetHashCode();
             int h2 = this.Parameters != null ? this.Parameters.GetHashCode() : 1;
             int h3 = this.ParameterUniverse != null ? this.ParameterUniverse.GetHashCode() : 1;
-            return h0 ^ h1 ^ h2 ^ h3;
+            int h4 = this.MatchingFieldsBoostBias != null ? this.MatchingFieldsBoostBias.GetHashCode() : 1;
+            return h0 ^ h1 ^ h2 ^ h3 ^ h4;
         }
 
         /// <summary>
