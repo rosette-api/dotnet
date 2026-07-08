@@ -1,9 +1,5 @@
-<a href="https://www.babelstreet.com/rosette">
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://charts.babelstreet.com/icon-dark.png">
-  <source media="(prefers-color-scheme: dark)" srcset="https://charts.babelstreet.com/icon-light.png">
-  <img alt="Babel Street Logo" width="48" height="48">
-</picture>
+<a href="https://www.babelstreet.com/modules">
+    <img src="https://charts.babelstreet.com/icon.png" width="48" height="48" alt="Babel Street Logo"/>
 </a>
 
 # Analytics by Babel Street
@@ -178,13 +174,13 @@ From the root directory of the source tree, `dotnet build`.  Note that .NET 10 S
 From the root directory of the source tree, `dotnet test tests/tests.csproj`
 
 #### Examples
-View small example programs for each Rosette endpoint
+View small example programs for each Analytics endpoint
 in the [examples](https://github.com/rosette-api/dotnet/tree/master/examples) directory.
 
 #### Documentation & Support
 - [Binding API](https://rosette-api.github.io/dotnet)
-- [Analytics Platform API](http://documentation.babelstreet.com/analytics)
+- [Analytics Platform API](https://documentation.babelstreet.com/analytics)
 - [Binding Release Notes](https://github.com/rosette-api/dotnet/wiki/Release-Notes)
-- [Analytics Platform Release Notes](https://docs.babelstreet.com/r/Hosted-Services-Release-Notes)
+- [Analytics Platform Release Notes](https://docs.babelstreet.com/Release/en/rosette-cloud.html)
 - [Support](https://babelstreet.my.site.com/support/s/contactsupport)
 - [Binding License: Apache 2.0](LICENSE.txt)

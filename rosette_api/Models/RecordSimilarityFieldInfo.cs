@@ -13,7 +13,13 @@ namespace Rosette.Api.Client.Models {
         /// </summary>
         [JsonPropertyName("type")]
         public string Type { get; set; }
-
+        
+        /// <summary>
+        /// Gets or sets the record's field scoring method
+        /// </summary>
+        [JsonPropertyName("scoringMethod")]
+        public RecordSimilarityFieldScoringMethod? ScoringMethod { get; set; }
+        
         /// <summary>
         /// Gets or sets the record's field weight
         /// </summary>
@@ -35,13 +41,19 @@ namespace Rosette.Api.Client.Models {
         /// Full constructor
         /// </summary>
         /// <param name="type">The record's field type</param>
+        /// <param name="fieldScoringMethod">The record's field scoring method</param>
         /// <param name="weight">The record's field weight</param>
         /// <param name="scoreIfNull">The record's field scoreIfNull</param>
-        public RecordSimilarityFieldInfo(string type, double? weight, double? scoreIfNull)
+        public RecordSimilarityFieldInfo(
+            string type, 
+            RecordSimilarityFieldScoringMethod? fieldScoringMethod, 
+            double? weight, 
+            double? scoreIfNull)
         {
             this.Type = type;
             this.Weight = weight;
             this.ScoreIfNull = scoreIfNull;
+            this.ScoringMethod = fieldScoringMethod;
         }
 
 
@@ -58,7 +70,8 @@ namespace Rosette.Api.Client.Models {
                 List<bool> conditions = new List<bool>() {
                     this.Type == other.Type,
                     this.Weight == other.Weight,
-                    this.ScoreIfNull == other.ScoreIfNull
+                    this.ScoreIfNull == other.ScoreIfNull,
+                    this.ScoringMethod == other.ScoringMethod
                 };
                 return conditions.All(condition => condition);
             }
@@ -78,7 +91,8 @@ namespace Rosette.Api.Client.Models {
             int h0 = this.Type.GetHashCode();
             int h1 = this.Weight != null ? this.Weight.GetHashCode() : 1;
             int h2 = this.ScoreIfNull != null ? this.ScoreIfNull.GetHashCode() : 1;
-            return h0 ^ h1 ^ h2;
+            int  h3 = this.ScoringMethod != null ? this.ScoringMethod.GetHashCode() : 1;
+            return h0 ^ h1 ^ h2 ^ h3;
         }
 
         /// <summary>
