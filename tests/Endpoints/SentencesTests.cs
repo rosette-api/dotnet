@@ -1,9 +1,11 @@
 using Rosette.Api.Client.Endpoints;
 
-namespace Rosette.Api.Tests;
+namespace Rosette.Api.Tests.Endpoints;
 
 public class SentencesTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCalledWithText()
     {
@@ -14,6 +16,10 @@ public class SentencesTests
         Assert.Equal(text, s.Content);
     }
 
+    #endregion
+
+    #region Property Configuration Tests
+
     [Fact]
     public void SetLanguage_SetsLanguageProperty_WhenCalled()
     {
@@ -23,6 +29,10 @@ public class SentencesTests
         Assert.Equal("eng", s.Language);
     }
 
+    #endregion
+
+    #region Fluent API Tests
+
     [Fact]
     public void FluentAPI_AllowsMethodChaining_WhenSettingLanguage()
     {
@@ -31,4 +41,6 @@ public class SentencesTests
 
         Assert.Equal("eng", s.Language);
     }
+
+    #endregion
 }

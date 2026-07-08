@@ -1,10 +1,12 @@
-﻿using Rosette.Api.Client.Endpoints;
+using Rosette.Api.Client.Endpoints;
 using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Tests;
+namespace Rosette.Api.Tests.Endpoints;
 
 public class NameDeduplicationTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsNamesAndThreshold_WhenCalledWithNames() {
         List<Name> names = new()
@@ -16,6 +18,10 @@ public class NameDeduplicationTests
         Assert.Equal(names, n.Names);
         Assert.Equal(0.75f, n.Threshold);
     }
+
+    #endregion
+
+    #region Property Configuration Tests
 
     [Fact]
     public void SetProfileID_SetsProfileID_WhenCalled() {
@@ -40,4 +46,6 @@ public class NameDeduplicationTests
         Assert.Equal(names, n.Names);
         Assert.Equal(0.8f, n.Threshold);
     }
+
+    #endregion
 }

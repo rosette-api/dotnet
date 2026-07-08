@@ -1,6 +1,6 @@
-﻿using Rosette.Api.Client.Endpoints.Core;
+using Rosette.Api.Client.Endpoints.Core;
 
-namespace Rosette.Api.Tests;
+namespace Rosette.Api.Tests.Endpoints.Core;
 
 // Concrete test implementation of ContentEndpointBase for testing
 internal class TestContentEndpoint : ContentEndpointBase<TestContentEndpoint>

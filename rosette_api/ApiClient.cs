@@ -52,7 +52,7 @@ public class ApiClient : IDisposable
     /// </summary>
     /// <param name="apiKey">Required Rosette API key</param>
     public ApiClient(string apiKey) {
-        ArgumentNullException.ThrowIfNull(apiKey);
+        ArgumentException.ThrowIfNullOrWhiteSpace(apiKey);
         APIKey = apiKey;
         URI = "https://analytics.babelstreet.com/rest/v1/";
         Client = null;
@@ -70,6 +70,14 @@ public class ApiClient : IDisposable
     /// <param name="urlString">Destination URL string</param>
     /// <returns>RosetteAPI object</returns>
     public ApiClient UseAlternateURL(string urlString) {
+        ArgumentException.ThrowIfNullOrWhiteSpace(urlString);
+
+        // Validate URL format by attempting to create Uri
+        if (!Uri.TryCreate(urlString, UriKind.Absolute, out _))
+        {
+            throw new UriFormatException($"Invalid URL format: {urlString}");
+        }
+
         URI = urlString.EndsWith("/") ? urlString : urlString + "/";
 
         return Prepare();
@@ -82,6 +90,7 @@ public class ApiClient : IDisposable
     /// <param name="client">A valid HttpClient</param>
     /// <returns>RosetteAPI object</returns>
     public ApiClient AssignClient(HttpClient client) {
+        ArgumentNullException.ThrowIfNull(client);
         Client = client;
 
         return Prepare();
@@ -131,10 +140,11 @@ public class ApiClient : IDisposable
     /// <param name="headerValue">Value of header</param>
     /// <returns>RosetteAPI object</returns>
     public ApiClient AddCustomHeader(string headerName, string headerValue) {
-        if (!headerName.StartsWith("X-RosetteAPI-", StringComparison.OrdinalIgnoreCase))
+        if (!headerName.StartsWith("X-RosetteAPI-", StringComparison.OrdinalIgnoreCase) ||
+            headerName.Length <= "X-RosetteAPI-".Length)
         {
             throw new ArgumentException(
-                $"Custom header name must begin with 'X-RosetteAPI-'. Provided: {headerName}",
+                $"Custom header name must begin with 'X-RosetteAPI-' and have additional characters. Provided: {headerName}",
                 nameof(headerName));
         }
         if (_customHeaders.ContainsKey(headerName) && headerValue == null) 
@@ -169,7 +179,10 @@ public class ApiClient : IDisposable
                 });
             _disposeClient = true;
         }
-        Client.Timeout = TimeSpan.FromSeconds(Timeout);
+        // HttpClient.Timeout must be > 0 or Infinite
+        Client.Timeout = Timeout == 0 
+            ? System.Threading.Timeout.InfiniteTimeSpan 
+            : TimeSpan.FromSeconds(Timeout);
 
         if (Client.BaseAddress == null) {
             Client.BaseAddress = new Uri(URI); // base address must be the rosette URI regardless of whether the client is external or internal

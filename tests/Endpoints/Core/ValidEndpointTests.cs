@@ -1,10 +1,11 @@
-﻿using Rosette.Api.Client.Endpoints;
+using Rosette.Api.Client.Endpoints;
 using Rosette.Api.Client.Models;
 
-namespace Rosette.Api.Tests;
+namespace Rosette.Api.Tests.Endpoints.Core;
 
 public class ValidEndpointTests
 {
+    #region Address and Record Endpoints
 
     [Fact]
     public void Constructor_SetsEndpoint_WhenCreatingAddressSimilarity()
@@ -14,6 +15,22 @@ public class ValidEndpointTests
         AddressSimilarity asim = new(a,a);
         Assert.Equal("address-similarity", asim.Endpoint);
     }
+
+    [Fact]
+    public void Constructor_SetsEndpoint_WhenCreatingRecordSimilarity()
+    {
+        var fields = new Dictionary<string, RecordSimilarityFieldInfo>();
+        var properties = new RecordSimilarityProperties();
+        var records = new RecordSimilarityRecords();
+
+        RecordSimilarity rs = new(fields, properties, records);
+
+        Assert.Equal("record-similarity", rs.Endpoint);
+    }
+
+    #endregion
+
+    #region Content Analysis Endpoints
 
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCreatingCategories()
@@ -41,11 +58,34 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void Constructor_SetsEndpoint_WhenCreatingInfo()
+    public void Constructor_SetsEndpointAndContent_WhenCreatingRelationships()
     {
-        Info i = new();
-        Assert.Equal("info", i.Endpoint);
+        Relationships r = new("foo");
+
+        Assert.Equal("relationships", r.Endpoint);
+        Assert.Equal("foo", r.Content);
     }
+
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSentiment()
+    {
+        Sentiment s = new("foo");
+        Assert.Equal("sentiment", s.Endpoint);
+        Assert.Equal("foo", s.Content);
+    }
+
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTopics()
+    {
+        Topics t = new("foo");
+
+        Assert.Equal("topics", t.Endpoint);
+        Assert.Equal("foo", t.Content);
+    }
+
+    #endregion
+
+    #region Language and Text Processing Endpoints
 
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCreatingLanguage()
@@ -55,6 +95,36 @@ public class ValidEndpointTests
         Assert.Equal("language", l.Endpoint);
         Assert.Equal("foo", l.Content);
     }
+
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSentences()
+    {
+        Sentences s = new("foo");
+        Assert.Equal("sentences", s.Endpoint);
+        Assert.Equal("foo", s.Content);
+    }
+
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTokens()
+    {
+        Tokens t = new("foo");
+
+        Assert.Equal("tokens", t.Endpoint);
+        Assert.Equal("foo", t.Content);
+    }
+
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCreatingTransliteration()
+    {
+        Transliteration t = new("foo");
+
+        Assert.Equal("transliteration", t.Endpoint);
+        Assert.Equal("foo", t.Content);
+    }
+
+    #endregion
+
+    #region Morphology Endpoints
 
     [Theory]
     [InlineData(MorphologyFeature.complete)]
@@ -69,6 +139,10 @@ public class ValidEndpointTests
         Assert.Equal("morphology/" + m.FeatureAsString(feature), m.Endpoint);
         Assert.Equal("foo", m.Content);
     }
+
+    #endregion
+
+    #region Name Endpoints
 
     [Fact]
     public void Constructor_SetsEndpoint_WhenCreatingNameDeduplication()
@@ -98,55 +172,15 @@ public class ValidEndpointTests
         Assert.Equal("name-translation", nt.Endpoint);
     }
 
-    [Fact]
-    public void Constructor_SetsEndpoint_WhenCreatingPing()
-    {
-        Ping p = new();
-        Assert.Equal("ping", p.Endpoint);
-    }
+    #endregion
 
-    [Fact]
-    public void Constructor_SetsEndpoint_WhenCreatingRecordSimilarity()
-    {
-        var fields = new Dictionary<string, RecordSimilarityFieldInfo>();
-        var properties = new RecordSimilarityProperties();
-        var records = new RecordSimilarityRecords();
-
-        RecordSimilarity rs = new(fields, properties, records);
-
-        Assert.Equal("record-similarity", rs.Endpoint);
-    }
-
-    [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingRelationships()
-    {
-        Relationships r = new("foo");
-
-        Assert.Equal("relationships", r.Endpoint);
-        Assert.Equal("foo", r.Content);
-    }
+    #region Semantics Endpoints
 
     [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCreatingSemanticsVector()
     {
         SemanticsVector s = new("foo");
         Assert.Equal("semantics/vector", s.Endpoint);
-        Assert.Equal("foo", s.Content);
-    }
-
-    [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingSentences()
-    {
-        Sentences s = new("foo");
-        Assert.Equal("sentences", s.Endpoint);
-        Assert.Equal("foo", s.Content);
-    }
-
-    [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingSentiment()
-    {
-        Sentiment s = new("foo");
-        Assert.Equal("sentiment", s.Endpoint);
         Assert.Equal("foo", s.Content);
     }
 
@@ -160,15 +194,6 @@ public class ValidEndpointTests
     }
 
     [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingSyntaxDependencies()
-    {
-        SyntaxDependencies s = new("foo");
-
-        Assert.Equal("syntax/dependencies", s.Endpoint);
-        Assert.Equal("foo", s.Content);
-    }
-
-    [Fact]
     public void Constructor_SetsEndpointAndContent_WhenCreatingTextEmbedding()
     {
         TextEmbedding t = new("foo");
@@ -177,30 +202,36 @@ public class ValidEndpointTests
         Assert.Equal("foo", t.Content);
     }
 
-    [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingTokens()
-    {
-        Tokens t = new("foo");
+    #endregion
 
-        Assert.Equal("tokens", t.Endpoint);
-        Assert.Equal("foo", t.Content);
+    #region Syntax Endpoints
+
+    [Fact]
+    public void Constructor_SetsEndpointAndContent_WhenCreatingSyntaxDependencies()
+    {
+        SyntaxDependencies s = new("foo");
+
+        Assert.Equal("syntax/dependencies", s.Endpoint);
+        Assert.Equal("foo", s.Content);
+    }
+
+    #endregion
+
+    #region Utility Endpoints
+
+    [Fact]
+    public void Constructor_SetsEndpoint_WhenCreatingInfo()
+    {
+        Info i = new();
+        Assert.Equal("info", i.Endpoint);
     }
 
     [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingTopics()
+    public void Constructor_SetsEndpoint_WhenCreatingPing()
     {
-        Topics t = new("foo");
-
-        Assert.Equal("topics", t.Endpoint);
-        Assert.Equal("foo", t.Content);
+        Ping p = new();
+        Assert.Equal("ping", p.Endpoint);
     }
 
-    [Fact]
-    public void Constructor_SetsEndpointAndContent_WhenCreatingTransliteration()
-    {
-        Transliteration t = new("foo");
-
-        Assert.Equal("transliteration", t.Endpoint);
-        Assert.Equal("foo", t.Content);
-    }
+    #endregion
 }

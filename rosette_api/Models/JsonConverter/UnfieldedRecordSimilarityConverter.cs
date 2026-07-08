@@ -18,10 +18,13 @@ public class UnfieldedRecordSimilarityConverter : JsonConverter<object>
 
     public override bool CanConvert(Type typeToConvert)
     {
-        return typeToConvert == typeof(UnknownFieldRecord) ||
+        return typeToConvert == typeof(UnfieldedNameRecord) ||
+               typeToConvert == typeof(UnfieldedDateRecord) ||
+               typeToConvert == typeof(UnfieldedAddressRecord) ||
                typeToConvert == typeof(NumberRecord) ||
                typeToConvert == typeof(BooleanRecord) ||
-               typeToConvert == typeof(UnfieldedAddressRecord) ||
+               typeToConvert == typeof(StringRecord) ||
+               typeToConvert == typeof(UnknownFieldRecord) ||
                typeToConvert == typeof(object);
     }
 
@@ -31,9 +34,14 @@ public class UnfieldedRecordSimilarityConverter : JsonConverter<object>
         {
             JsonTokenType.Number => new NumberRecord { Number = reader.GetDouble() },
             JsonTokenType.True or JsonTokenType.False => new BooleanRecord { Boolean = reader.GetBoolean() },
-            JsonTokenType.String => typeToConvert == typeof(UnfieldedAddressRecord)
-                ? new UnfieldedAddressRecord { Address = reader.GetString() ?? string.Empty }
-                : reader.GetString(),
+            JsonTokenType.String => typeToConvert switch
+            {
+                Type t when t == typeof(UnfieldedNameRecord) => new UnfieldedNameRecord { Text = reader.GetString() ?? string.Empty },
+                Type t when t == typeof(UnfieldedDateRecord) => new UnfieldedDateRecord { Date = reader.GetString() ?? string.Empty },
+                Type t when t == typeof(UnfieldedAddressRecord) => new UnfieldedAddressRecord { Address = reader.GetString() ?? string.Empty },
+                Type t when t == typeof(StringRecord) => new StringRecord { Text = reader.GetString() ?? string.Empty },
+                _ => reader.GetString()
+            },
             JsonTokenType.StartObject => JsonSerializer.Deserialize<UnknownFieldRecord>(ref reader, options),
             _ => null
         };
@@ -43,17 +51,33 @@ public class UnfieldedRecordSimilarityConverter : JsonConverter<object>
     {
         switch (value)
         {
+            case UnfieldedNameRecord unfieldedName:
+                writer.WriteStringValue(unfieldedName.Text);
+                break;
+            case UnfieldedDateRecord unfieldedDate:
+                writer.WriteStringValue(unfieldedDate.Date);
+                break;
             case UnfieldedAddressRecord unfieldedAddress:
                 writer.WriteStringValue(unfieldedAddress.Address);
-                break;
-            case UnknownFieldRecord unknownField:
-                JsonSerializer.Serialize(writer, unknownField.Data, options);
                 break;
             case NumberRecord numberRecord:
                 writer.WriteNumberValue(numberRecord.Number);
                 break;
             case BooleanRecord booleanRecord:
                 writer.WriteBooleanValue(booleanRecord.Boolean);
+                break;
+            case StringRecord stringRecord:
+                writer.WriteStringValue(stringRecord.Text);
+                break;
+            case UnknownFieldRecord unknownField:
+                if (unknownField.Data != null)
+                {
+                    unknownField.Data.WriteTo(writer, options);
+                }
+                else
+                {
+                    writer.WriteNullValue();
+                }
                 break;
             case string stringValue:
                 writer.WriteStringValue(stringValue);

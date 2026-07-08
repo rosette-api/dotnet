@@ -1,4 +1,4 @@
-﻿using RichardSzalay.MockHttp;
+using RichardSzalay.MockHttp;
 using System.Collections.Specialized;
 using System.Net;
 using System.Text.Json;
@@ -6,7 +6,7 @@ using Rosette.Api.Client.Endpoints.Core;
 using Rosette.Api.Client.Models;
 using Rosette.Api.Client;
 
-namespace Rosette.Api.Tests;
+namespace Rosette.Api.Tests.Endpoints.Core;
 
 public class EndpointExecutorTests
 {

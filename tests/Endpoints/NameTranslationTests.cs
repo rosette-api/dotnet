@@ -1,9 +1,11 @@
-﻿using Rosette.Api.Client.Endpoints;
+using Rosette.Api.Client.Endpoints;
 
-namespace Rosette.Api.Tests;
+namespace Rosette.Api.Tests.Endpoints;
 
 public class NameTranslationTests
 {
+    #region Constructor Tests
+
     [Fact]
     public void Constructor_SetsNameAndDefaults_WhenCalledWithName() {
         NameTranslation n = new("foo");
@@ -16,6 +18,10 @@ public class NameTranslationTests
         Assert.Empty(n.TargetScheme);
         Assert.Empty(n.TargetScript);
     }
+
+    #endregion
+
+    #region Fluent API Tests
 
     [Fact]
     public void FluentAPI_SetsAllProperties_WhenChaining() {
@@ -36,5 +42,7 @@ public class NameTranslationTests
         Assert.Equal("BGN", n.TargetScheme);
         Assert.Equal("eng", n.TargetScript);
     }
+
+    #endregion
 
 }
