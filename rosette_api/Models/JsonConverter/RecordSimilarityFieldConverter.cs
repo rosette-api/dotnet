@@ -20,42 +20,26 @@ public class RecordSimilarityFieldConverter : JsonConverter<RecordSimilarityFiel
     {
         switch (value)
         {
-            case UnfieldedNameRecord unfieldedName:
-                writer.WriteStringValue(unfieldedName.Text);
+            case NameRecord nameRecord:
+                JsonSerializer.Serialize(writer, nameRecord, options);
                 break;
-            case UnfieldedDateRecord unfieldedDate:
-                writer.WriteStringValue(unfieldedDate.Date);
+            case AddressRecord addressRecord:
+                JsonSerializer.Serialize(writer, addressRecord, options);
                 break;
-            case UnfieldedAddressRecord unfieldedAddress:
-                writer.WriteStringValue(unfieldedAddress.Address);
-                break;
-            case FieldedNameRecord fieldedName:
-                JsonSerializer.Serialize(writer, fieldedName, options);
-                break;
-            case FieldedDateRecord fieldedDate:
-                JsonSerializer.Serialize(writer, fieldedDate, options);
-                break;
-            case FieldedAddressRecord fieldedAddress:
-                JsonSerializer.Serialize(writer, fieldedAddress, options);
+            case DateRecord dateRecord:
+                JsonSerializer.Serialize(writer, dateRecord, options);
                 break;
             case NumberRecord numberRecord:
-                writer.WriteNumberValue(numberRecord.Number);
+                JsonSerializer.Serialize(writer, numberRecord, options);
                 break;
             case BooleanRecord booleanRecord:
-                writer.WriteBooleanValue(booleanRecord.Boolean);
+                JsonSerializer.Serialize(writer, booleanRecord, options);
                 break;
             case StringRecord stringRecord:
-                writer.WriteStringValue(stringRecord.Text);
+                JsonSerializer.Serialize(writer, stringRecord, options);
                 break;
             case UnknownFieldRecord unknownField:
-                if (unknownField.Data != null)
-                {
-                    unknownField.Data.WriteTo(writer, options);
-                }
-                else
-                {
-                    writer.WriteNullValue();
-                }
+                JsonSerializer.Serialize(writer, unknownField, options);
                 break;
             default:
                 JsonSerializer.Serialize(writer, value, value.GetType(), options);

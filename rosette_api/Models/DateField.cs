@@ -1,15 +1,8 @@
-using System.Text.Json.Serialization;
-
 namespace Rosette.Api.Client.Models;
 
 /// <summary>
 /// Abstract parent class for UnfieldedDate and FieldedDate
 /// </summary>
-public abstract class DateField : RecordSimilarityField
+public abstract class DateField : DateFieldData
 {
-    /// <summary>
-    /// Gets or sets the date field's date
-    /// </summary>
-    [JsonPropertyName("date")]
-    public required string Date { get; set; }
 }
