@@ -23,7 +23,7 @@ public class UnfieldedRecordSimilarityConverterTests
         Type[] otherTypes = [typeof(NameFieldData), typeof(NameField), typeof(FieldedNameRecord), typeof(NameRecord),
             typeof(AddressFieldData), typeof(AddressField), typeof(FieldedAddressRecord), typeof(AddressRecord),
             typeof(DateFieldData), typeof(DateField), typeof(FieldedDateRecord), typeof(DateRecord),
-            typeof(BooleanRecord), typeof(NumberRecord), typeof(StringRecord), typeof(object)];
+            typeof(NumberRecord), typeof(BooleanRecord), typeof(StringRecord), typeof(object)];
         foreach (var type in otherTypes)
         {
             Assert.False(converter.CanConvert(type));

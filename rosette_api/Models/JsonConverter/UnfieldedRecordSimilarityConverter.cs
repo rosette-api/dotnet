@@ -20,10 +20,9 @@ public class UnfieldedRecordSimilarityConverter : JsonConverter<object>
     public override bool CanConvert(Type typeToConvert)
     {
         return typeToConvert == typeof(UnknownFieldRecord) ||
-               typeToConvert == typeof(NumberRecord) ||
-               typeToConvert == typeof(BooleanRecord) ||
+               typeToConvert == typeof(UnfieldedNameRecord) ||
                typeToConvert == typeof(UnfieldedAddressRecord) ||
-               typeToConvert == typeof(object);
+               typeToConvert == typeof(UnfieldedDateRecord);
     }
 
     public override object? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
