@@ -8,6 +8,13 @@ namespace Rosette.Api.Tests;
 
 public static class RecordSimilarityTestData
 {
+    public static IEnumerable<object[]> ComparisonMethods =>
+    [
+        [RecordSimilarityComparisonMethod.ONE_TO_ONE, "one_to_one"],
+        [RecordSimilarityComparisonMethod.ONE_TO_N, "one_to_n"],
+        [RecordSimilarityComparisonMethod.N_TO_M, "n_to_m"]
+    ];
+
     public static IEnumerable<object[]> Fields =>
     [
         [typeof(NameRecord), "\"Alice\"", "[\"Alice\",{\"text\":\"Alicia\",\"language\":\"spa\"}]"],
