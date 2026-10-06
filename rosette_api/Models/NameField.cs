@@ -1,15 +1,8 @@
-using System.Text.Json.Serialization;
-
 namespace Rosette.Api.Client.Models;
 
 /// <summary>
 /// Abstract parent class for UnfieldedName and FieldedName
 /// </summary>
-public abstract class NameField : RecordSimilarityField
+public abstract class NameField : NameFieldData
 {
-    /// <summary>
-    /// Gets or sets the name field's text
-    /// </summary>
-    [JsonPropertyName("text")]
-    public required string Text { get; set; }
 }

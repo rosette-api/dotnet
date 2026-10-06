@@ -51,37 +51,39 @@ class RecordSimilarity
                 [
                     new Dictionary<string, RecordSimilarityField>
                     {
-                        { primaryNameField, new FieldedNameRecord { Text = "Ethan R", Language = "eng", LanguageOfOrigin = "eng", Script = "Latn", EntityType = "PERSON"} },
-                        { dobField, new UnfieldedDateRecord { Date = dobHyphen} },
-                        { dob2Field, new FieldedDateRecord { Date = "04161993", Format = "MMddyyyy"} },
-                        { addrField, new UnfieldedAddressRecord { Address = "123 Roadlane Ave"} },
-                        { jobField, new StringRecord { Text = "software engineer"} }
+                        { primaryNameField, new NameRecord([
+                            new FieldedNameRecord { Text = "Ethan R", Language = "eng", LanguageOfOrigin = "eng", Script = "Latn", EntityType = "PERSON" },
+                        ]) },
+                        { dobField, new DateRecord([new UnfieldedDateRecord { Date = dobHyphen }]) },
+                        { dob2Field, new DateRecord([new FieldedDateRecord { Date = "04161993", Format = "MMddyyyy" }]) },
+                        { addrField, new AddressRecord([new UnfieldedAddressRecord { Address = "123 Roadlane Ave" }]) },
+                        { jobField, new StringRecord(["software engineer"]) }
                     },
                     new Dictionary<string, RecordSimilarityField>
                     {
-                        { primaryNameField, new FieldedNameRecord { Text = "Evan R"} },
-                        { dobField, new FieldedDateRecord { Date = dobHyphen} },
-                        { ageField, new NumberRecord { Number = 47.344 } },
-                        { retiredField, new BooleanRecord { Boolean = false } }
+                        { primaryNameField, new NameRecord([new FieldedNameRecord { Text = "Evan R" }]) },
+                        { dobField, new DateRecord([new FieldedDateRecord { Date = dobHyphen }]) },
+                        { ageField, new NumberRecord([47.344]) },
+                        { retiredField, new BooleanRecord([false]) }
                     }
                 ],
                 Right =
                 [
                     new Dictionary<string, RecordSimilarityField>
                     {
-                        { primaryNameField, new FieldedNameRecord { Text = "Seth R", Language = "eng"} },
-                        { dobField, new FieldedDateRecord { Date = dobHyphen} },
-                        { jobField, new StringRecord { Text = "manager"} },
-                        { retiredField, new BooleanRecord { Boolean = true } }
+                        { primaryNameField, new NameRecord([new FieldedNameRecord { Text = "Seth R", Language = "eng" }]) },
+                        { dobField, new DateRecord([new FieldedDateRecord { Date = dobHyphen }]) },
+                        { jobField, new StringRecord(["manager"]) },
+                        { retiredField, new BooleanRecord([true]) }
                     },
                     new Dictionary<string, RecordSimilarityField>
                     {
-                        { primaryNameField, new UnfieldedNameRecord { Text = "Ivan R"} },
-                        { dobField, new FieldedDateRecord { Date = dobHyphen} },
-                        { dob2Field, new FieldedDateRecord { Date = "1993/04/16"} },
-                        { addrField, new FieldedAddressRecord { HouseNumber = "123", Road = "Roadlane Ave"} },
-                        { ageField, new NumberRecord { Number = 72 } },
-                        { retiredField, new BooleanRecord { Boolean = true } }
+                        { primaryNameField, new NameRecord([new UnfieldedNameRecord { Text = "Ivan R" }]) },
+                        { dobField, new DateRecord([new FieldedDateRecord { Date = dobHyphen }]) },
+                        { dob2Field, new DateRecord([new FieldedDateRecord { Date = "1993/04/16" }]) },
+                        { addrField, new AddressRecord([new FieldedAddressRecord { HouseNumber = "123", Road = "Roadlane Ave" }]) },
+                        { ageField, new NumberRecord([72]) },
+                        { retiredField, new BooleanRecord([true]) }
                     }
                 ]
             };
