@@ -35,11 +35,14 @@ public class RecordSimilarityFieldDataConverter<TData> : JsonConverter<TData> wh
                 value = element.Deserialize<FieldedDateRecord>(options);
         }
 
-        return value as TData ?? throw new JsonException("Field data must be a string or a supported fielded object.");
+        var data = value as TData ?? throw new JsonException("Field data must be a string or a supported fielded object.");
+        ValidatePayload(data);
+        return data;
     }
 
     public override void Write(Utf8JsonWriter writer, TData value, JsonSerializerOptions options)
     {
+        ValidatePayload(value);
         switch (value)
         {
             case UnfieldedNameRecord name: writer.WriteStringValue(name.Text); break;
@@ -49,6 +52,15 @@ public class RecordSimilarityFieldDataConverter<TData> : JsonConverter<TData> wh
             case FieldedAddressRecord address: JsonSerializer.Serialize(writer, address, options); break;
             case FieldedDateRecord date: JsonSerializer.Serialize(writer, date, options); break;
             default: throw new JsonException("Unsupported field data.");
+        }
+    }
+
+    private static void ValidatePayload(TData value)
+    {
+        if (value is NameFieldData { Text: null } or DateFieldData { Date: null }
+            or UnfieldedAddressRecord { Address: null })
+        {
+            throw new JsonException("Required name, address, and date payloads cannot be null.");
         }
     }
 }

@@ -46,10 +46,12 @@ public class RecordSimilaritySerializationTests
     [InlineData(typeof(NameRecord), "42")]
     [InlineData(typeof(NameRecord), "true")]
     [InlineData(typeof(NameRecord), "{}")]
+    [InlineData(typeof(NameRecord), "{\"text\":null}")]
     [InlineData(typeof(AddressRecord), "42")]
     [InlineData(typeof(AddressRecord), "false")]
     [InlineData(typeof(DateRecord), "42")]
     [InlineData(typeof(DateRecord), "{}")]
+    [InlineData(typeof(DateRecord), "{\"date\":null}")]
     [InlineData(typeof(DateRecord), "{\"format\":\"yyyy-MM-dd\"}")]
     [InlineData(typeof(BooleanRecord), "\"false\"")]
     [InlineData(typeof(BooleanRecord), "0")]
@@ -61,6 +63,27 @@ public class RecordSimilaritySerializationTests
     {
         Assert.Throws<JsonException>(() => Read(type, json));
         Assert.Throws<JsonException>(() => Read(type, $"[{json}]"));
+    }
+
+    [Theory]
+    [InlineData(typeof(NameRecord), "\"Alice\"", "Text")]
+    [InlineData(typeof(NameRecord), "{\"text\":\"Alice\"}", "Text")]
+    [InlineData(typeof(AddressRecord), "\"123 Main St\"", "Address")]
+    [InlineData(typeof(DateRecord), "\"1993-04-16\"", "Date")]
+    [InlineData(typeof(DateRecord), "{\"date\":\"1993-04-16\"}", "Date")]
+    public void Serialization_RejectsNullPayloadsAfterMutation(Type type, string json, string propertyName)
+    {
+        var field = Read(type, json);
+        var value = Data(field)[0]!;
+        value.GetType().GetProperty(propertyName)!.SetValue(value, null);
+
+        Assert.Throws<JsonException>(() => JsonSerializer.Serialize(field, type));
+        Assert.Throws<JsonException>(() => Write(field));
+        Assert.Throws<JsonException>(() => field.ToString());
+
+        Data(field).Add(Data(Read(type, json))[0]);
+        Assert.Throws<JsonException>(() => JsonSerializer.Serialize(field, type));
+        Assert.Throws<JsonException>(() => Write(field));
     }
 
     [Theory]

@@ -50,4 +50,16 @@ public class UnfieldedRecordSimilarityConverterTests
         var restored = Read(type, json);
         Assert.Equal(text, type.GetProperty(propertyName)!.GetValue(restored));
     }
+
+    [Theory]
+    [MemberData(nameof(UnfieldedValues), MemberType = typeof(RecordSimilarityTestData))]
+    public void UnfieldedValues_RejectNullPayloadsAfterMutation(Type type, string json, string propertyName, string text)
+    {
+        var value = Read(type, json);
+        Assert.Equal(text, type.GetProperty(propertyName)!.GetValue(value));
+        type.GetProperty(propertyName)!.SetValue(value, null);
+
+        Assert.Throws<JsonException>(() => JsonSerializer.Serialize(value, type));
+        Assert.Throws<JsonException>(() => Write(value));
+    }
 }

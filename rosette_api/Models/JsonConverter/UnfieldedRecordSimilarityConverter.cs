@@ -46,6 +46,12 @@ public class UnfieldedRecordSimilarityConverter : JsonConverter<object>
 
     public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options)
     {
+        if (value is UnfieldedNameRecord { Text: null } or UnfieldedAddressRecord { Address: null }
+            or UnfieldedDateRecord { Date: null })
+        {
+            throw new JsonException("Required name, address, and date payloads cannot be null.");
+        }
+
         switch (value)
         {
             case UnknownFieldRecord unknown:
